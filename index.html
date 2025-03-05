@@ -310,135 +310,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/05/24%E5%A4%8Fpython%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jesse Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jesse's Blog">
-      <meta itemprop="description" content="Record, Study, Share!">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Jesse's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/05/24%E5%A4%8Fpython%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">24夏python笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2025-03-05 10:24:43 / Modified: 10:59:26" itemprop="dateCreated datePublished" datetime="2025-03-05T10:24:43+08:00">2025-03-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#%E7%9B%AE%E5%BD%95">目录</a><ul>
-<li><a href="#1-self%E4%BD%BF%E7%94%A8">1. <code>self</code>使用</a></li>
-<li><a href="#2-def-__str__self%E5%87%BD%E6%95%B0">2. <code>def __str__(self)</code>函数</a></li>
-<li><a href="#3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E7%9A%84dir%E5%87%BD%E6%95%B0">3. 基本类的<code>dir()</code>函数</a></li>
-<li><a href="#4-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E7%9A%84id%E5%87%BD%E6%95%B0">4. 基本类的<code>id()</code>函数</a></li>
-<li><a href="#5-global%E5%85%B3%E9%94%AE%E5%AD%97">5. <code>global</code>关键字</a></li>
-<li><a href="#6-__mro__%E5%87%BD%E6%95%B0">6. <code>__mro__</code>函数</a><ul>
-<li><a href="#1-%E5%AE%9A%E4%B9%89">1. 定义：</a></li>
-<li><a href="#2-%E4%BD%BF%E7%94%A8">2. 使用：</a></li>
-</ul>
-</li>
-<li><a href="#7-super%E6%96%B9%E6%B3%95%E4%BD%9C%E7%94%A8">7. <code>super().方法</code>作用</a></li>
-<li><a href="#8-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1oop%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81">8. 面向对象（OOP）三大特征</a></li>
-<li><a href="#9-%E7%B1%BB%E6%96%B9%E6%B3%95">9. 类方法</a><ul>
-<li><a href="#1-%E5%A3%B0%E6%98%8E">1. 声明</a></li>
-<li><a href="#2-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">2. 使用注意事项</a></li>
-</ul>
-</li>
-<li><a href="#10-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95">10. 静态方法</a><ul>
-<li><a href="#1-%E5%A3%B0%E6%98%8E-1">1. 声明</a></li>
-<li><a href="#2-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">2. 注意事项</a></li>
-</ul>
-</li>
-<li><a href="#11-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">11. 异常处理</a></li>
-<li><a href="#12-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AF%BC%E5%85%A5">12. 模块的导入</a></li>
-<li><a href="#13-%E5%8C%85package">13. 包（package)</a></li>
-<li><a href="#14-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">14. 文件操作函数</a><ul>
-<li><a href="#open%E5%87%BD%E6%95%B0"><code>open()</code>函数</a></li>
-<li><a href="#read%E5%87%BD%E6%95%B0"><code>read()</code>函数</a></li>
-<li><a href="#readline%E5%87%BD%E6%95%B0"><code>readline()</code>函数</a></li>
-<li><a href="#write%E5%87%BD%E6%95%B0"><code>write()</code>函数</a></li>
-<li><a href="#close%E5%87%BD%E6%95%B0"><code>close()</code>函数</a></li>
-</ul>
-</li>
-<li><a href="#15-eval%E5%87%BD%E6%95%B0">15. <code>eval()</code>函数</a><ul>
-<li><a href="#%E4%BD%9C%E7%94%A8">作用：</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90">例子：</a></li>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/03/05/24%E5%A4%8Fpython%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/24/%E8%B0%88%E8%B0%88%E5%88%B0%E7%8E%B0%E5%9C%A8%E7%9A%84rog%20ally%E6%8E%8C%E6%9C%BA%E7%9A%84%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -675,6 +546,141 @@
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/11/24%E5%A4%8Fpython%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jesse Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+      <meta itemprop="description" content="Record, Study, Share!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Jesse's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/11/24%E5%A4%8Fpython%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">24夏python笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-05-11 15:24:43" itemprop="dateCreated datePublished" datetime="2024-05-11T15:24:43+08:00">2024-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-05 11:01:59" itemprop="dateModified" datetime="2025-03-05T11:01:59+08:00">2025-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a><ul>
+<li><a href="#1-self%E4%BD%BF%E7%94%A8">1. <code>self</code>使用</a></li>
+<li><a href="#2-def-__str__self%E5%87%BD%E6%95%B0">2. <code>def __str__(self)</code>函数</a></li>
+<li><a href="#3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E7%9A%84dir%E5%87%BD%E6%95%B0">3. 基本类的<code>dir()</code>函数</a></li>
+<li><a href="#4-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E7%9A%84id%E5%87%BD%E6%95%B0">4. 基本类的<code>id()</code>函数</a></li>
+<li><a href="#5-global%E5%85%B3%E9%94%AE%E5%AD%97">5. <code>global</code>关键字</a></li>
+<li><a href="#6-__mro__%E5%87%BD%E6%95%B0">6. <code>__mro__</code>函数</a><ul>
+<li><a href="#1-%E5%AE%9A%E4%B9%89">1. 定义：</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8">2. 使用：</a></li>
+</ul>
+</li>
+<li><a href="#7-super%E6%96%B9%E6%B3%95%E4%BD%9C%E7%94%A8">7. <code>super().方法</code>作用</a></li>
+<li><a href="#8-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1oop%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81">8. 面向对象（OOP）三大特征</a></li>
+<li><a href="#9-%E7%B1%BB%E6%96%B9%E6%B3%95">9. 类方法</a><ul>
+<li><a href="#1-%E5%A3%B0%E6%98%8E">1. 声明</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">2. 使用注意事项</a></li>
+</ul>
+</li>
+<li><a href="#10-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95">10. 静态方法</a><ul>
+<li><a href="#1-%E5%A3%B0%E6%98%8E-1">1. 声明</a></li>
+<li><a href="#2-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">2. 注意事项</a></li>
+</ul>
+</li>
+<li><a href="#11-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">11. 异常处理</a></li>
+<li><a href="#12-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AF%BC%E5%85%A5">12. 模块的导入</a></li>
+<li><a href="#13-%E5%8C%85package">13. 包（package)</a></li>
+<li><a href="#14-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">14. 文件操作函数</a><ul>
+<li><a href="#open%E5%87%BD%E6%95%B0"><code>open()</code>函数</a></li>
+<li><a href="#read%E5%87%BD%E6%95%B0"><code>read()</code>函数</a></li>
+<li><a href="#readline%E5%87%BD%E6%95%B0"><code>readline()</code>函数</a></li>
+<li><a href="#write%E5%87%BD%E6%95%B0"><code>write()</code>函数</a></li>
+<li><a href="#close%E5%87%BD%E6%95%B0"><code>close()</code>函数</a></li>
+</ul>
+</li>
+<li><a href="#15-eval%E5%87%BD%E6%95%B0">15. <code>eval()</code>函数</a><ul>
+<li><a href="#%E4%BD%9C%E7%94%A8">作用：</a></li>
+<li><a href="#%E4%BE%8B%E5%AD%90">例子：</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/05/11/24%E5%A4%8Fpython%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

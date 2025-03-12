@@ -19,28 +19,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. 创建博客的初衷 我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。  2. 博客的内容 博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。">
+    <meta name="description" content="这是一篇论文学习笔记，简单记录一下学习论文过程中学习到的知识和思路 论文信息 题目： Sparse Reconstructive Evidential Clustering for Multi-View Data  来源： IEEE&#x2F;CAA JOURNAL OF AUTOMATICA SINICA, VOL. 11, NO. 2, FEBRUARY 2024  作者： Chaoyu Go">
 <meta property="og:type" content="article">
-<meta property="og:title" content="谈谈博客的创建">
-<meta property="og:url" content="http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/index.html">
+<meta property="og:title" content="SRMVEC">
+<meta property="og:url" content="http://example.com/2025/03/08/SRMVEC/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="1. 创建博客的初衷 我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。  2. 博客的内容 博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。">
+<meta property="og:description" content="这是一篇论文学习笔记，简单记录一下学习论文过程中学习到的知识和思路 论文信息 题目： Sparse Reconstructive Evidential Clustering for Multi-View Data  来源： IEEE&#x2F;CAA JOURNAL OF AUTOMATICA SINICA, VOL. 11, NO. 2, FEBRUARY 2024  作者： Chaoyu Go">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-02-21T14:57:26.000Z">
-<meta property="article:modified_time" content="2025-02-22T02:33:33.324Z">
+<meta property="og:image" content="http://example.com/p_imgs/SRMVEC_workflow.png">
+<meta property="article:published_time" content="2025-03-08T08:49:02.000Z">
+<meta property="article:modified_time" content="2025-03-12T03:53:56.680Z">
 <meta property="article:author" content="Jesse Chen">
 <meta property="article:tag" content="study">
-<meta property="article:tag" content="life">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/p_imgs/SRMVEC_workflow.png">
 
 
-<link rel="canonical" href="http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/">
+<link rel="canonical" href="http://example.com/2025/03/08/SRMVEC/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/","path":"2025/02/21/谈谈博客的创建/","title":"谈谈博客的创建"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/03/08/SRMVEC/","path":"2025/03/08/SRMVEC/","title":"SRMVEC"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>谈谈博客的创建 | Jesse's Blog</title>
+<title>SRMVEC | Jesse's Blog</title>
   
 
 
@@ -113,7 +114,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9D%E8%A1%B7"><span class="nav-number">1.</span> <span class="nav-text">1. 创建博客的初衷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">2.</span> <span class="nav-text">2. 博客的内容</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">论文信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SRMVEC%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8F%92%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">SRMVEC工作流插图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%97%E5%88%B0%E4%BA%B2%E5%92%8C%E7%9F%A9%E9%98%B5%E5%90%8E%E8%81%9A%E7%B1%BB%E7%B0%87%E4%B8%AD%E5%BF%83%E7%9A%84%E9%80%89%E5%8F%96"><span class="nav-number">2.2.</span> <span class="nav-text">得到亲和矩阵后聚类簇中心的选取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%8D%AE%E7%90%86%E8%AE%BA"><span class="nav-number">2.3.</span> <span class="nav-text">证据理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">2.4.</span> <span class="nav-text">实验</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -180,7 +181,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/SRMVEC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -193,12 +194,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="谈谈博客的创建 | Jesse's Blog">
+      <meta itemprop="name" content="SRMVEC | Jesse's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          谈谈博客的创建
+          SRMVEC
         </h1>
 
         <div class="post-meta-container">
@@ -209,14 +210,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2025-02-21 22:57:26" itemprop="dateCreated datePublished" datetime="2025-02-21T22:57:26+08:00">2025-02-21</time>
+      <time title="Created: 2025-03-08 16:49:02" itemprop="dateCreated datePublished" datetime="2025-03-08T16:49:02+08:00">2025-03-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-22 10:33:33" itemprop="dateModified" datetime="2025-02-22T10:33:33+08:00">2025-02-22</time>
+      <time title="Modified: 2025-03-12 11:53:56" itemprop="dateModified" datetime="2025-03-12T11:53:56+08:00">2025-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -224,7 +225,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
         </span>
     </span>
 
@@ -237,11 +238,45 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="1-创建博客的初衷"><a href="#1-创建博客的初衷" class="headerlink" title="1. 创建博客的初衷"></a>1. 创建博客的初衷</h3><ul>
-<li>我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。</li>
+    <div class="post-body" itemprop="articleBody"><p>这是一篇论文学习笔记，简单记录一下学习论文过程中学习到的知识和思路</p>
+<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><ul>
+<li><p>题目： Sparse Reconstructive Evidential Clustering for Multi-View Data</p>
+</li>
+<li><p>来源： IEEE&#x2F;CAA JOURNAL OF AUTOMATICA SINICA, VOL. 11, NO. 2, FEBRUARY 2024</p>
+</li>
+<li><p>作者： Chaoyu Gong  and Yang You</p>
+</li>
 </ul>
-<h3 id="2-博客的内容"><a href="#2-博客的内容" class="headerlink" title="2. 博客的内容"></a>2. 博客的内容</h3><ul>
-<li>博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。</li>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="SRMVEC工作流插图"><a href="#SRMVEC工作流插图" class="headerlink" title="SRMVEC工作流插图"></a>SRMVEC工作流插图</h3><p><img src="/p_imgs/SRMVEC_workflow.png" alt="SRMVEC工作流插图"></p>
+<h3 id="得到亲和矩阵后聚类簇中心的选取"><a href="#得到亲和矩阵后聚类簇中心的选取" class="headerlink" title="得到亲和矩阵后聚类簇中心的选取"></a>得到亲和矩阵后聚类簇中心的选取</h3><ul>
+<li><p>P(xᵢ)表示对于每一个 xᵢ，所有满足 ŵᵢⱼ &gt; 0 且 j ≠ i 的对象 xⱼ 都被包含到一个集合 P(xᵢ) 中。</p>
+</li>
+<li><p>对于决定的聚类中心，主要是通过<em>possibility</em>和<em>separation</em>两个指标</p>
+<ul>
+<li><em>possibility</em>主要是体现周围样本j对某个样本i的作为聚类中心支持成都，ij两个样本的相似度越高，j对i支持作为聚类中心的支撑越大</li>
+<li><em>separation</em>，Sep 参数量化了数据点 xi 与其他数据点在特征空间中的“疏远”或“隔离”程度。其中：<ol>
+<li>Sep_min 表示 xi 与比它更像簇中心的点之间的最小分离程度。</li>
+<li>当xi为范围内具有最高 Pos 值的点，用Sep_max 表示 xi 与所有其他数据点之间的最大分离程度</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="证据理论"><a href="#证据理论" class="headerlink" title="证据理论"></a>证据理论</h3><ul>
+<li>证据理论在本文中用在多处地方<ul>
+<li>来自多视角的数据的融合</li>
+<li>学习过程中的不确定性<ul>
+<li>对象能否成为聚类中心的不确定度</li>
+<li>成员聚类过程中划分的不确定度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><ul>
+<li>用的一般都是分类的数据集</li>
+<li>来估计聚类的簇数，由实验结果来看比较准确，但是由方法来看，簇数是通过Sep-Pos chart人工选取的，是否最后的结果也存在一定的水分，类似根据答案做题</li>
+<li>ACC NMI两个聚类指标也相应的较高</li>
 </ul>
 
     </div>
@@ -253,21 +288,17 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/study/" rel="tag"># study</a>
-              <a href="/tags/life/" rel="tag"># life</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/07/28/vi%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="prev" title="vi使用教程">
-                  <i class="fa fa-angle-left"></i> vi使用教程
+                <a href="/2025/03/08/%E4%BF%A1%E5%BF%B5%E5%87%BD%E6%95%B0%E7%90%86%E8%AE%BA-Dempster-Shafer-Theory-DST/" rel="prev" title="信念函数理论(Dempster-Shafer Theory, DST)">
+                  <i class="fa fa-angle-left"></i> 信念函数理论(Dempster-Shafer Theory, DST)
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/02/24/%E8%B0%88%E8%B0%88%E5%88%B0%E7%8E%B0%E5%9C%A8%E7%9A%84rog%20ally%E6%8E%8C%E6%9C%BA%E7%9A%84%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/" rel="next" title="谈谈到现在的rog ally掌机的使用感受">
-                  谈谈到现在的rog ally掌机的使用感受 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

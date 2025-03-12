@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -165,6 +165,130 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/SRMVEC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jesse Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+      <meta itemprop="description" content="Record, Study, Share!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Jesse's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/08/SRMVEC/" class="post-title-link" itemprop="url">SRMVEC</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-03-08 16:49:02" itemprop="dateCreated datePublished" datetime="2025-03-08T16:49:02+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-12 11:53:56" itemprop="dateModified" datetime="2025-03-12T11:53:56+08:00">2025-03-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这是一篇论文学习笔记，简单记录一下学习论文过程中学习到的知识和思路</p>
+<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><ul>
+<li><p>题目： Sparse Reconstructive Evidential Clustering for Multi-View Data</p>
+</li>
+<li><p>来源： IEEE&#x2F;CAA JOURNAL OF AUTOMATICA SINICA, VOL. 11, NO. 2, FEBRUARY 2024</p>
+</li>
+<li><p>作者： Chaoyu Gong  and Yang You</p>
+</li>
+</ul>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="SRMVEC工作流插图"><a href="#SRMVEC工作流插图" class="headerlink" title="SRMVEC工作流插图"></a>SRMVEC工作流插图</h3><p><img src="/p_imgs/SRMVEC_workflow.png" alt="SRMVEC工作流插图"></p>
+<h3 id="得到亲和矩阵后聚类簇中心的选取"><a href="#得到亲和矩阵后聚类簇中心的选取" class="headerlink" title="得到亲和矩阵后聚类簇中心的选取"></a>得到亲和矩阵后聚类簇中心的选取</h3><ul>
+<li><p>P(xᵢ)表示对于每一个 xᵢ，所有满足 ŵᵢⱼ &gt; 0 且 j ≠ i 的对象 xⱼ 都被包含到一个集合 P(xᵢ) 中。</p>
+</li>
+<li><p>对于决定的聚类中心，主要是通过<em>possibility</em>和<em>separation</em>两个指标</p>
+<ul>
+<li><em>possibility</em>主要是体现周围样本j对某个样本i的作为聚类中心支持成都，ij两个样本的相似度越高，j对i支持作为聚类中心的支撑越大</li>
+<li><em>separation</em>，Sep 参数量化了数据点 xi 与其他数据点在特征空间中的“疏远”或“隔离”程度。其中：<ol>
+<li>Sep_min 表示 xi 与比它更像簇中心的点之间的最小分离程度。</li>
+<li>当xi为范围内具有最高 Pos 值的点，用Sep_max 表示 xi 与所有其他数据点之间的最大分离程度</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="证据理论"><a href="#证据理论" class="headerlink" title="证据理论"></a>证据理论</h3><ul>
+<li>证据理论在本文中用在多处地方<ul>
+<li>来自多视角的数据的融合</li>
+<li>学习过程中的不确定性<ul>
+<li>对象能否成为聚类中心的不确定度</li>
+<li>成员聚类过程中划分的不确定度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><ul>
+<li>用的一般都是分类的数据集</li>
+<li>来估计聚类的簇数，由实验结果来看比较准确，但是由方法来看，簇数是通过Sep-Pos chart人工选取的，是否最后的结果也存在一定的水分，类似根据答案做题</li>
+<li>ACC NMI两个聚类指标也相应的较高</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 

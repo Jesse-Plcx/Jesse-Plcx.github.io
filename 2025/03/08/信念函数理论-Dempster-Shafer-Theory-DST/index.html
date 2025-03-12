@@ -27,7 +27,7 @@
 <meta property="og:description" content="基本的概念0. 定义 证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。  Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍 DS">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-08T06:47:30.000Z">
-<meta property="article:modified_time" content="2025-03-08T07:44:35.666Z">
+<meta property="article:modified_time" content="2025-03-12T09:16:12.872Z">
 <meta property="article:author" content="Jesse Chen">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -207,9 +207,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2025-03-08 14:47:30 / Modified: 15:44:35" itemprop="dateCreated datePublished" datetime="2025-03-08T14:47:30+08:00">2025-03-08</time>
+      <time title="Created: 2025-03-08 14:47:30" itemprop="dateCreated datePublished" datetime="2025-03-08T14:47:30+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-12 17:16:12" itemprop="dateModified" datetime="2025-03-12T17:16:12+08:00">2025-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -276,7 +282,14 @@
 <p>  或者直接计算与 ( {A} ) 有交集的子集：<br>  [<br>  Pl({A}) &#x3D; m({A}) + m({A, B}) &#x3D; 0.6 + 0.1 &#x3D; 0.7<br>  ]</p>
 </li>
 </ul>
-<h2 id="5-Dempster-的组合规则"><a href="#5-Dempster-的组合规则" class="headerlink" title="5. Dempster 的组合规则"></a>5. Dempster 的组合规则</h2><h3 id="定义：-3"><a href="#定义：-3" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster 的组合规则用于合并这些信息：<br>[<br>m_{12}(A) &#x3D; \frac{1}{1-K} \sum_{B \cap C &#x3D; A} m_1(B) , m_2(C)<br>]<br>其中，冲突度量 ( K ) 定义为：<br>[<br>K &#x3D; \sum_{B \cap C &#x3D; \emptyset} m_1(B) , m_2(C)<br>]</p>
+<h2 id="5-Dempster-的组合规则"><a href="#5-Dempster-的组合规则" class="headerlink" title="5. Dempster 的组合规则"></a>5. Dempster 的组合规则</h2><h3 id="定义：-3"><a href="#定义：-3" class="headerlink" title="定义："></a><strong>定义：</strong></h3><ul>
+<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster 的组合规则用于合并这些信息：<br>[<br>m_{12}(A) &#x3D; \frac{1}{1-K} \sum_{B \cap C &#x3D; A} m_1(B) , m_2(C)<br>]<br>其中，冲突度量 ( K ) 定义为：<br>[<br>K &#x3D; \sum_{B \cap C &#x3D; \emptyset} m_1(B) , m_2(C)<br>]</p>
+</li>
+<li><p>如果 ( K_{12}^{\Theta} ) 越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p>
+</li>
+<li><p>当 ( K_{12}^{\Theta} &#x3D; 1 ) 时，说明两个质量函数完全矛盾，无法合并。</p>
+</li>
+</ul>
 <h3 id="作用：-3"><a href="#作用：-3" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的 BPA 满足归一性要求。</p>
 <h2 id="6-冲突度量（Conflict-Measure）"><a href="#6-冲突度量（Conflict-Measure）" class="headerlink" title="6. 冲突度量（Conflict Measure）"></a>6. 冲突度量（Conflict Measure）</h2><h3 id="定义：-4"><a href="#定义：-4" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC 方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为：<br>[<br>\mathcal{K}^{\Omega}<em>{il} &#x3D; \sum</em>{\mathcal{B} \cap \mathcal{C} &#x3D; \emptyset} m^{\Omega}_i (\mathcal{B}) , m^{\Omega}_l (\mathcal{C})<br>]<br>其中：</p>
 <ul>

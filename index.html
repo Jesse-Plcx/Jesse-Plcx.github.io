@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -174,6 +174,96 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/12/SFPMVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jesse Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+      <meta itemprop="description" content="Record, Study, Share!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Jesse's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/12/SFPMVC/" class="post-title-link" itemprop="url">SFPMVC</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-03-12 12:36:23 / Modified: 17:53:28" itemprop="dateCreated datePublished" datetime="2025-03-12T12:36:23+08:00">2025-03-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="期刊信息"><a href="#期刊信息" class="headerlink" title="期刊信息"></a>期刊信息</h2><ul>
+<li><p>来源：Expert Systems With Applications 237 (2024) 121614</p>
+</li>
+<li><p>作者：Chaoyu Gong∗, Yang You</p>
+</li>
+<li><p>地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore</p>
+</li>
+</ul>
+<h2 id="阅读摘要"><a href="#阅读摘要" class="headerlink" title="阅读摘要"></a>阅读摘要</h2><ul>
+<li>总体方向是着重处理“自填充”这个点，而后面聚类中心的选择和SRMVEC异曲同工</li>
+<li></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/SRMVEC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -210,7 +300,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-12 11:53:56" itemprop="dateModified" datetime="2025-03-12T11:53:56+08:00">2025-03-12</time>
+      <time title="Modified: 2025-03-12 12:35:58" itemprop="dateModified" datetime="2025-03-12T12:35:58+08:00">2025-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,12 +347,17 @@
 </li>
 </ul>
 <h3 id="证据理论"><a href="#证据理论" class="headerlink" title="证据理论"></a>证据理论</h3><ul>
+<li>为什么要在MVC中加入证据理论？<ul>
+<li>现有的MVC算法仅产生硬分区，这无法精确地对多特征空间高度重叠区域中的部分对象进行分组。换句话说，聚类成员的模糊性和不确定性需要被描述，以提高聚类性能。</li>
+<li>所谓的“高度重叠区域”指的是在多维特征空间中，某些数据点在不同的特征空间或视角下有很多重合的部分。例如，数据点在一个视角中可能属于某个特定的类别，但在另一个视角中却可能属于另一个类别。在这些情况下，传统的硬分区方法无法准确地确定这些数据点到底属于哪个类别，因为它们在不同的视角中都有较大的重叠。</li>
+</ul>
+</li>
 <li>证据理论在本文中用在多处地方<ul>
 <li>来自多视角的数据的融合</li>
-<li>学习过程中的不确定性<ul>
+<li>学习过程中的不确定性<ol>
 <li>对象能否成为聚类中心的不确定度</li>
 <li>成员聚类过程中划分的不确定度</li>
-</ul>
+</ol>
 </li>
 </ul>
 </li>
@@ -326,9 +421,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2025-03-08 14:47:30 / Modified: 15:44:35" itemprop="dateCreated datePublished" datetime="2025-03-08T14:47:30+08:00">2025-03-08</time>
+      <time title="Created: 2025-03-08 14:47:30" itemprop="dateCreated datePublished" datetime="2025-03-08T14:47:30+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-12 17:16:12" itemprop="dateModified" datetime="2025-03-12T17:16:12+08:00">2025-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -396,7 +497,14 @@
 <p>  或者直接计算与 ( {A} ) 有交集的子集：<br>  [<br>  Pl({A}) &#x3D; m({A}) + m({A, B}) &#x3D; 0.6 + 0.1 &#x3D; 0.7<br>  ]</p>
 </li>
 </ul>
-<h2 id="5-Dempster-的组合规则"><a href="#5-Dempster-的组合规则" class="headerlink" title="5. Dempster 的组合规则"></a>5. Dempster 的组合规则</h2><h3 id="定义：-3"><a href="#定义：-3" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster 的组合规则用于合并这些信息：<br>[<br>m_{12}(A) &#x3D; \frac{1}{1-K} \sum_{B \cap C &#x3D; A} m_1(B) , m_2(C)<br>]<br>其中，冲突度量 ( K ) 定义为：<br>[<br>K &#x3D; \sum_{B \cap C &#x3D; \emptyset} m_1(B) , m_2(C)<br>]</p>
+<h2 id="5-Dempster-的组合规则"><a href="#5-Dempster-的组合规则" class="headerlink" title="5. Dempster 的组合规则"></a>5. Dempster 的组合规则</h2><h3 id="定义：-3"><a href="#定义：-3" class="headerlink" title="定义："></a><strong>定义：</strong></h3><ul>
+<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster 的组合规则用于合并这些信息：<br>[<br>m_{12}(A) &#x3D; \frac{1}{1-K} \sum_{B \cap C &#x3D; A} m_1(B) , m_2(C)<br>]<br>其中，冲突度量 ( K ) 定义为：<br>[<br>K &#x3D; \sum_{B \cap C &#x3D; \emptyset} m_1(B) , m_2(C)<br>]</p>
+</li>
+<li><p>如果 ( K_{12}^{\Theta} ) 越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p>
+</li>
+<li><p>当 ( K_{12}^{\Theta} &#x3D; 1 ) 时，说明两个质量函数完全矛盾，无法合并。</p>
+</li>
+</ul>
 <h3 id="作用：-3"><a href="#作用：-3" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的 BPA 满足归一性要求。</p>
 <h2 id="6-冲突度量（Conflict-Measure）"><a href="#6-冲突度量（Conflict-Measure）" class="headerlink" title="6. 冲突度量（Conflict Measure）"></a>6. 冲突度量（Conflict Measure）</h2><h3 id="定义：-4"><a href="#定义：-4" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC 方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为：<br>[<br>\mathcal{K}^{\Omega}<em>{il} &#x3D; \sum</em>{\mathcal{B} \cap \mathcal{C} &#x3D; \emptyset} m^{\Omega}_i (\mathcal{B}) , m^{\Omega}_l (\mathcal{C})<br>]<br>其中：</p>
 <ul>

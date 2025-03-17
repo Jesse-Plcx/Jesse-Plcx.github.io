@@ -210,7 +210,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-13 19:26:53" itemprop="dateModified" datetime="2025-03-13T19:26:53+08:00">2025-03-13</time>
+      <time title="Modified: 2025-03-17 13:56:56" itemprop="dateModified" datetime="2025-03-17T13:56:56+08:00">2025-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -239,138 +239,14 @@
 <li><p>地址：School of Computing, National University of Singapore, 21
 Lower Kent Ridge Rd, 119077, Singapore</p></li>
 </ul>
-<h2 id="阅读摘要">阅读摘要</h2>
-<ul>
-<li><p><strong>总体方向</strong>是着重处理“自填充”这个点，而后面聚类中心的选择和SRMVEC异曲同工</p></li>
-<li><p>聚类数的判定和可信划分的计算是分别进行的</p></li>
-<li><p>聚类过程中的多视图对象的亲和矩阵的三个参数的优化过程</p>
-<ul>
-<li>在该优化算法中，( _v^{(m)} )、( ) 和 ( _v )
-是核心变量，它们分别表示：<br />
-</li>
-</ul>
-<ol type="1">
-<li>**( _v^{(m)} )（缺失数据的补全矩阵）**
-<ul>
-<li>这里的 ( _v ) 代表第 ( v ) 个视角（view）的数据矩阵，其中上标 ( (m)
-) 代表该视角中 <strong>缺失的数据部分（missing part）</strong>。<br />
-</li>
-<li>在多视角学习任务中，不同视角的数据可能有缺失。例如，某个对象可能在某个视角的数据集中缺失，我们需要补全这些缺失部分，使其适应整体模型。<br />
-</li>
-<li>**在优化过程中，我们的目标之一是求解最优的 ( _v^{(m)} )
-来填补这些缺失值，使数据更完整**。</li>
-</ul></li>
-<li><strong>( )（亲和矩阵，Affinity Matrix）</strong>
-<ul>
-<li>( ) 是一个
-<strong>亲和矩阵</strong>，用于描述样本之间的相似性。<br />
-</li>
-<li>该矩阵可以被看作是一个<strong>图（Graph）</strong>的邻接矩阵，每个元素
-( A_{ij} ) 表示第 ( i ) 个样本和第 ( j ) 个样本之间的关系权重。<br />
-</li>
-<li>在优化过程中，( )
-影响数据的聚类结构，并用于数据补全和特征学习。<br />
-</li>
-<li><strong>它的优化使得数据补全结果更符合整体数据结构</strong>。</li>
-</ul></li>
-<li>**( _v )（视角权重，View Weight）**
-<ul>
-<li>在多视角学习中，不同的视角（数据来源）可能对最终任务（如聚类或分类）贡献不同。<br />
-</li>
-<li>( _v ) 代表第 ( v )
-个视角的重要性权重，确保对信息丰富的视角赋予更高的权重，而对噪声较大的视角赋予较低的权重。<br />
-</li>
-<li>这些权重满足约束 ( _{v=1}^{p} _v = 1 )，保证所有视角的贡献总和为
-1。<br />
-</li>
-<li>**优化 ( _v )
-的目的是找到最优的视角组合，使得最终的聚类/分类性能最佳**。</li>
-</ul></li>
-</ol>
-<ul>
-<li>整个优化过程就是不断调整这三个参数，使数据补全、视角权重分配和数据关系优化达到最优，从而提升最终的任务效果（如聚类或分类）。</li>
-</ul></li>
-<li><p><strong>整体算法</strong> <strong>Algorithm 1 SFPMEC
-algorithm</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 66%" />
-</colgroup>
-<thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Input:</strong></td>
-<td>Partial data matrices ({X_1, X_2, , X_p}), () and ()</td>
-</tr>
-<tr>
-<td><strong>Output:</strong></td>
-<td>Credal partition (^{})</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Initialize ( A ), ( _v ), and ( X_v^{(m)} )</td>
-</tr>
-<tr>
-<td>2</td>
-<td><strong>repeat</strong></td>
-</tr>
-<tr>
-<td>3</td>
-<td>Update ( X_v^{(m)} ) by solving the problem (17);</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Update the ( _v ) by solving the problem (23);</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Update ( A ) by solving ( n ) sub-problems (26);</td>
-</tr>
-<tr>
-<td>6</td>
-<td><strong>until Convergence</strong></td>
-</tr>
-<tr>
-<td>7</td>
-<td>Calculate ( Pos ) and ( Sep ) for each object according to Eq. (10)
-and Eq. (11), respectively;</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Map the multi-view objects to the ( Sep - Pos ) chart and detect ( c
-) cluster centers;</td>
-</tr>
-<tr>
-<td>9</td>
-<td>Initialize mass functions for ( c ) cluster centers (based on Eq.
-(30)) and other objects;</td>
-</tr>
-<tr>
-<td>10</td>
-<td><strong>repeat</strong></td>
-</tr>
-<tr>
-<td>11</td>
-<td>Update the step size ( _e ) according to Eq. (32) or Eq. (34);</td>
-</tr>
-<tr>
-<td>12</td>
-<td>Update parameter ( v_e ) according to Eq. (33) or Eq. (35);</td>
-</tr>
-<tr>
-<td>13</td>
-<td><strong>until Convergence</strong></td>
-</tr>
-</tbody>
-</table></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/03/12/SFPMVC/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -432,7 +308,7 @@ and Eq. (11), respectively;</td>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-12 12:35:58" itemprop="dateModified" datetime="2025-03-12T12:35:58+08:00">2025-03-12</time>
+      <time title="Modified: 2025-03-17 13:56:51" itemprop="dateModified" datetime="2025-03-17T13:56:51+08:00">2025-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -464,53 +340,14 @@ FEBRUARY 2024</p></li>
 <li><p>作者： Chaoyu Gong and Yang You</p></li>
 </ul>
 <h2 id="笔记">笔记</h2>
-<h3 id="srmvec工作流插图">SRMVEC工作流插图</h3>
-<figure>
-<img src="/p_imgs/SRMVEC_workflow.png" alt="SRMVEC工作流插图" />
-<figcaption aria-hidden="true">SRMVEC工作流插图</figcaption>
-</figure>
-<h3
-id="得到亲和矩阵后聚类簇中心的选取">得到亲和矩阵后聚类簇中心的选取</h3>
-<ul>
-<li><p>P(xᵢ)表示对于每一个 xᵢ，所有满足 ŵᵢⱼ &gt; 0 且 j ≠ i 的对象 xⱼ
-都被包含到一个集合 P(xᵢ) 中。</p></li>
-<li><p>对于决定的聚类中心，主要是通过<em>possibility</em>和<em>separation</em>两个指标</p>
-<ul>
-<li><em>possibility</em>主要是体现周围样本j对某个样本i的作为聚类中心支持成都，ij两个样本的相似度越高，j对i支持作为聚类中心的支撑越大</li>
-<li><em>separation</em>，Sep 参数量化了数据点 xi
-与其他数据点在特征空间中的“疏远”或“隔离”程度。其中：
-<ol type="1">
-<li>Sep_min 表示 xi 与比它更像簇中心的点之间的最小分离程度。</li>
-<li>当xi为范围内具有最高 Pos 值的点，用Sep_max 表示 xi
-与所有其他数据点之间的最大分离程度</li>
-</ol></li>
-</ul></li>
-</ul>
-<h3 id="证据理论">证据理论</h3>
-<ul>
-<li>为什么要在MVC中加入证据理论？
-<ul>
-<li>现有的MVC算法仅产生硬分区，这无法精确地对多特征空间高度重叠区域中的部分对象进行分组。换句话说，聚类成员的模糊性和不确定性需要被描述，以提高聚类性能。</li>
-<li>所谓的“高度重叠区域”指的是在多维特征空间中，某些数据点在不同的特征空间或视角下有很多重合的部分。例如，数据点在一个视角中可能属于某个特定的类别，但在另一个视角中却可能属于另一个类别。在这些情况下，传统的硬分区方法无法准确地确定这些数据点到底属于哪个类别，因为它们在不同的视角中都有较大的重叠。</li>
-</ul></li>
-<li>证据理论在本文中用在多处地方
-<ul>
-<li>来自多视角的数据的融合</li>
-<li>学习过程中的不确定性
-<ol type="1">
-<li>对象能否成为聚类中心的不确定度</li>
-<li>成员聚类过程中划分的不确定度</li>
-</ol></li>
-</ul></li>
-</ul>
-<h3 id="实验">实验</h3>
-<ul>
-<li>用的一般都是分类的数据集</li>
-<li>来估计聚类的簇数，由实验结果来看比较准确，但是由方法来看，簇数是通过Sep-Pos
-chart人工选取的，是否最后的结果也存在一定的水分，类似根据答案做题</li>
-<li>ACC NMI两个聚类指标也相应的较高</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/03/08/SRMVEC/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -572,7 +409,7 @@ chart人工选取的，是否最后的结果也存在一定的水分，类似根
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-12 17:16:12" itemprop="dateModified" datetime="2025-03-12T17:16:12+08:00">2025-03-12</time>
+      <time title="Modified: 2025-03-17 13:57:13" itemprop="dateModified" datetime="2025-03-17T13:57:13+08:00">2025-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -603,139 +440,14 @@ chart人工选取的，是否最后的结果也存在一定的水分，类似根
 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍
 DST 的几个基本概念及相关内容。</p></li>
 </ul>
-<h2 id="识别框架frame-of-discernment-θ">1. 识别框架（Frame of
-Discernment, Θ）</h2>
-<ul>
-<li><p><strong>定义：</strong><br />
-识别框架 ( )
-是一个包含所有可能假设或状态的集合。例如，在医疗诊断问题中，( )
-可能表示所有可能的疾病。</p></li>
-<li><p><strong>例子：</strong> 设定识别框架为<br />
-[ = {A, B} ]</p></li>
-<li><p><strong>作用：</strong><br />
-所有 DST
-中的计算和推理均基于该框架进行，确保所有可能性都得到考虑。</p></li>
-</ul>
-<h2 id="基本概率赋值函数basic-probability-assignment-bpa">2.
-基本概率赋值函数（Basic Probability Assignment, BPA）</h2>
-<h3 id="定义-1"><strong>定义：</strong></h3>
-<p>BPA 函数 ( m: 2^{} ) 为识别框架中每个子集分配概率质量，满足： - ( m()
-= 0 ) - (_{A } m(A) = 1)</p>
-<h3 id="作用"><strong>作用：</strong></h3>
-<p>( m(A) ) 表示对子集 ( A ) 的支持程度，这种支持既不精确指向 ( A )
-内的某个具体假设，也不更细分，从而表达了部分知识和不确定性。</p>
-<h3 id="例子"><strong>例子：</strong></h3>
-<p>一个简单的 BPA 可以如下定义： - ( m({A}) = 0.6 ) - ( m({B}) = 0.3 ) -
-( m({A, B}) = 0.1 )</p>
-<p>这表示： - 有 60% 的支持认为命题 ( A ) 成立， - 有 30% 的支持认为命题
-( B ) 成立， - 剩下 10% 表示不确定性，支持 ( A ) 或 ( B )
-中某一个成立，但无法确定具体是哪一个。</p>
-<h2 id="信任函数belief-function-bel">3. 信任函数（Belief Function,
-Bel）</h2>
-<h3 id="定义-2"><strong>定义：</strong></h3>
-<p>对任意子集 ( A )，信任函数定义为： [ Bel(A) = _{B A} m(B) ]</p>
-<h3 id="作用-1"><strong>作用：</strong></h3>
-<p>( Bel(A) ) 表示所有完全支持 ( A ) 的证据之和，是对 ( A )
-的“坚实支持”。 ### <strong>例子：</strong></p>
-<p>继续采用上面的 BPA，计算对于子集 ( {A} ) 的信任度： [ Bel({A}) =
-m({A}) = 0.6 ]</p>
-<p>而对于全集 ( {A, B} )： [ Bel({A, B}) = m({A}) + m({B}) + m({A, B}) =
-0.6 + 0.3 + 0.1 = 1.0 ]</p>
-<h2 id="可行函数plausibility-function-pl">4. 可行函数（Plausibility
-Function, Pl）</h2>
-<h3 id="定义-3"><strong>定义：</strong></h3>
-<p>对任意子集 ( A )，可行函数定义为： [ Pl(A) = _{B A } m(B) ]
-同时满足： [ Pl(A) = 1 - Bel({A}) ] 其中 ( {A} ) 是 ( A ) 的补集。</p>
-<h3 id="作用-2"><strong>作用：</strong></h3>
-<p>( Pl(A) ) 表示与 ( A ) 不冲突的所有证据之和，反映 ( A )
-可能为真的最大支持程度。</p>
-<h3 id="例子-1"><strong>例子：</strong></h3>
-<p>仍然使用上面的 BPA，计算对于子集 ( {A} ) 的可行度： - 首先，( {A} =
-{B} )，因此， [ Bel({B}) = m({B}) = 0.3 ] - 所以， [ Pl({A}) = 1 - 0.3 =
-0.7 ]</p>
-<pre><code>或者直接计算与 \( \&#123;A\&#125; \) 有交集的子集：
-\[
-Pl(\&#123;A\&#125;) = m(\&#123;A\&#125;) + m(\&#123;A, B\&#125;) = 0.6 + 0.1 = 0.7
-\]</code></pre>
-<h2 id="dempster-的组合规则">5. Dempster 的组合规则</h2>
-<h3 id="定义-4"><strong>定义：</strong></h3>
-<ul>
-<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster
-的组合规则用于合并这些信息： [ m_{12}(A) = <em>{B C = A} m_1(B) , m_2(C)
-] 其中，冲突度量 ( K ) 定义为： [ K = </em>{B C = } m_1(B) , m_2(C)
-]</p></li>
-<li><p>如果 ( K_{12}^{} )
-越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p></li>
-<li><p>当 ( K_{12}^{} = 1 )
-时，说明两个质量函数完全矛盾，无法合并。</p></li>
-</ul>
-<h3 id="作用-3"><strong>作用：</strong></h3>
-<p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的
-BPA 满足归一性要求。</p>
-<h2 id="冲突度量conflict-measure">6. 冲突度量（Conflict Measure）</h2>
-<h3 id="定义-5"><strong>定义：</strong></h3>
-<p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC
-方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为： [
-^{}<em>{il} = </em>{ = } m^{}_i () , m^{}_l () ] 其中： - ( m^{}_i() )
-和 ( m^{}_l() ) 分别为数据点 ( x_i ) 和 ( x_l ) 在信念分区下的 BPA。 -
-仅计算 ( ) 与 ( ) 互斥（( = )）的部分。</p>
-<h3 id="直观理解"><strong>直观理解：</strong></h3>
-<ul>
-<li><strong>低冲突：</strong> 若 ( ^{}_{il} ) 值较小，说明两个数据点的
-BPA 分布较为一致，它们更可能属于同一类别。</li>
-<li><strong>高冲突：</strong> 若 ( ^{}_{il} )
-值较大，表示两个数据点的证据存在较大不一致，可能属于不同类别。</li>
-</ul>
-<h3 id="应用"><strong>应用：</strong></h3>
-<p>在聚类、决策支持和多传感器数据融合等领域，冲突度量用于量化和处理不一致信息，从而帮助进行更可靠的推理和决策。</p>
-<h3 id="例子-2"><strong>例子：</strong></h3>
-<p>设识别框架为 ( = {A, B} )，假设两个证据源的 BPA 如下：</p>
-<ul>
-<li><p><strong>证据 1:</strong><br />
-[ m_1({A}) = 0.7,m_1({B}) = 0.2,m_1({A, B}) = 0.1 ]</p></li>
-<li><p><strong>证据 2:</strong><br />
-[ m_2({A}) = 0.6,m_2({B}) = 0.3,m_2({A, B}) = 0.1 ]</p></li>
-</ul>
-<p><strong>计算冲突度量 ( K )：</strong></p>
-<p>不相交的情况有： - ( {A} {B} = )：<br />
-( m_1({A}) m_2({B}) = 0.7 = 0.21 )</p>
-<ul>
-<li>( {B} {A} = )：<br />
-( m_1({B}) m_2({A}) = 0.2 = 0.12 )</li>
-</ul>
-<p>因此， [ K = 0.21 + 0.12 = 0.33 ]</p>
-<p><strong>计算组合后的 BPA：</strong></p>
-<ul>
-<li><strong>对于 ( {A} )：</strong><br />
-考虑所有 ( B, C ) 满足 ( B C = {A} )：</li>
-<li>( B = {A} ) 与 ( C = {A} ) 得：( 0.7 = 0.42 )</li>
-<li>( B = {A} ) 与 ( C = {A, B} ) 得：( 0.7 = 0.07 )</li>
-<li>( B = {A, B} ) 与 ( C = {A} ) 得：( 0.1 = 0.06 )</li>
-</ul>
-<p>总和为：( 0.42 + 0.07 + 0.06 = 0.55 )<br />
-归一化因子为 ( 1 - K = 0.67 )，所以 [ m_{12}({A}) = ]</p>
-<ul>
-<li><strong>对于 ( {B} )：</strong><br />
-考虑满足 ( B C = {B} ) 的组合：</li>
-<li>( B = {B} ) 与 ( C = {B} ) 得：( 0.2 = 0.06 )</li>
-<li>( B = {B} ) 与 ( C = {A, B} ) 得：( 0.2 = 0.02 )</li>
-<li>( B = {A, B} ) 与 ( C = {B} ) 得：( 0.1 = 0.03 )</li>
-</ul>
-<p>总和为：( 0.06 + 0.02 + 0.03 = 0.11 )，归一化后， [ m_{12}({B}) =
-]</p>
-<ul>
-<li><strong>对于全集 ( {A, B} )：</strong><br />
-考虑 ( B = {A, B} ) 与 ( C = {A, B} )：<br />
-( 0.1 = 0.01 )，归一化后， [ m_{12}({A, B}) = ]</li>
-</ul>
-<p>组合结果表明：经过两个证据的融合，支持 ( {A} )
-的概率显著提升，反映了两个证据在支持 ( A ) 上的一致性。</p>
-<h2 id="总结">总结</h2>
-<p>Dempster-Shafer 理论通过引入
-BPA、信任函数和可行函数，为处理不确定性和模糊性提供了一个灵活的框架。利用
-Dempster
-的组合规则可以有效地融合来自不同来源的证据，而冲突度量则帮助量化证据之间的不一致性。这些概念为在实际问题中处理不确定性提供了坚实的理论基础。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/03/08/%E4%BF%A1%E5%BF%B5%E5%87%BD%E6%95%B0%E7%90%86%E8%AE%BA-Dempster-Shafer-Theory-DST/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

@@ -232,71 +232,89 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="期刊信息"><a href="#期刊信息" class="headerlink" title="期刊信息"></a>期刊信息</h2><ul>
-<li><p>来源：Expert Systems With Applications 237 (2024) 121614</p>
-</li>
-<li><p>作者：Chaoyu Gong∗, Yang You</p>
-</li>
-<li><p>地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore</p>
-</li>
+          <h2 id="期刊信息">期刊信息</h2>
+<ul>
+<li><p>来源：Expert Systems With Applications 237 (2024) 121614</p></li>
+<li><p>作者：Chaoyu Gong∗, Yang You</p></li>
+<li><p>地址：School of Computing, National University of Singapore, 21
+Lower Kent Ridge Rd, 119077, Singapore</p></li>
 </ul>
-<h2 id="阅读摘要"><a href="#阅读摘要" class="headerlink" title="阅读摘要"></a>阅读摘要</h2><ul>
-<li><p><strong>总体方向</strong>是着重处理“自填充”这个点，而后面聚类中心的选择和SRMVEC异曲同工</p>
-</li>
-<li><p>聚类数的判定和可信划分的计算是分别进行的</p>
-</li>
+<h2 id="阅读摘要">阅读摘要</h2>
+<ul>
+<li><p><strong>总体方向</strong>是着重处理“自填充”这个点，而后面聚类中心的选择和SRMVEC异曲同工</p></li>
+<li><p>聚类数的判定和可信划分的计算是分别进行的</p></li>
 <li><p>聚类过程中的多视图对象的亲和矩阵的三个参数的优化过程</p>
 <ul>
-<li>在该优化算法中，( \mathbf{X}_v^{(m)} )、( \mathbf{A} ) 和 ( \alpha_v ) 是核心变量，它们分别表示：</li>
-</ul>
-<ol>
-<li><p><strong>( \mathbf{X}_v^{(m)} )（缺失数据的补全矩阵）</strong>  </p>
-<ul>
-<li>这里的 ( \mathbf{X}_v ) 代表第 ( v ) 个视角（view）的数据矩阵，其中上标 ( (m) ) 代表该视角中 <strong>缺失的数据部分（missing part）</strong>。  </li>
-<li>在多视角学习任务中，不同视角的数据可能有缺失。例如，某个对象可能在某个视角的数据集中缺失，我们需要补全这些缺失部分，使其适应整体模型。  </li>
-<li><strong>在优化过程中，我们的目标之一是求解最优的 ( \mathbf{X}_v^{(m)} ) 来填补这些缺失值，使数据更完整</strong>。</li>
-</ul>
+<li>在该优化算法中，( _v^{(m)} )、( ) 和 ( _v )
+是核心变量，它们分别表示：<br />
 </li>
-<li><p><strong>( \mathbf{A} )（亲和矩阵，Affinity Matrix）</strong>  </p>
+</ul>
+<ol type="1">
+<li>**( _v^{(m)} )（缺失数据的补全矩阵）**
 <ul>
-<li>( \mathbf{A} ) 是一个 <strong>亲和矩阵</strong>，用于描述样本之间的相似性。  </li>
-<li>该矩阵可以被看作是一个<strong>图（Graph）</strong>的邻接矩阵，每个元素 ( A_{ij} ) 表示第 ( i ) 个样本和第 ( j ) 个样本之间的关系权重。  </li>
-<li>在优化过程中，( \mathbf{A} ) 影响数据的聚类结构，并用于数据补全和特征学习。  </li>
+<li>这里的 ( _v ) 代表第 ( v ) 个视角（view）的数据矩阵，其中上标 ( (m)
+) 代表该视角中 <strong>缺失的数据部分（missing part）</strong>。<br />
+</li>
+<li>在多视角学习任务中，不同视角的数据可能有缺失。例如，某个对象可能在某个视角的数据集中缺失，我们需要补全这些缺失部分，使其适应整体模型。<br />
+</li>
+<li>**在优化过程中，我们的目标之一是求解最优的 ( _v^{(m)} )
+来填补这些缺失值，使数据更完整**。</li>
+</ul></li>
+<li><strong>( )（亲和矩阵，Affinity Matrix）</strong>
+<ul>
+<li>( ) 是一个
+<strong>亲和矩阵</strong>，用于描述样本之间的相似性。<br />
+</li>
+<li>该矩阵可以被看作是一个<strong>图（Graph）</strong>的邻接矩阵，每个元素
+( A_{ij} ) 表示第 ( i ) 个样本和第 ( j ) 个样本之间的关系权重。<br />
+</li>
+<li>在优化过程中，( )
+影响数据的聚类结构，并用于数据补全和特征学习。<br />
+</li>
 <li><strong>它的优化使得数据补全结果更符合整体数据结构</strong>。</li>
-</ul>
-</li>
-<li><p><strong>( \alpha_v )（视角权重，View Weight）</strong>  </p>
+</ul></li>
+<li>**( _v )（视角权重，View Weight）**
 <ul>
-<li>在多视角学习中，不同的视角（数据来源）可能对最终任务（如聚类或分类）贡献不同。  </li>
-<li>( \alpha_v ) 代表第 ( v ) 个视角的重要性权重，确保对信息丰富的视角赋予更高的权重，而对噪声较大的视角赋予较低的权重。  </li>
-<li>这些权重满足约束 ( \sum_{v&#x3D;1}^{p} \alpha_v &#x3D; 1 )，保证所有视角的贡献总和为 1。  </li>
-<li><strong>优化 ( \alpha_v ) 的目的是找到最优的视角组合，使得最终的聚类&#x2F;分类性能最佳</strong>。</li>
-</ul>
+<li>在多视角学习中，不同的视角（数据来源）可能对最终任务（如聚类或分类）贡献不同。<br />
 </li>
+<li>( _v ) 代表第 ( v )
+个视角的重要性权重，确保对信息丰富的视角赋予更高的权重，而对噪声较大的视角赋予较低的权重。<br />
+</li>
+<li>这些权重满足约束 ( _{v=1}^{p} _v = 1 )，保证所有视角的贡献总和为
+1。<br />
+</li>
+<li>**优化 ( _v )
+的目的是找到最优的视角组合，使得最终的聚类/分类性能最佳**。</li>
+</ul></li>
 </ol>
 <ul>
 <li>整个优化过程就是不断调整这三个参数，使数据补全、视角权重分配和数据关系优化达到最优，从而提升最终的任务效果（如聚类或分类）。</li>
-</ul>
-</li>
-<li><p><strong>整体算法</strong><br>  <strong>Algorithm 1 SFPMEC algorithm</strong>  </p>
+</ul></li>
+<li><p><strong>整体算法</strong> <strong>Algorithm 1 SFPMEC
+algorithm</strong></p>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
 <thead>
 <tr>
 <th>Step</th>
 <th>Description</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>Input:</strong></td>
-<td>Partial data matrices ({X_1, X_2, \dots, X_p}), (\rho) and (\eta)</td>
+<td>Partial data matrices ({X_1, X_2, , X_p}), () and ()</td>
 </tr>
 <tr>
 <td><strong>Output:</strong></td>
-<td>Credal partition (\mathcal{M}^{\Theta})</td>
+<td>Credal partition (^{})</td>
 </tr>
 <tr>
 <td>1</td>
-<td>Initialize ( A ), ( \alpha_v ), and ( X_v^{(m)} )</td>
+<td>Initialize ( A ), ( _v ), and ( X_v^{(m)} )</td>
 </tr>
 <tr>
 <td>2</td>
@@ -308,7 +326,7 @@
 </tr>
 <tr>
 <td>4</td>
-<td>Update the ( \alpha_v ) by solving the problem (23);</td>
+<td>Update the ( _v ) by solving the problem (23);</td>
 </tr>
 <tr>
 <td>5</td>
@@ -320,15 +338,18 @@
 </tr>
 <tr>
 <td>7</td>
-<td>Calculate ( Pos ) and ( Sep ) for each object according to Eq. (10) and Eq. (11), respectively;</td>
+<td>Calculate ( Pos ) and ( Sep ) for each object according to Eq. (10)
+and Eq. (11), respectively;</td>
 </tr>
 <tr>
 <td>8</td>
-<td>Map the multi-view objects to the ( Sep - Pos ) chart and detect ( c ) cluster centers;</td>
+<td>Map the multi-view objects to the ( Sep - Pos ) chart and detect ( c
+) cluster centers;</td>
 </tr>
 <tr>
 <td>9</td>
-<td>Initialize mass functions for ( c ) cluster centers (based on Eq. (30)) and other objects;</td>
+<td>Initialize mass functions for ( c ) cluster centers (based on Eq.
+(30)) and other objects;</td>
 </tr>
 <tr>
 <td>10</td>
@@ -336,7 +357,7 @@
 </tr>
 <tr>
 <td>11</td>
-<td>Update the step size ( \chi_e ) according to Eq. (32) or Eq. (34);</td>
+<td>Update the step size ( _e ) according to Eq. (32) or Eq. (34);</td>
 </tr>
 <tr>
 <td>12</td>
@@ -346,8 +367,8 @@
 <td>13</td>
 <td><strong>until Convergence</strong></td>
 </tr>
-</tbody></table>
-</li>
+</tbody>
+</table></li>
 </ul>
 
       
@@ -434,48 +455,59 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>这是一篇论文学习笔记，简单记录一下学习论文过程中学习到的知识和思路</p>
-<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><ul>
-<li><p>题目： Sparse Reconstructive Evidential Clustering for Multi-View Data</p>
-</li>
-<li><p>来源： IEEE&#x2F;CAA JOURNAL OF AUTOMATICA SINICA, VOL. 11, NO. 2, FEBRUARY 2024</p>
-</li>
-<li><p>作者： Chaoyu Gong  and Yang You</p>
-</li>
+<h2 id="论文信息">论文信息</h2>
+<ul>
+<li><p>题目： Sparse Reconstructive Evidential Clustering for Multi-View
+Data</p></li>
+<li><p>来源： IEEE/CAA JOURNAL OF AUTOMATICA SINICA, VOL. 11, NO. 2,
+FEBRUARY 2024</p></li>
+<li><p>作者： Chaoyu Gong and Yang You</p></li>
 </ul>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="SRMVEC工作流插图"><a href="#SRMVEC工作流插图" class="headerlink" title="SRMVEC工作流插图"></a>SRMVEC工作流插图</h3><p><img src="/p_imgs/SRMVEC_workflow.png" alt="SRMVEC工作流插图"></p>
-<h3 id="得到亲和矩阵后聚类簇中心的选取"><a href="#得到亲和矩阵后聚类簇中心的选取" class="headerlink" title="得到亲和矩阵后聚类簇中心的选取"></a>得到亲和矩阵后聚类簇中心的选取</h3><ul>
-<li><p>P(xᵢ)表示对于每一个 xᵢ，所有满足 ŵᵢⱼ &gt; 0 且 j ≠ i 的对象 xⱼ 都被包含到一个集合 P(xᵢ) 中。</p>
-</li>
+<h2 id="笔记">笔记</h2>
+<h3 id="srmvec工作流插图">SRMVEC工作流插图</h3>
+<figure>
+<img src="/p_imgs/SRMVEC_workflow.png" alt="SRMVEC工作流插图" />
+<figcaption aria-hidden="true">SRMVEC工作流插图</figcaption>
+</figure>
+<h3
+id="得到亲和矩阵后聚类簇中心的选取">得到亲和矩阵后聚类簇中心的选取</h3>
+<ul>
+<li><p>P(xᵢ)表示对于每一个 xᵢ，所有满足 ŵᵢⱼ &gt; 0 且 j ≠ i 的对象 xⱼ
+都被包含到一个集合 P(xᵢ) 中。</p></li>
 <li><p>对于决定的聚类中心，主要是通过<em>possibility</em>和<em>separation</em>两个指标</p>
 <ul>
 <li><em>possibility</em>主要是体现周围样本j对某个样本i的作为聚类中心支持成都，ij两个样本的相似度越高，j对i支持作为聚类中心的支撑越大</li>
-<li><em>separation</em>，Sep 参数量化了数据点 xi 与其他数据点在特征空间中的“疏远”或“隔离”程度。其中：<ol>
+<li><em>separation</em>，Sep 参数量化了数据点 xi
+与其他数据点在特征空间中的“疏远”或“隔离”程度。其中：
+<ol type="1">
 <li>Sep_min 表示 xi 与比它更像簇中心的点之间的最小分离程度。</li>
-<li>当xi为范围内具有最高 Pos 值的点，用Sep_max 表示 xi 与所有其他数据点之间的最大分离程度</li>
-</ol>
-</li>
+<li>当xi为范围内具有最高 Pos 值的点，用Sep_max 表示 xi
+与所有其他数据点之间的最大分离程度</li>
+</ol></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="证据理论"><a href="#证据理论" class="headerlink" title="证据理论"></a>证据理论</h3><ul>
-<li>为什么要在MVC中加入证据理论？<ul>
+<h3 id="证据理论">证据理论</h3>
+<ul>
+<li>为什么要在MVC中加入证据理论？
+<ul>
 <li>现有的MVC算法仅产生硬分区，这无法精确地对多特征空间高度重叠区域中的部分对象进行分组。换句话说，聚类成员的模糊性和不确定性需要被描述，以提高聚类性能。</li>
 <li>所谓的“高度重叠区域”指的是在多维特征空间中，某些数据点在不同的特征空间或视角下有很多重合的部分。例如，数据点在一个视角中可能属于某个特定的类别，但在另一个视角中却可能属于另一个类别。在这些情况下，传统的硬分区方法无法准确地确定这些数据点到底属于哪个类别，因为它们在不同的视角中都有较大的重叠。</li>
-</ul>
-</li>
-<li>证据理论在本文中用在多处地方<ul>
+</ul></li>
+<li>证据理论在本文中用在多处地方
+<ul>
 <li>来自多视角的数据的融合</li>
-<li>学习过程中的不确定性<ol>
+<li>学习过程中的不确定性
+<ol type="1">
 <li>对象能否成为聚类中心的不确定度</li>
 <li>成员聚类过程中划分的不确定度</li>
-</ol>
-</li>
+</ol></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><ul>
+<h3 id="实验">实验</h3>
+<ul>
 <li>用的一般都是分类的数据集</li>
-<li>来估计聚类的簇数，由实验结果来看比较准确，但是由方法来看，簇数是通过Sep-Pos chart人工选取的，是否最后的结果也存在一定的水分，类似根据答案做题</li>
+<li>来估计聚类的簇数，由实验结果来看比较准确，但是由方法来看，簇数是通过Sep-Pos
+chart人工选取的，是否最后的结果也存在一定的水分，类似根据答案做题</li>
 <li>ACC NMI两个聚类指标也相应的较高</li>
 </ul>
 
@@ -562,107 +594,147 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="基本的概念"><a href="#基本的概念" class="headerlink" title="基本的概念"></a>基本的概念</h1><h2 id="0-定义"><a href="#0-定义" class="headerlink" title="0. 定义"></a>0. 定义</h2><ul>
-<li><p>证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。</p>
-</li>
-<li><p>Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍 DST 的几个基本概念及相关内容。</p>
-</li>
-</ul>
-<h2 id="1-识别框架（Frame-of-Discernment-Θ）"><a href="#1-识别框架（Frame-of-Discernment-Θ）" class="headerlink" title="1. 识别框架（Frame of Discernment, Θ）"></a>1. 识别框架（Frame of Discernment, Θ）</h2><ul>
-<li><p><strong>定义：</strong><br>  识别框架 ( \Theta ) 是一个包含所有可能假设或状态的集合。例如，在医疗诊断问题中，( \Theta ) 可能表示所有可能的疾病。</p>
-</li>
-<li><p><strong>例子：</strong><br>  设定识别框架为<br>  [<br>  \Theta &#x3D; {A, B}<br>  ]</p>
-</li>
-<li><p><strong>作用：</strong><br>所有 DST 中的计算和推理均基于该框架进行，确保所有可能性都得到考虑。</p>
-</li>
-</ul>
-<h2 id="2-基本概率赋值函数（Basic-Probability-Assignment-BPA）"><a href="#2-基本概率赋值函数（Basic-Probability-Assignment-BPA）" class="headerlink" title="2. 基本概率赋值函数（Basic Probability Assignment, BPA）"></a>2. 基本概率赋值函数（Basic Probability Assignment, BPA）</h2><h3 id="定义："><a href="#定义：" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>  BPA 函数 ( m: 2^{\Theta} \rightarrow [0,1] ) 为识别框架中每个子集分配概率质量，满足：</p>
+          <h1 id="基本的概念">基本的概念</h1>
+<h2 id="定义">0. 定义</h2>
 <ul>
-<li>( m(\emptyset) &#x3D; 0 )</li>
-<li>(\sum_{A \subseteq \Theta} m(A) &#x3D; 1)</li>
+<li><p>证据理论也被称为 Dempster-Shafer
+理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。</p></li>
+<li><p>Dempster-Shafer
+理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍
+DST 的几个基本概念及相关内容。</p></li>
 </ul>
-<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>  ( m(A) ) 表示对子集 ( A ) 的支持程度，这种支持既不精确指向 ( A ) 内的某个具体假设，也不更细分，从而表达了部分知识和不确定性。</p>
-<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>一个简单的 BPA 可以如下定义：</p>
+<h2 id="识别框架frame-of-discernment-θ">1. 识别框架（Frame of
+Discernment, Θ）</h2>
 <ul>
-<li>( m({A}) &#x3D; 0.6 )</li>
-<li>( m({B}) &#x3D; 0.3 )</li>
-<li>( m({A, B}) &#x3D; 0.1 )</li>
+<li><p><strong>定义：</strong><br />
+识别框架 ( )
+是一个包含所有可能假设或状态的集合。例如，在医疗诊断问题中，( )
+可能表示所有可能的疾病。</p></li>
+<li><p><strong>例子：</strong> 设定识别框架为<br />
+[ = {A, B} ]</p></li>
+<li><p><strong>作用：</strong><br />
+所有 DST
+中的计算和推理均基于该框架进行，确保所有可能性都得到考虑。</p></li>
 </ul>
-<p>这表示：</p>
+<h2 id="基本概率赋值函数basic-probability-assignment-bpa">2.
+基本概率赋值函数（Basic Probability Assignment, BPA）</h2>
+<h3 id="定义-1"><strong>定义：</strong></h3>
+<p>BPA 函数 ( m: 2^{} ) 为识别框架中每个子集分配概率质量，满足： - ( m()
+= 0 ) - (_{A } m(A) = 1)</p>
+<h3 id="作用"><strong>作用：</strong></h3>
+<p>( m(A) ) 表示对子集 ( A ) 的支持程度，这种支持既不精确指向 ( A )
+内的某个具体假设，也不更细分，从而表达了部分知识和不确定性。</p>
+<h3 id="例子"><strong>例子：</strong></h3>
+<p>一个简单的 BPA 可以如下定义： - ( m({A}) = 0.6 ) - ( m({B}) = 0.3 ) -
+( m({A, B}) = 0.1 )</p>
+<p>这表示： - 有 60% 的支持认为命题 ( A ) 成立， - 有 30% 的支持认为命题
+( B ) 成立， - 剩下 10% 表示不确定性，支持 ( A ) 或 ( B )
+中某一个成立，但无法确定具体是哪一个。</p>
+<h2 id="信任函数belief-function-bel">3. 信任函数（Belief Function,
+Bel）</h2>
+<h3 id="定义-2"><strong>定义：</strong></h3>
+<p>对任意子集 ( A )，信任函数定义为： [ Bel(A) = _{B A} m(B) ]</p>
+<h3 id="作用-1"><strong>作用：</strong></h3>
+<p>( Bel(A) ) 表示所有完全支持 ( A ) 的证据之和，是对 ( A )
+的“坚实支持”。 ### <strong>例子：</strong></p>
+<p>继续采用上面的 BPA，计算对于子集 ( {A} ) 的信任度： [ Bel({A}) =
+m({A}) = 0.6 ]</p>
+<p>而对于全集 ( {A, B} )： [ Bel({A, B}) = m({A}) + m({B}) + m({A, B}) =
+0.6 + 0.3 + 0.1 = 1.0 ]</p>
+<h2 id="可行函数plausibility-function-pl">4. 可行函数（Plausibility
+Function, Pl）</h2>
+<h3 id="定义-3"><strong>定义：</strong></h3>
+<p>对任意子集 ( A )，可行函数定义为： [ Pl(A) = _{B A } m(B) ]
+同时满足： [ Pl(A) = 1 - Bel({A}) ] 其中 ( {A} ) 是 ( A ) 的补集。</p>
+<h3 id="作用-2"><strong>作用：</strong></h3>
+<p>( Pl(A) ) 表示与 ( A ) 不冲突的所有证据之和，反映 ( A )
+可能为真的最大支持程度。</p>
+<h3 id="例子-1"><strong>例子：</strong></h3>
+<p>仍然使用上面的 BPA，计算对于子集 ( {A} ) 的可行度： - 首先，( {A} =
+{B} )，因此， [ Bel({B}) = m({B}) = 0.3 ] - 所以， [ Pl({A}) = 1 - 0.3 =
+0.7 ]</p>
+<pre><code>或者直接计算与 \( \&#123;A\&#125; \) 有交集的子集：
+\[
+Pl(\&#123;A\&#125;) = m(\&#123;A\&#125;) + m(\&#123;A, B\&#125;) = 0.6 + 0.1 = 0.7
+\]</code></pre>
+<h2 id="dempster-的组合规则">5. Dempster 的组合规则</h2>
+<h3 id="定义-4"><strong>定义：</strong></h3>
 <ul>
-<li>有 60% 的支持认为命题 ( A ) 成立，</li>
-<li>有 30% 的支持认为命题 ( B ) 成立，</li>
-<li>剩下 10% 表示不确定性，支持 ( A ) 或 ( B ) 中某一个成立，但无法确定具体是哪一个。</li>
+<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster
+的组合规则用于合并这些信息： [ m_{12}(A) = <em>{B C = A} m_1(B) , m_2(C)
+] 其中，冲突度量 ( K ) 定义为： [ K = </em>{B C = } m_1(B) , m_2(C)
+]</p></li>
+<li><p>如果 ( K_{12}^{} )
+越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p></li>
+<li><p>当 ( K_{12}^{} = 1 )
+时，说明两个质量函数完全矛盾，无法合并。</p></li>
 </ul>
-<h2 id="3-信任函数（Belief-Function-Bel）"><a href="#3-信任函数（Belief-Function-Bel）" class="headerlink" title="3. 信任函数（Belief Function, Bel）"></a>3. 信任函数（Belief Function, Bel）</h2><h3 id="定义：-1"><a href="#定义：-1" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>对任意子集 ( A \subseteq \Theta )，信任函数定义为：<br>[<br>Bel(A) &#x3D; \sum_{B \subseteq A} m(B)<br>]</p>
-<h3 id="作用：-1"><a href="#作用：-1" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>( Bel(A) ) 表示所有完全支持 ( A ) 的证据之和，是对 ( A ) 的“坚实支持”。</p>
-<h3 id="例子：-1"><a href="#例子：-1" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>继续采用上面的 BPA，计算对于子集 ( {A} ) 的信任度：<br>[<br>Bel({A}) &#x3D; m({A}) &#x3D; 0.6<br>]</p>
-<p>而对于全集 ( {A, B} )：<br>[<br>Bel({A, B}) &#x3D; m({A}) + m({B}) + m({A, B}) &#x3D; 0.6 + 0.3 + 0.1 &#x3D; 1.0<br>]</p>
-<h2 id="4-可行函数（Plausibility-Function-Pl）"><a href="#4-可行函数（Plausibility-Function-Pl）" class="headerlink" title="4. 可行函数（Plausibility Function, Pl）"></a>4. 可行函数（Plausibility Function, Pl）</h2><h3 id="定义：-2"><a href="#定义：-2" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>对任意子集 ( A \subseteq \Theta )，可行函数定义为：<br>[<br>Pl(A) &#x3D; \sum_{B \cap A \neq \emptyset} m(B)<br>]<br>同时满足：<br>[<br>Pl(A) &#x3D; 1 - Bel(\bar{A})<br>]<br>其中 ( \bar{A} ) 是 ( A ) 的补集。</p>
-<h3 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>( Pl(A) ) 表示与 ( A ) 不冲突的所有证据之和，反映 ( A ) 可能为真的最大支持程度。</p>
-<h3 id="例子：-2"><a href="#例子：-2" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>仍然使用上面的 BPA，计算对于子集 ( {A} ) 的可行度：</p>
+<h3 id="作用-3"><strong>作用：</strong></h3>
+<p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的
+BPA 满足归一性要求。</p>
+<h2 id="冲突度量conflict-measure">6. 冲突度量（Conflict Measure）</h2>
+<h3 id="定义-5"><strong>定义：</strong></h3>
+<p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC
+方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为： [
+^{}<em>{il} = </em>{ = } m^{}_i () , m^{}_l () ] 其中： - ( m^{}_i() )
+和 ( m^{}_l() ) 分别为数据点 ( x_i ) 和 ( x_l ) 在信念分区下的 BPA。 -
+仅计算 ( ) 与 ( ) 互斥（( = )）的部分。</p>
+<h3 id="直观理解"><strong>直观理解：</strong></h3>
 <ul>
-<li><p>首先，( \bar{A} &#x3D; {B} )，因此，<br>  [<br>  Bel({B}) &#x3D; m({B}) &#x3D; 0.3<br>  ]</p>
-</li>
-<li><p>所以，<br>  [<br>  Pl({A}) &#x3D; 1 - 0.3 &#x3D; 0.7<br>  ]</p>
-<p>  或者直接计算与 ( {A} ) 有交集的子集：<br>  [<br>  Pl({A}) &#x3D; m({A}) + m({A, B}) &#x3D; 0.6 + 0.1 &#x3D; 0.7<br>  ]</p>
-</li>
+<li><strong>低冲突：</strong> 若 ( ^{}_{il} ) 值较小，说明两个数据点的
+BPA 分布较为一致，它们更可能属于同一类别。</li>
+<li><strong>高冲突：</strong> 若 ( ^{}_{il} )
+值较大，表示两个数据点的证据存在较大不一致，可能属于不同类别。</li>
 </ul>
-<h2 id="5-Dempster-的组合规则"><a href="#5-Dempster-的组合规则" class="headerlink" title="5. Dempster 的组合规则"></a>5. Dempster 的组合规则</h2><h3 id="定义：-3"><a href="#定义：-3" class="headerlink" title="定义："></a><strong>定义：</strong></h3><ul>
-<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster 的组合规则用于合并这些信息：<br>[<br>m_{12}(A) &#x3D; \frac{1}{1-K} \sum_{B \cap C &#x3D; A} m_1(B) , m_2(C)<br>]<br>其中，冲突度量 ( K ) 定义为：<br>[<br>K &#x3D; \sum_{B \cap C &#x3D; \emptyset} m_1(B) , m_2(C)<br>]</p>
-</li>
-<li><p>如果 ( K_{12}^{\Theta} ) 越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p>
-</li>
-<li><p>当 ( K_{12}^{\Theta} &#x3D; 1 ) 时，说明两个质量函数完全矛盾，无法合并。</p>
-</li>
-</ul>
-<h3 id="作用：-3"><a href="#作用：-3" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的 BPA 满足归一性要求。</p>
-<h2 id="6-冲突度量（Conflict-Measure）"><a href="#6-冲突度量（Conflict-Measure）" class="headerlink" title="6. 冲突度量（Conflict Measure）"></a>6. 冲突度量（Conflict Measure）</h2><h3 id="定义：-4"><a href="#定义：-4" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC 方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为：<br>[<br>\mathcal{K}^{\Omega}<em>{il} &#x3D; \sum</em>{\mathcal{B} \cap \mathcal{C} &#x3D; \emptyset} m^{\Omega}_i (\mathcal{B}) , m^{\Omega}_l (\mathcal{C})<br>]<br>其中：</p>
+<h3 id="应用"><strong>应用：</strong></h3>
+<p>在聚类、决策支持和多传感器数据融合等领域，冲突度量用于量化和处理不一致信息，从而帮助进行更可靠的推理和决策。</p>
+<h3 id="例子-2"><strong>例子：</strong></h3>
+<p>设识别框架为 ( = {A, B} )，假设两个证据源的 BPA 如下：</p>
 <ul>
-<li>( m^{\Omega}_i(\mathcal{B}) ) 和 ( m^{\Omega}_l(\mathcal{C}) ) 分别为数据点 ( x_i ) 和 ( x_l ) 在信念分区下的 BPA。</li>
-<li>仅计算 ( \mathcal{B} ) 与 ( \mathcal{C} ) 互斥（( \mathcal{B} \cap \mathcal{C} &#x3D; \emptyset )）的部分。</li>
-</ul>
-<h3 id="直观理解："><a href="#直观理解：" class="headerlink" title="直观理解："></a><strong>直观理解：</strong></h3><ul>
-<li><strong>低冲突：</strong> 若 ( \mathcal{K}^{\Omega}_{il} ) 值较小，说明两个数据点的 BPA 分布较为一致，它们更可能属于同一类别。</li>
-<li><strong>高冲突：</strong> 若 ( \mathcal{K}^{\Omega}_{il} ) 值较大，表示两个数据点的证据存在较大不一致，可能属于不同类别。</li>
-</ul>
-<h3 id="应用："><a href="#应用：" class="headerlink" title="应用："></a><strong>应用：</strong></h3><p>在聚类、决策支持和多传感器数据融合等领域，冲突度量用于量化和处理不一致信息，从而帮助进行更可靠的推理和决策。</p>
-<h3 id="例子：-3"><a href="#例子：-3" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>设识别框架为 ( \Theta &#x3D; {A, B} )，假设两个证据源的 BPA 如下：</p>
-<ul>
-<li><p><strong>证据 1:</strong><br>[<br>m_1({A}) &#x3D; 0.7,\quad m_1({B}) &#x3D; 0.2,\quad m_1({A, B}) &#x3D; 0.1<br>]</p>
-</li>
-<li><p><strong>证据 2:</strong><br>[<br>m_2({A}) &#x3D; 0.6,\quad m_2({B}) &#x3D; 0.3,\quad m_2({A, B}) &#x3D; 0.1<br>]</p>
-</li>
+<li><p><strong>证据 1:</strong><br />
+[ m_1({A}) = 0.7,m_1({B}) = 0.2,m_1({A, B}) = 0.1 ]</p></li>
+<li><p><strong>证据 2:</strong><br />
+[ m_2({A}) = 0.6,m_2({B}) = 0.3,m_2({A, B}) = 0.1 ]</p></li>
 </ul>
 <p><strong>计算冲突度量 ( K )：</strong></p>
-<p>不相交的情况有：</p>
+<p>不相交的情况有： - ( {A} {B} = )：<br />
+( m_1({A}) m_2({B}) = 0.7 = 0.21 )</p>
 <ul>
-<li><p>( {A} \cap {B} &#x3D; \emptyset )：<br>( m_1({A}) \times m_2({B}) &#x3D; 0.7 \times 0.3 &#x3D; 0.21 )</p>
-</li>
-<li><p>( {B} \cap {A} &#x3D; \emptyset )：<br>( m_1({B}) \times m_2({A}) &#x3D; 0.2 \times 0.6 &#x3D; 0.12 )</p>
-</li>
+<li>( {B} {A} = )：<br />
+( m_1({B}) m_2({A}) = 0.2 = 0.12 )</li>
 </ul>
-<p>因此，<br>[<br>K &#x3D; 0.21 + 0.12 &#x3D; 0.33<br>]</p>
+<p>因此， [ K = 0.21 + 0.12 = 0.33 ]</p>
 <p><strong>计算组合后的 BPA：</strong></p>
 <ul>
-<li><strong>对于 ( {A} )：</strong><br>考虑所有 ( B, C ) 满足 ( B \cap C &#x3D; {A} )：</li>
-<li>( B &#x3D; {A} ) 与 ( C &#x3D; {A} ) 得：( 0.7 \times 0.6 &#x3D; 0.42 )</li>
-<li>( B &#x3D; {A} ) 与 ( C &#x3D; {A, B} ) 得：( 0.7 \times 0.1 &#x3D; 0.07 )</li>
-<li>( B &#x3D; {A, B} ) 与 ( C &#x3D; {A} ) 得：( 0.1 \times 0.6 &#x3D; 0.06 )</li>
+<li><strong>对于 ( {A} )：</strong><br />
+考虑所有 ( B, C ) 满足 ( B C = {A} )：</li>
+<li>( B = {A} ) 与 ( C = {A} ) 得：( 0.7 = 0.42 )</li>
+<li>( B = {A} ) 与 ( C = {A, B} ) 得：( 0.7 = 0.07 )</li>
+<li>( B = {A, B} ) 与 ( C = {A} ) 得：( 0.1 = 0.06 )</li>
 </ul>
-<p>总和为：( 0.42 + 0.07 + 0.06 &#x3D; 0.55 )<br>归一化因子为 ( 1 - K &#x3D; 0.67 )，所以<br>[<br>m_{12}({A}) &#x3D; \frac{0.55}{0.67} \approx 0.82<br>]</p>
+<p>总和为：( 0.42 + 0.07 + 0.06 = 0.55 )<br />
+归一化因子为 ( 1 - K = 0.67 )，所以 [ m_{12}({A}) = ]</p>
 <ul>
-<li><strong>对于 ( {B} )：</strong><br>考虑满足 ( B \cap C &#x3D; {B} ) 的组合：</li>
-<li>( B &#x3D; {B} ) 与 ( C &#x3D; {B} ) 得：( 0.2 \times 0.3 &#x3D; 0.06 )</li>
-<li>( B &#x3D; {B} ) 与 ( C &#x3D; {A, B} ) 得：( 0.2 \times 0.1 &#x3D; 0.02 )</li>
-<li>( B &#x3D; {A, B} ) 与 ( C &#x3D; {B} ) 得：( 0.1 \times 0.3 &#x3D; 0.03 )</li>
+<li><strong>对于 ( {B} )：</strong><br />
+考虑满足 ( B C = {B} ) 的组合：</li>
+<li>( B = {B} ) 与 ( C = {B} ) 得：( 0.2 = 0.06 )</li>
+<li>( B = {B} ) 与 ( C = {A, B} ) 得：( 0.2 = 0.02 )</li>
+<li>( B = {A, B} ) 与 ( C = {B} ) 得：( 0.1 = 0.03 )</li>
 </ul>
-<p>总和为：( 0.06 + 0.02 + 0.03 &#x3D; 0.11 )，归一化后，<br>[<br>m_{12}({B}) &#x3D; \frac{0.11}{0.67} \approx 0.16<br>]</p>
+<p>总和为：( 0.06 + 0.02 + 0.03 = 0.11 )，归一化后， [ m_{12}({B}) =
+]</p>
 <ul>
-<li><strong>对于全集 ( {A, B} )：</strong><br>考虑 ( B &#x3D; {A, B} ) 与 ( C &#x3D; {A, B} )：<br>( 0.1 \times 0.1 &#x3D; 0.01 )，归一化后，<br>[<br>m_{12}({A, B}) &#x3D; \frac{0.01}{0.67} \approx 0.015<br>]</li>
+<li><strong>对于全集 ( {A, B} )：</strong><br />
+考虑 ( B = {A, B} ) 与 ( C = {A, B} )：<br />
+( 0.1 = 0.01 )，归一化后， [ m_{12}({A, B}) = ]</li>
 </ul>
-<p>组合结果表明：经过两个证据的融合，支持 ( {A} ) 的概率显著提升，反映了两个证据在支持 ( A ) 上的一致性。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Dempster-Shafer 理论通过引入 BPA、信任函数和可行函数，为处理不确定性和模糊性提供了一个灵活的框架。利用 Dempster 的组合规则可以有效地融合来自不同来源的证据，而冲突度量则帮助量化证据之间的不一致性。这些概念为在实际问题中处理不确定性提供了坚实的理论基础。</p>
+<p>组合结果表明：经过两个证据的融合，支持 ( {A} )
+的概率显著提升，反映了两个证据在支持 ( A ) 上的一致性。</p>
+<h2 id="总结">总结</h2>
+<p>Dempster-Shafer 理论通过引入
+BPA、信任函数和可行函数，为处理不确定性和模糊性提供了一个灵活的框架。利用
+Dempster
+的组合规则可以有效地融合来自不同来源的证据，而冲突度量则帮助量化证据之间的不一致性。这些概念为在实际问题中处理不确定性提供了坚实的理论基础。</p>
 
       
     </div>
@@ -742,9 +814,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>使用我的掌机快一个月了吧，谈谈到现在的rog ally掌机的使用感受</p>
-<p><img src="/p_imgs/rog_ally.jpg" alt="ROG Ally掌机"></p>
-<h3 id="续航"><a href="#续航" class="headerlink" title="续航"></a>续航</h3><p>因为我是充电线长插，一般就是放桌子上没事就连上接口冲电，没感觉多大的续航危机，这也跟我的使用场景有关。</p>
-<h3 id="手感"><a href="#手感" class="headerlink" title="手感"></a>手感</h3><p>这掌机重量对我来说是不小的，一般我都是靠着东西使用，感觉完全悬空的玩的话不是很可行，估计没一会手就会非常酸。整体的握持感觉也就这样，肯定没手柄舒服，但该有的都有，布局也算合理，震动也还不错，使用的时候没有的握持手感上的不适。</p>
+<figure>
+<img src="/p_imgs/rog_ally.jpg" alt="ROG Ally掌机" />
+<figcaption aria-hidden="true">ROG Ally掌机</figcaption>
+</figure>
+<h3 id="续航">续航</h3>
+<p>因为我是充电线长插，一般就是放桌子上没事就连上接口冲电，没感觉多大的续航危机，这也跟我的使用场景有关。</p>
+<h3 id="手感">手感</h3>
+<p>这掌机重量对我来说是不小的，一般我都是靠着东西使用，感觉完全悬空的玩的话不是很可行，估计没一会手就会非常酸。整体的握持感觉也就这样，肯定没手柄舒服，但该有的都有，布局也算合理，震动也还不错，使用的时候没有的握持手感上的不适。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/02/24/%E8%B0%88%E8%B0%88%E5%88%B0%E7%8E%B0%E5%9C%A8%E7%9A%84rog%20ally%E6%8E%8C%E6%9C%BA%E7%9A%84%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/#more" rel="contents">
@@ -836,10 +913,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="1-创建博客的初衷"><a href="#1-创建博客的初衷" class="headerlink" title="1. 创建博客的初衷"></a>1. 创建博客的初衷</h3><ul>
+          <h3 id="创建博客的初衷">1. 创建博客的初衷</h3>
+<ul>
 <li>我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。</li>
 </ul>
-<h3 id="2-博客的内容"><a href="#2-博客的内容" class="headerlink" title="2. 博客的内容"></a>2. 博客的内容</h3><ul>
+<h3 id="博客的内容">2. 博客的内容</h3>
+<ul>
 <li>博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。</li>
 </ul>
 
@@ -926,56 +1005,57 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
-<li><a href="#1-vi%E5%92%8Cvim%E8%AF%8D%E6%BA%90">1. vi和vim词源</a></li>
-<li><a href="#2-%E6%89%93%E5%BC%80%E6%88%96%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6">2. 打开或新建文件</a></li>
-<li><a href="#3-%E5%BC%82%E5%B8%B8%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86">3. 异常文件处理</a></li>
-<li><a href="#4-vi%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F">4. vi三种工作模式</a><ul>
-<li><a href="#41-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">4.1 命令模式</a></li>
-<li><a href="#42-%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F">4.2 末行模式</a></li>
-<li><a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">4.3 编辑模式</a></li>
-</ul>
-</li>
-<li><a href="#5-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">5. 常用命令</a><ul>
-<li><a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">5.1 重复次数</a></li>
-<li><a href="#52-%E7%A7%BB%E5%8A%A8%E5%92%8C%E9%80%89%E6%8B%A9">5.2 移动和选择</a><ul>
-<li><a href="#521-%E7%A7%BB%E5%8A%A8">5.2.1 移动</a><ul>
-<li><a href="#1-%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3">1. 上，下，左，右</a></li>
-<li><a href="#2-%E8%A1%8C%E5%86%85%E7%A7%BB%E5%8A%A8">2. 行内移动</a></li>
-<li><a href="#3-%E8%A1%8C%E5%A4%96%E7%A7%BB%E5%8A%A8">3. 行外移动</a></li>
-<li><a href="#4-%E5%B1%8F%E5%B9%95%E7%A7%BB%E5%8A%A8">4. 屏幕移动</a></li>
-<li><a href="#5-%E6%8B%AC%E5%8F%B7%E5%88%87%E6%8D%A2">5. 括号切换</a></li>
-<li><a href="#6-%E6%A0%87%E8%AE%B0">6. 标记</a></li>
-</ul>
-</li>
-<li><a href="#522-%E9%80%89%E6%8B%A9">5.2.2 选择</a></li>
-</ul>
-</li>
-<li><a href="#53-%E5%88%A0%E9%99%A4%E5%92%8C%E5%89%AA%E8%B4%B4">5.3 删除和剪贴</a></li>
-<li><a href="#54-%E6%92%A4%E9%94%80">5.4 撤销</a></li>
-<li><a href="#55-%E5%A4%8D%E5%88%B6%E5%92%8C%E7%B2%98%E8%B4%B4">5.5 复制和粘贴</a></li>
-<li><a href="#56-%E6%9B%BF%E6%8D%A2%E5%92%8C%E6%9F%A5%E6%89%BE">5.6 替换和查找</a><ul>
-<li><a href="#561-%E6%9B%BF%E6%8D%A2">5.6.1 替换</a></li>
-<li><a href="#562-%E5%B8%B8%E8%A7%84%E6%9F%A5%E6%89%BE">5.6.2 常规查找</a></li>
-<li><a href="#563-%E5%8D%95%E8%AF%8D%E5%BF%AB%E9%80%9F%E5%8C%B9%E9%85%8D">5.6.3 单词快速匹配</a></li>
-<li><a href="#564-%E6%9F%A5%E6%89%BE%E5%B9%B6%E6%9B%BF%E6%8D%A2">5.6.4 查找并替换</a><ul>
-<li><a href="#1-%E5%85%A8%E5%B1%80%E6%9B%BF%E6%8D%A2">1. 全局替换</a></li>
-<li><a href="#2-%E5%8F%AF%E8%A7%86%E5%8C%BA%E5%9F%9F%E6%9B%BF%E6%8D%A2">2. 可视区域替换</a></li>
-<li><a href="#3-%E7%A1%AE%E8%AE%A4%E6%9B%BF%E6%8D%A2">3. 确认替换</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#57-%E7%BC%A9%E6%8E%92%E5%92%8C%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C">5.7 缩排和重复执行</a></li>
-<li><a href="#58-%E6%8F%92%E5%85%A5%E5%91%BD%E4%BB%A4">5.8 插入命令</a></li>
-<li><a href="#59-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%92%8C%E5%88%86%E5%B1%8F%E5%91%BD%E4%BB%A4">5.9 文件处理和分屏命令</a><ul>
-<li><a href="#591-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4">5.9.1 文件处理命令</a></li>
-<li><a href="#592-%E5%88%86%E5%B1%8F%E5%91%BD%E4%BB%A4">5.9.2 分屏命令</a></li>
-</ul>
-</li>
-</ul>
-</li>
+          <h2 id="目录">目录</h2>
+<ul>
+<li><a href="#目录">目录</a></li>
+<li><a href="#1-vi和vim词源">1. vi和vim词源</a></li>
+<li><a href="#2-打开或新建文件">2. 打开或新建文件</a></li>
+<li><a href="#3-异常文件处理">3. 异常文件处理</a></li>
+<li><a href="#4-vi三种工作模式">4. vi三种工作模式</a>
+<ul>
+<li><a href="#41-命令模式">4.1 命令模式</a></li>
+<li><a href="#42-末行模式">4.2 末行模式</a></li>
+<li><a href="#43-编辑模式">4.3 编辑模式</a></li>
+</ul></li>
+<li><a href="#5-常用命令">5. 常用命令</a>
+<ul>
+<li><a href="#51-重复次数">5.1 重复次数</a></li>
+<li><a href="#52-移动和选择">5.2 移动和选择</a>
+<ul>
+<li><a href="#521-移动">5.2.1 移动</a>
+<ul>
+<li><a href="#1-上下左右">1. 上，下，左，右</a></li>
+<li><a href="#2-行内移动">2. 行内移动</a></li>
+<li><a href="#3-行外移动">3. 行外移动</a></li>
+<li><a href="#4-屏幕移动">4. 屏幕移动</a></li>
+<li><a href="#5-括号切换">5. 括号切换</a></li>
+<li><a href="#6-标记">6. 标记</a></li>
+</ul></li>
+<li><a href="#522-选择">5.2.2 选择</a></li>
+</ul></li>
+<li><a href="#53-删除和剪贴">5.3 删除和剪贴</a></li>
+<li><a href="#54-撤销">5.4 撤销</a></li>
+<li><a href="#55-复制和粘贴">5.5 复制和粘贴</a></li>
+<li><a href="#56-替换和查找">5.6 替换和查找</a>
+<ul>
+<li><a href="#561-替换">5.6.1 替换</a></li>
+<li><a href="#562-常规查找">5.6.2 常规查找</a></li>
+<li><a href="#563-单词快速匹配">5.6.3 单词快速匹配</a></li>
+<li><a href="#564-查找并替换">5.6.4 查找并替换</a>
+<ul>
+<li><a href="#1-全局替换">1. 全局替换</a></li>
+<li><a href="#2-可视区域替换">2. 可视区域替换</a></li>
+<li><a href="#3-确认替换">3. 确认替换</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#57-缩排和重复执行">5.7 缩排和重复执行</a></li>
+<li><a href="#58-插入命令">5.8 插入命令</a></li>
+<li><a href="#59-文件处理和分屏命令">5.9 文件处理和分屏命令</a>
+<ul>
+<li><a href="#591-文件处理命令">5.9.1 文件处理命令</a></li>
+<li><a href="#592-分屏命令">5.9.2 分屏命令</a></li>
+</ul></li>
+</ul></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1068,49 +1148,53 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#%E7%9B%AE%E5%BD%95">目录</a><ul>
-<li><a href="#1-self%E4%BD%BF%E7%94%A8">1. <code>self</code>使用</a></li>
-<li><a href="#2-def-__str__self%E5%87%BD%E6%95%B0">2. <code>def __str__(self)</code>函数</a></li>
-<li><a href="#3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E7%9A%84dir%E5%87%BD%E6%95%B0">3. 基本类的<code>dir()</code>函数</a></li>
-<li><a href="#4-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E7%9A%84id%E5%87%BD%E6%95%B0">4. 基本类的<code>id()</code>函数</a></li>
-<li><a href="#5-global%E5%85%B3%E9%94%AE%E5%AD%97">5. <code>global</code>关键字</a></li>
-<li><a href="#6-__mro__%E5%87%BD%E6%95%B0">6. <code>__mro__</code>函数</a><ul>
-<li><a href="#1-%E5%AE%9A%E4%B9%89">1. 定义：</a></li>
-<li><a href="#2-%E4%BD%BF%E7%94%A8">2. 使用：</a></li>
-</ul>
-</li>
-<li><a href="#7-super%E6%96%B9%E6%B3%95%E4%BD%9C%E7%94%A8">7. <code>super().方法</code>作用</a></li>
-<li><a href="#8-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1oop%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81">8. 面向对象（OOP）三大特征</a></li>
-<li><a href="#9-%E7%B1%BB%E6%96%B9%E6%B3%95">9. 类方法</a><ul>
-<li><a href="#1-%E5%A3%B0%E6%98%8E">1. 声明</a></li>
-<li><a href="#2-%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">2. 使用注意事项</a></li>
-</ul>
-</li>
-<li><a href="#10-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95">10. 静态方法</a><ul>
-<li><a href="#1-%E5%A3%B0%E6%98%8E-1">1. 声明</a></li>
-<li><a href="#2-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">2. 注意事项</a></li>
-</ul>
-</li>
-<li><a href="#11-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">11. 异常处理</a></li>
-<li><a href="#12-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AF%BC%E5%85%A5">12. 模块的导入</a></li>
-<li><a href="#13-%E5%8C%85package">13. 包（package)</a></li>
-<li><a href="#14-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">14. 文件操作函数</a><ul>
-<li><a href="#open%E5%87%BD%E6%95%B0"><code>open()</code>函数</a></li>
-<li><a href="#read%E5%87%BD%E6%95%B0"><code>read()</code>函数</a></li>
-<li><a href="#readline%E5%87%BD%E6%95%B0"><code>readline()</code>函数</a></li>
-<li><a href="#write%E5%87%BD%E6%95%B0"><code>write()</code>函数</a></li>
-<li><a href="#close%E5%87%BD%E6%95%B0"><code>close()</code>函数</a></li>
-</ul>
-</li>
-<li><a href="#15-eval%E5%87%BD%E6%95%B0">15. <code>eval()</code>函数</a><ul>
-<li><a href="#%E4%BD%9C%E7%94%A8">作用：</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90">例子：</a></li>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-</ul>
-</li>
-</ul>
-</li>
+          <h2 id="目录">目录</h2>
+<ul>
+<li><a href="#目录">目录</a>
+<ul>
+<li><a href="#1-self使用">1. <code>self</code>使用</a></li>
+<li><a href="#2-def-__str__self函数">2.
+<code>def __str__(self)</code>函数</a></li>
+<li><a href="#3-基本类的dir函数">3.
+基本类的<code>dir()</code>函数</a></li>
+<li><a href="#4-基本类的id函数">4.
+基本类的<code>id()</code>函数</a></li>
+<li><a href="#5-global关键字">5. <code>global</code>关键字</a></li>
+<li><a href="#6-__mro__函数">6. <code>__mro__</code>函数</a>
+<ul>
+<li><a href="#1-定义">1. 定义：</a></li>
+<li><a href="#2-使用">2. 使用：</a></li>
+</ul></li>
+<li><a href="#7-super方法作用">7. <code>super().方法</code>作用</a></li>
+<li><a href="#8-面向对象oop三大特征">8. 面向对象（OOP）三大特征</a></li>
+<li><a href="#9-类方法">9. 类方法</a>
+<ul>
+<li><a href="#1-声明">1. 声明</a></li>
+<li><a href="#2-使用注意事项">2. 使用注意事项</a></li>
+</ul></li>
+<li><a href="#10-静态方法">10. 静态方法</a>
+<ul>
+<li><a href="#1-声明-1">1. 声明</a></li>
+<li><a href="#2-注意事项">2. 注意事项</a></li>
+</ul></li>
+<li><a href="#11-异常处理">11. 异常处理</a></li>
+<li><a href="#12-模块的导入">12. 模块的导入</a></li>
+<li><a href="#13-包package">13. 包（package)</a></li>
+<li><a href="#14-文件操作函数">14. 文件操作函数</a>
+<ul>
+<li><a href="#open函数"><code>open()</code>函数</a></li>
+<li><a href="#read函数"><code>read()</code>函数</a></li>
+<li><a href="#readline函数"><code>readline()</code>函数</a></li>
+<li><a href="#write函数"><code>write()</code>函数</a></li>
+<li><a href="#close函数"><code>close()</code>函数</a></li>
+</ul></li>
+<li><a href="#15-eval函数">15. <code>eval()</code>函数</a>
+<ul>
+<li><a href="#作用">作用：</a></li>
+<li><a href="#例子">例子：</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+</ul></li>
+</ul></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1189,6 +1273,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

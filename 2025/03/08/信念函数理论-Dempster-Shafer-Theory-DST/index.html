@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="基本的概念0. 定义 证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。  Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍 DS">
+    <meta name="description" content="基本的概念 0. 定义  证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。 Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="信念函数理论(Dempster-Shafer Theory, DST)">
 <meta property="og:url" content="http://example.com/2025/03/08/%E4%BF%A1%E5%BF%B5%E5%87%BD%E6%95%B0%E7%90%86%E8%AE%BA-Dempster-Shafer-Theory-DST/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="基本的概念0. 定义 证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。  Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍 DS">
+<meta property="og:description" content="基本的概念 0. 定义  证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。 Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-08T06:47:30.000Z">
 <meta property="article:modified_time" content="2025-03-12T09:16:12.872Z">
@@ -112,7 +112,11 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">0. 定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AF%86%E5%88%AB%E6%A1%86%E6%9E%B6%EF%BC%88Frame-of-Discernment-%CE%98%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">1. 识别框架（Frame of Discernment, Θ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9F%BA%E6%9C%AC%E6%A6%82%E7%8E%87%E8%B5%8B%E5%80%BC%E5%87%BD%E6%95%B0%EF%BC%88Basic-Probability-Assignment-BPA%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">2. 基本概率赋值函数（Basic Probability Assignment, BPA）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BF%A1%E4%BB%BB%E5%87%BD%E6%95%B0%EF%BC%88Belief-Function-Bel%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">3. 信任函数（Belief Function, Bel）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%8F%AF%E8%A1%8C%E5%87%BD%E6%95%B0%EF%BC%88Plausibility-Function-Pl%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">4. 可行函数（Plausibility Function, Pl）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-2"><span class="nav-number">1.5.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A-2"><span class="nav-number">1.5.2.</span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A-2"><span class="nav-number">1.5.3.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Dempster-%E7%9A%84%E7%BB%84%E5%90%88%E8%A7%84%E5%88%99"><span class="nav-number">1.6.</span> <span class="nav-text">5. Dempster 的组合规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-3"><span class="nav-number">1.6.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A-3"><span class="nav-number">1.6.2.</span> <span class="nav-text">作用：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%86%B2%E7%AA%81%E5%BA%A6%E9%87%8F%EF%BC%88Conflict-Measure%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">6. 冲突度量（Conflict Measure）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-4"><span class="nav-number">1.7.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.7.2.</span> <span class="nav-text">直观理解：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="nav-number">1.7.3.</span> <span class="nav-text">应用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A-3"><span class="nav-number">1.7.4.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">0. 定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E6%A1%86%E6%9E%B6frame-of-discernment-%CE%B8"><span class="nav-number">1.2.</span> <span class="nav-text">1. 识别框架（Frame of
+Discernment, Θ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E7%8E%87%E8%B5%8B%E5%80%BC%E5%87%BD%E6%95%B0basic-probability-assignment-bpa"><span class="nav-number">1.3.</span> <span class="nav-text">2.
+基本概率赋值函数（Basic Probability Assignment, BPA）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.3.3.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E4%BB%BB%E5%87%BD%E6%95%B0belief-function-bel"><span class="nav-number">1.4.</span> <span class="nav-text">3. 信任函数（Belief Function,
+Bel）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">作用：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%A1%8C%E5%87%BD%E6%95%B0plausibility-function-pl"><span class="nav-number">1.5.</span> <span class="nav-text">4. 可行函数（Plausibility
+Function, Pl）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="nav-number">1.5.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8-2"><span class="nav-number">1.5.2.</span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dempster-%E7%9A%84%E7%BB%84%E5%90%88%E8%A7%84%E5%88%99"><span class="nav-number">1.6.</span> <span class="nav-text">5. Dempster 的组合规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="nav-number">1.6.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8-3"><span class="nav-number">1.6.2.</span> <span class="nav-text">作用：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%B2%E7%AA%81%E5%BA%A6%E9%87%8Fconflict-measure"><span class="nav-number">1.7.</span> <span class="nav-text">6. 冲突度量（Conflict Measure）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="nav-number">1.7.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">1.7.2.</span> <span class="nav-text">直观理解：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.7.3.</span> <span class="nav-text">应用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-2"><span class="nav-number">1.7.4.</span> <span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -236,107 +240,147 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="基本的概念"><a href="#基本的概念" class="headerlink" title="基本的概念"></a>基本的概念</h1><h2 id="0-定义"><a href="#0-定义" class="headerlink" title="0. 定义"></a>0. 定义</h2><ul>
-<li><p>证据理论也被称为 Dempster-Shafer 理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。</p>
-</li>
-<li><p>Dempster-Shafer 理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍 DST 的几个基本概念及相关内容。</p>
-</li>
-</ul>
-<h2 id="1-识别框架（Frame-of-Discernment-Θ）"><a href="#1-识别框架（Frame-of-Discernment-Θ）" class="headerlink" title="1. 识别框架（Frame of Discernment, Θ）"></a>1. 识别框架（Frame of Discernment, Θ）</h2><ul>
-<li><p><strong>定义：</strong><br>  识别框架 ( \Theta ) 是一个包含所有可能假设或状态的集合。例如，在医疗诊断问题中，( \Theta ) 可能表示所有可能的疾病。</p>
-</li>
-<li><p><strong>例子：</strong><br>  设定识别框架为<br>  [<br>  \Theta &#x3D; {A, B}<br>  ]</p>
-</li>
-<li><p><strong>作用：</strong><br>所有 DST 中的计算和推理均基于该框架进行，确保所有可能性都得到考虑。</p>
-</li>
-</ul>
-<h2 id="2-基本概率赋值函数（Basic-Probability-Assignment-BPA）"><a href="#2-基本概率赋值函数（Basic-Probability-Assignment-BPA）" class="headerlink" title="2. 基本概率赋值函数（Basic Probability Assignment, BPA）"></a>2. 基本概率赋值函数（Basic Probability Assignment, BPA）</h2><h3 id="定义："><a href="#定义：" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>  BPA 函数 ( m: 2^{\Theta} \rightarrow [0,1] ) 为识别框架中每个子集分配概率质量，满足：</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="基本的概念">基本的概念</h1>
+<h2 id="定义">0. 定义</h2>
 <ul>
-<li>( m(\emptyset) &#x3D; 0 )</li>
-<li>(\sum_{A \subseteq \Theta} m(A) &#x3D; 1)</li>
+<li><p>证据理论也被称为 Dempster-Shafer
+理论，是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。</p></li>
+<li><p>Dempster-Shafer
+理论（DST），也称为证据理论，是一种用于处理不确定性信息的数学框架。它通过将概率分布分配到假设集合的子集上，而不仅仅是单个假设，从而更好地表达不确定性和模糊性。下面介绍
+DST 的几个基本概念及相关内容。</p></li>
 </ul>
-<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>  ( m(A) ) 表示对子集 ( A ) 的支持程度，这种支持既不精确指向 ( A ) 内的某个具体假设，也不更细分，从而表达了部分知识和不确定性。</p>
-<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>一个简单的 BPA 可以如下定义：</p>
+<h2 id="识别框架frame-of-discernment-θ">1. 识别框架（Frame of
+Discernment, Θ）</h2>
 <ul>
-<li>( m({A}) &#x3D; 0.6 )</li>
-<li>( m({B}) &#x3D; 0.3 )</li>
-<li>( m({A, B}) &#x3D; 0.1 )</li>
+<li><p><strong>定义：</strong><br />
+识别框架 ( )
+是一个包含所有可能假设或状态的集合。例如，在医疗诊断问题中，( )
+可能表示所有可能的疾病。</p></li>
+<li><p><strong>例子：</strong> 设定识别框架为<br />
+[ = {A, B} ]</p></li>
+<li><p><strong>作用：</strong><br />
+所有 DST
+中的计算和推理均基于该框架进行，确保所有可能性都得到考虑。</p></li>
 </ul>
-<p>这表示：</p>
+<h2 id="基本概率赋值函数basic-probability-assignment-bpa">2.
+基本概率赋值函数（Basic Probability Assignment, BPA）</h2>
+<h3 id="定义-1"><strong>定义：</strong></h3>
+<p>BPA 函数 ( m: 2^{} ) 为识别框架中每个子集分配概率质量，满足： - ( m()
+= 0 ) - (_{A } m(A) = 1)</p>
+<h3 id="作用"><strong>作用：</strong></h3>
+<p>( m(A) ) 表示对子集 ( A ) 的支持程度，这种支持既不精确指向 ( A )
+内的某个具体假设，也不更细分，从而表达了部分知识和不确定性。</p>
+<h3 id="例子"><strong>例子：</strong></h3>
+<p>一个简单的 BPA 可以如下定义： - ( m({A}) = 0.6 ) - ( m({B}) = 0.3 ) -
+( m({A, B}) = 0.1 )</p>
+<p>这表示： - 有 60% 的支持认为命题 ( A ) 成立， - 有 30% 的支持认为命题
+( B ) 成立， - 剩下 10% 表示不确定性，支持 ( A ) 或 ( B )
+中某一个成立，但无法确定具体是哪一个。</p>
+<h2 id="信任函数belief-function-bel">3. 信任函数（Belief Function,
+Bel）</h2>
+<h3 id="定义-2"><strong>定义：</strong></h3>
+<p>对任意子集 ( A )，信任函数定义为： [ Bel(A) = _{B A} m(B) ]</p>
+<h3 id="作用-1"><strong>作用：</strong></h3>
+<p>( Bel(A) ) 表示所有完全支持 ( A ) 的证据之和，是对 ( A )
+的“坚实支持”。 ### <strong>例子：</strong></p>
+<p>继续采用上面的 BPA，计算对于子集 ( {A} ) 的信任度： [ Bel({A}) =
+m({A}) = 0.6 ]</p>
+<p>而对于全集 ( {A, B} )： [ Bel({A, B}) = m({A}) + m({B}) + m({A, B}) =
+0.6 + 0.3 + 0.1 = 1.0 ]</p>
+<h2 id="可行函数plausibility-function-pl">4. 可行函数（Plausibility
+Function, Pl）</h2>
+<h3 id="定义-3"><strong>定义：</strong></h3>
+<p>对任意子集 ( A )，可行函数定义为： [ Pl(A) = _{B A } m(B) ]
+同时满足： [ Pl(A) = 1 - Bel({A}) ] 其中 ( {A} ) 是 ( A ) 的补集。</p>
+<h3 id="作用-2"><strong>作用：</strong></h3>
+<p>( Pl(A) ) 表示与 ( A ) 不冲突的所有证据之和，反映 ( A )
+可能为真的最大支持程度。</p>
+<h3 id="例子-1"><strong>例子：</strong></h3>
+<p>仍然使用上面的 BPA，计算对于子集 ( {A} ) 的可行度： - 首先，( {A} =
+{B} )，因此， [ Bel({B}) = m({B}) = 0.3 ] - 所以， [ Pl({A}) = 1 - 0.3 =
+0.7 ]</p>
+<pre><code>或者直接计算与 \( \&#123;A\&#125; \) 有交集的子集：
+\[
+Pl(\&#123;A\&#125;) = m(\&#123;A\&#125;) + m(\&#123;A, B\&#125;) = 0.6 + 0.1 = 0.7
+\]</code></pre>
+<h2 id="dempster-的组合规则">5. Dempster 的组合规则</h2>
+<h3 id="定义-4"><strong>定义：</strong></h3>
 <ul>
-<li>有 60% 的支持认为命题 ( A ) 成立，</li>
-<li>有 30% 的支持认为命题 ( B ) 成立，</li>
-<li>剩下 10% 表示不确定性，支持 ( A ) 或 ( B ) 中某一个成立，但无法确定具体是哪一个。</li>
+<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster
+的组合规则用于合并这些信息： [ m_{12}(A) = <em>{B C = A} m_1(B) , m_2(C)
+] 其中，冲突度量 ( K ) 定义为： [ K = </em>{B C = } m_1(B) , m_2(C)
+]</p></li>
+<li><p>如果 ( K_{12}^{} )
+越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p></li>
+<li><p>当 ( K_{12}^{} = 1 )
+时，说明两个质量函数完全矛盾，无法合并。</p></li>
 </ul>
-<h2 id="3-信任函数（Belief-Function-Bel）"><a href="#3-信任函数（Belief-Function-Bel）" class="headerlink" title="3. 信任函数（Belief Function, Bel）"></a>3. 信任函数（Belief Function, Bel）</h2><h3 id="定义：-1"><a href="#定义：-1" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>对任意子集 ( A \subseteq \Theta )，信任函数定义为：<br>[<br>Bel(A) &#x3D; \sum_{B \subseteq A} m(B)<br>]</p>
-<h3 id="作用：-1"><a href="#作用：-1" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>( Bel(A) ) 表示所有完全支持 ( A ) 的证据之和，是对 ( A ) 的“坚实支持”。</p>
-<h3 id="例子：-1"><a href="#例子：-1" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>继续采用上面的 BPA，计算对于子集 ( {A} ) 的信任度：<br>[<br>Bel({A}) &#x3D; m({A}) &#x3D; 0.6<br>]</p>
-<p>而对于全集 ( {A, B} )：<br>[<br>Bel({A, B}) &#x3D; m({A}) + m({B}) + m({A, B}) &#x3D; 0.6 + 0.3 + 0.1 &#x3D; 1.0<br>]</p>
-<h2 id="4-可行函数（Plausibility-Function-Pl）"><a href="#4-可行函数（Plausibility-Function-Pl）" class="headerlink" title="4. 可行函数（Plausibility Function, Pl）"></a>4. 可行函数（Plausibility Function, Pl）</h2><h3 id="定义：-2"><a href="#定义：-2" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>对任意子集 ( A \subseteq \Theta )，可行函数定义为：<br>[<br>Pl(A) &#x3D; \sum_{B \cap A \neq \emptyset} m(B)<br>]<br>同时满足：<br>[<br>Pl(A) &#x3D; 1 - Bel(\bar{A})<br>]<br>其中 ( \bar{A} ) 是 ( A ) 的补集。</p>
-<h3 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>( Pl(A) ) 表示与 ( A ) 不冲突的所有证据之和，反映 ( A ) 可能为真的最大支持程度。</p>
-<h3 id="例子：-2"><a href="#例子：-2" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>仍然使用上面的 BPA，计算对于子集 ( {A} ) 的可行度：</p>
+<h3 id="作用-3"><strong>作用：</strong></h3>
+<p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的
+BPA 满足归一性要求。</p>
+<h2 id="冲突度量conflict-measure">6. 冲突度量（Conflict Measure）</h2>
+<h3 id="定义-5"><strong>定义：</strong></h3>
+<p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC
+方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为： [
+^{}<em>{il} = </em>{ = } m^{}_i () , m^{}_l () ] 其中： - ( m^{}_i() )
+和 ( m^{}_l() ) 分别为数据点 ( x_i ) 和 ( x_l ) 在信念分区下的 BPA。 -
+仅计算 ( ) 与 ( ) 互斥（( = )）的部分。</p>
+<h3 id="直观理解"><strong>直观理解：</strong></h3>
 <ul>
-<li><p>首先，( \bar{A} &#x3D; {B} )，因此，<br>  [<br>  Bel({B}) &#x3D; m({B}) &#x3D; 0.3<br>  ]</p>
-</li>
-<li><p>所以，<br>  [<br>  Pl({A}) &#x3D; 1 - 0.3 &#x3D; 0.7<br>  ]</p>
-<p>  或者直接计算与 ( {A} ) 有交集的子集：<br>  [<br>  Pl({A}) &#x3D; m({A}) + m({A, B}) &#x3D; 0.6 + 0.1 &#x3D; 0.7<br>  ]</p>
-</li>
+<li><strong>低冲突：</strong> 若 ( ^{}_{il} ) 值较小，说明两个数据点的
+BPA 分布较为一致，它们更可能属于同一类别。</li>
+<li><strong>高冲突：</strong> 若 ( ^{}_{il} )
+值较大，表示两个数据点的证据存在较大不一致，可能属于不同类别。</li>
 </ul>
-<h2 id="5-Dempster-的组合规则"><a href="#5-Dempster-的组合规则" class="headerlink" title="5. Dempster 的组合规则"></a>5. Dempster 的组合规则</h2><h3 id="定义：-3"><a href="#定义：-3" class="headerlink" title="定义："></a><strong>定义：</strong></h3><ul>
-<li><p>当有两个独立来源的证据 ( m_1 ) 和 ( m_2 ) 时，Dempster 的组合规则用于合并这些信息：<br>[<br>m_{12}(A) &#x3D; \frac{1}{1-K} \sum_{B \cap C &#x3D; A} m_1(B) , m_2(C)<br>]<br>其中，冲突度量 ( K ) 定义为：<br>[<br>K &#x3D; \sum_{B \cap C &#x3D; \emptyset} m_1(B) , m_2(C)<br>]</p>
-</li>
-<li><p>如果 ( K_{12}^{\Theta} ) 越大，说明两个质量函数的冲突越严重，合并的可靠性就越低。</p>
-</li>
-<li><p>当 ( K_{12}^{\Theta} &#x3D; 1 ) 时，说明两个质量函数完全矛盾，无法合并。</p>
-</li>
-</ul>
-<h3 id="作用：-3"><a href="#作用：-3" class="headerlink" title="作用："></a><strong>作用：</strong></h3><p>该规则通过归一化处理，将来自不同来源的证据合并，同时处理冲突部分，使得合并后的 BPA 满足归一性要求。</p>
-<h2 id="6-冲突度量（Conflict-Measure）"><a href="#6-冲突度量（Conflict-Measure）" class="headerlink" title="6. 冲突度量（Conflict Measure）"></a>6. 冲突度量（Conflict Measure）</h2><h3 id="定义：-4"><a href="#定义：-4" class="headerlink" title="定义："></a><strong>定义：</strong></h3><p>冲突度量用于反映两个质量函数（BPA）之间的不一致程度。以 SRMVEC 方法中的定义为例，两个数据点 ( x_i ) 和 ( x_l ) 之间的置信冲突度量为：<br>[<br>\mathcal{K}^{\Omega}<em>{il} &#x3D; \sum</em>{\mathcal{B} \cap \mathcal{C} &#x3D; \emptyset} m^{\Omega}_i (\mathcal{B}) , m^{\Omega}_l (\mathcal{C})<br>]<br>其中：</p>
+<h3 id="应用"><strong>应用：</strong></h3>
+<p>在聚类、决策支持和多传感器数据融合等领域，冲突度量用于量化和处理不一致信息，从而帮助进行更可靠的推理和决策。</p>
+<h3 id="例子-2"><strong>例子：</strong></h3>
+<p>设识别框架为 ( = {A, B} )，假设两个证据源的 BPA 如下：</p>
 <ul>
-<li>( m^{\Omega}_i(\mathcal{B}) ) 和 ( m^{\Omega}_l(\mathcal{C}) ) 分别为数据点 ( x_i ) 和 ( x_l ) 在信念分区下的 BPA。</li>
-<li>仅计算 ( \mathcal{B} ) 与 ( \mathcal{C} ) 互斥（( \mathcal{B} \cap \mathcal{C} &#x3D; \emptyset )）的部分。</li>
-</ul>
-<h3 id="直观理解："><a href="#直观理解：" class="headerlink" title="直观理解："></a><strong>直观理解：</strong></h3><ul>
-<li><strong>低冲突：</strong> 若 ( \mathcal{K}^{\Omega}_{il} ) 值较小，说明两个数据点的 BPA 分布较为一致，它们更可能属于同一类别。</li>
-<li><strong>高冲突：</strong> 若 ( \mathcal{K}^{\Omega}_{il} ) 值较大，表示两个数据点的证据存在较大不一致，可能属于不同类别。</li>
-</ul>
-<h3 id="应用："><a href="#应用：" class="headerlink" title="应用："></a><strong>应用：</strong></h3><p>在聚类、决策支持和多传感器数据融合等领域，冲突度量用于量化和处理不一致信息，从而帮助进行更可靠的推理和决策。</p>
-<h3 id="例子：-3"><a href="#例子：-3" class="headerlink" title="例子："></a><strong>例子：</strong></h3><p>设识别框架为 ( \Theta &#x3D; {A, B} )，假设两个证据源的 BPA 如下：</p>
-<ul>
-<li><p><strong>证据 1:</strong><br>[<br>m_1({A}) &#x3D; 0.7,\quad m_1({B}) &#x3D; 0.2,\quad m_1({A, B}) &#x3D; 0.1<br>]</p>
-</li>
-<li><p><strong>证据 2:</strong><br>[<br>m_2({A}) &#x3D; 0.6,\quad m_2({B}) &#x3D; 0.3,\quad m_2({A, B}) &#x3D; 0.1<br>]</p>
-</li>
+<li><p><strong>证据 1:</strong><br />
+[ m_1({A}) = 0.7,m_1({B}) = 0.2,m_1({A, B}) = 0.1 ]</p></li>
+<li><p><strong>证据 2:</strong><br />
+[ m_2({A}) = 0.6,m_2({B}) = 0.3,m_2({A, B}) = 0.1 ]</p></li>
 </ul>
 <p><strong>计算冲突度量 ( K )：</strong></p>
-<p>不相交的情况有：</p>
+<p>不相交的情况有： - ( {A} {B} = )：<br />
+( m_1({A}) m_2({B}) = 0.7 = 0.21 )</p>
 <ul>
-<li><p>( {A} \cap {B} &#x3D; \emptyset )：<br>( m_1({A}) \times m_2({B}) &#x3D; 0.7 \times 0.3 &#x3D; 0.21 )</p>
-</li>
-<li><p>( {B} \cap {A} &#x3D; \emptyset )：<br>( m_1({B}) \times m_2({A}) &#x3D; 0.2 \times 0.6 &#x3D; 0.12 )</p>
-</li>
+<li>( {B} {A} = )：<br />
+( m_1({B}) m_2({A}) = 0.2 = 0.12 )</li>
 </ul>
-<p>因此，<br>[<br>K &#x3D; 0.21 + 0.12 &#x3D; 0.33<br>]</p>
+<p>因此， [ K = 0.21 + 0.12 = 0.33 ]</p>
 <p><strong>计算组合后的 BPA：</strong></p>
 <ul>
-<li><strong>对于 ( {A} )：</strong><br>考虑所有 ( B, C ) 满足 ( B \cap C &#x3D; {A} )：</li>
-<li>( B &#x3D; {A} ) 与 ( C &#x3D; {A} ) 得：( 0.7 \times 0.6 &#x3D; 0.42 )</li>
-<li>( B &#x3D; {A} ) 与 ( C &#x3D; {A, B} ) 得：( 0.7 \times 0.1 &#x3D; 0.07 )</li>
-<li>( B &#x3D; {A, B} ) 与 ( C &#x3D; {A} ) 得：( 0.1 \times 0.6 &#x3D; 0.06 )</li>
+<li><strong>对于 ( {A} )：</strong><br />
+考虑所有 ( B, C ) 满足 ( B C = {A} )：</li>
+<li>( B = {A} ) 与 ( C = {A} ) 得：( 0.7 = 0.42 )</li>
+<li>( B = {A} ) 与 ( C = {A, B} ) 得：( 0.7 = 0.07 )</li>
+<li>( B = {A, B} ) 与 ( C = {A} ) 得：( 0.1 = 0.06 )</li>
 </ul>
-<p>总和为：( 0.42 + 0.07 + 0.06 &#x3D; 0.55 )<br>归一化因子为 ( 1 - K &#x3D; 0.67 )，所以<br>[<br>m_{12}({A}) &#x3D; \frac{0.55}{0.67} \approx 0.82<br>]</p>
+<p>总和为：( 0.42 + 0.07 + 0.06 = 0.55 )<br />
+归一化因子为 ( 1 - K = 0.67 )，所以 [ m_{12}({A}) = ]</p>
 <ul>
-<li><strong>对于 ( {B} )：</strong><br>考虑满足 ( B \cap C &#x3D; {B} ) 的组合：</li>
-<li>( B &#x3D; {B} ) 与 ( C &#x3D; {B} ) 得：( 0.2 \times 0.3 &#x3D; 0.06 )</li>
-<li>( B &#x3D; {B} ) 与 ( C &#x3D; {A, B} ) 得：( 0.2 \times 0.1 &#x3D; 0.02 )</li>
-<li>( B &#x3D; {A, B} ) 与 ( C &#x3D; {B} ) 得：( 0.1 \times 0.3 &#x3D; 0.03 )</li>
+<li><strong>对于 ( {B} )：</strong><br />
+考虑满足 ( B C = {B} ) 的组合：</li>
+<li>( B = {B} ) 与 ( C = {B} ) 得：( 0.2 = 0.06 )</li>
+<li>( B = {B} ) 与 ( C = {A, B} ) 得：( 0.2 = 0.02 )</li>
+<li>( B = {A, B} ) 与 ( C = {B} ) 得：( 0.1 = 0.03 )</li>
 </ul>
-<p>总和为：( 0.06 + 0.02 + 0.03 &#x3D; 0.11 )，归一化后，<br>[<br>m_{12}({B}) &#x3D; \frac{0.11}{0.67} \approx 0.16<br>]</p>
+<p>总和为：( 0.06 + 0.02 + 0.03 = 0.11 )，归一化后， [ m_{12}({B}) =
+]</p>
 <ul>
-<li><strong>对于全集 ( {A, B} )：</strong><br>考虑 ( B &#x3D; {A, B} ) 与 ( C &#x3D; {A, B} )：<br>( 0.1 \times 0.1 &#x3D; 0.01 )，归一化后，<br>[<br>m_{12}({A, B}) &#x3D; \frac{0.01}{0.67} \approx 0.015<br>]</li>
+<li><strong>对于全集 ( {A, B} )：</strong><br />
+考虑 ( B = {A, B} ) 与 ( C = {A, B} )：<br />
+( 0.1 = 0.01 )，归一化后， [ m_{12}({A, B}) = ]</li>
 </ul>
-<p>组合结果表明：经过两个证据的融合，支持 ( {A} ) 的概率显著提升，反映了两个证据在支持 ( A ) 上的一致性。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Dempster-Shafer 理论通过引入 BPA、信任函数和可行函数，为处理不确定性和模糊性提供了一个灵活的框架。利用 Dempster 的组合规则可以有效地融合来自不同来源的证据，而冲突度量则帮助量化证据之间的不一致性。这些概念为在实际问题中处理不确定性提供了坚实的理论基础。</p>
+<p>组合结果表明：经过两个证据的融合，支持 ( {A} )
+的概率显著提升，反映了两个证据在支持 ( A ) 上的一致性。</p>
+<h2 id="总结">总结</h2>
+<p>Dempster-Shafer 理论通过引入
+BPA、信任函数和可行函数，为处理不确定性和模糊性提供了一个灵活的框架。利用
+Dempster
+的组合规则可以有效地融合来自不同来源的证据，而冲突度量则帮助量化证据之间的不一致性。这些概念为在实际问题中处理不确定性提供了坚实的理论基础。</p>
 
     </div>
 
@@ -423,6 +467,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

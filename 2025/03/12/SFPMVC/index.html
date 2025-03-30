@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="期刊信息  来源：Expert Systems With Applications 237 (2024) 121614 作者：Chaoyu Gong∗, Yang You 地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore">
+    <meta name="description" content="期刊信息 来源：Expert Systems With Applications 237 (2024) 121614  作者：Chaoyu Gong∗, Yang You  地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SFPMVC">
 <meta property="og:url" content="http://example.com/2025/03/12/SFPMVC/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="期刊信息  来源：Expert Systems With Applications 237 (2024) 121614 作者：Chaoyu Gong∗, Yang You 地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore">
+<meta property="og:description" content="期刊信息 来源：Expert Systems With Applications 237 (2024) 121614  作者：Chaoyu Gong∗, Yang You  地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-12T04:36:23.000Z">
 <meta property="article:modified_time" content="2025-03-17T05:56:56.754Z">
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -236,90 +236,73 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="期刊信息">期刊信息</h2>
-<ul>
-<li><p>来源：Expert Systems With Applications 237 (2024) 121614</p></li>
-<li><p>作者：Chaoyu Gong∗, Yang You</p></li>
-<li><p>地址：School of Computing, National University of Singapore, 21
-Lower Kent Ridge Rd, 119077, Singapore</p></li>
+    <div class="post-body" itemprop="articleBody"><h2 id="期刊信息"><a href="#期刊信息" class="headerlink" title="期刊信息"></a>期刊信息</h2><ul>
+<li><p>来源：Expert Systems With Applications 237 (2024) 121614</p>
+</li>
+<li><p>作者：Chaoyu Gong∗, Yang You</p>
+</li>
+<li><p>地址：School of Computing, National University of Singapore, 21 Lower Kent Ridge Rd, 119077, Singapore</p>
+</li>
 </ul>
 <span id="more"></span>
-<h2 id="阅读摘要">阅读摘要</h2>
-<ul>
-<li><p><strong>总体方向</strong>是着重处理“自填充”这个点，而后面聚类中心的选择和SRMVEC异曲同工</p></li>
-<li><p>聚类数的判定和可信划分的计算是分别进行的</p></li>
+
+<h2 id="阅读摘要"><a href="#阅读摘要" class="headerlink" title="阅读摘要"></a>阅读摘要</h2><ul>
+<li><p><strong>总体方向</strong>是着重处理“自填充”这个点，而后面聚类中心的选择和SRMVEC异曲同工</p>
+</li>
+<li><p>聚类数的判定和可信划分的计算是分别进行的</p>
+</li>
 <li><p>聚类过程中的多视图对象的亲和矩阵的三个参数的优化过程</p>
 <ul>
-<li>在该优化算法中，( _v^{(m)} )、( ) 和 ( _v )
-是核心变量，它们分别表示：<br />
-</li>
+<li>在该优化算法中，( \mathbf{X}_v^{(m)} )、( \mathbf{A} ) 和 ( \alpha_v ) 是核心变量，它们分别表示：</li>
 </ul>
-<ol type="1">
-<li>**( _v^{(m)} )（缺失数据的补全矩阵）**
+<ol>
+<li><p><strong>( \mathbf{X}_v^{(m)} )（缺失数据的补全矩阵）</strong>  </p>
 <ul>
-<li>这里的 ( _v ) 代表第 ( v ) 个视角（view）的数据矩阵，其中上标 ( (m)
-) 代表该视角中 <strong>缺失的数据部分（missing part）</strong>。<br />
+<li>这里的 ( \mathbf{X}_v ) 代表第 ( v ) 个视角（view）的数据矩阵，其中上标 ( (m) ) 代表该视角中 <strong>缺失的数据部分（missing part）</strong>。  </li>
+<li>在多视角学习任务中，不同视角的数据可能有缺失。例如，某个对象可能在某个视角的数据集中缺失，我们需要补全这些缺失部分，使其适应整体模型。  </li>
+<li><strong>在优化过程中，我们的目标之一是求解最优的 ( \mathbf{X}_v^{(m)} ) 来填补这些缺失值，使数据更完整</strong>。</li>
+</ul>
 </li>
-<li>在多视角学习任务中，不同视角的数据可能有缺失。例如，某个对象可能在某个视角的数据集中缺失，我们需要补全这些缺失部分，使其适应整体模型。<br />
-</li>
-<li>**在优化过程中，我们的目标之一是求解最优的 ( _v^{(m)} )
-来填补这些缺失值，使数据更完整**。</li>
-</ul></li>
-<li><strong>( )（亲和矩阵，Affinity Matrix）</strong>
+<li><p><strong>( \mathbf{A} )（亲和矩阵，Affinity Matrix）</strong>  </p>
 <ul>
-<li>( ) 是一个
-<strong>亲和矩阵</strong>，用于描述样本之间的相似性。<br />
-</li>
-<li>该矩阵可以被看作是一个<strong>图（Graph）</strong>的邻接矩阵，每个元素
-( A_{ij} ) 表示第 ( i ) 个样本和第 ( j ) 个样本之间的关系权重。<br />
-</li>
-<li>在优化过程中，( )
-影响数据的聚类结构，并用于数据补全和特征学习。<br />
-</li>
+<li>( \mathbf{A} ) 是一个 <strong>亲和矩阵</strong>，用于描述样本之间的相似性。  </li>
+<li>该矩阵可以被看作是一个**图（Graph）**的邻接矩阵，每个元素 ( A_{ij} ) 表示第 ( i ) 个样本和第 ( j ) 个样本之间的关系权重。  </li>
+<li>在优化过程中，( \mathbf{A} ) 影响数据的聚类结构，并用于数据补全和特征学习。  </li>
 <li><strong>它的优化使得数据补全结果更符合整体数据结构</strong>。</li>
-</ul></li>
-<li>**( _v )（视角权重，View Weight）**
+</ul>
+</li>
+<li><p><strong>( \alpha_v )（视角权重，View Weight）</strong>  </p>
 <ul>
-<li>在多视角学习中，不同的视角（数据来源）可能对最终任务（如聚类或分类）贡献不同。<br />
+<li>在多视角学习中，不同的视角（数据来源）可能对最终任务（如聚类或分类）贡献不同。  </li>
+<li>( \alpha_v ) 代表第 ( v ) 个视角的重要性权重，确保对信息丰富的视角赋予更高的权重，而对噪声较大的视角赋予较低的权重。  </li>
+<li>这些权重满足约束 ( \sum_{v&#x3D;1}^{p} \alpha_v &#x3D; 1 )，保证所有视角的贡献总和为 1。  </li>
+<li><strong>优化 ( \alpha_v ) 的目的是找到最优的视角组合，使得最终的聚类&#x2F;分类性能最佳</strong>。</li>
+</ul>
 </li>
-<li>( _v ) 代表第 ( v )
-个视角的重要性权重，确保对信息丰富的视角赋予更高的权重，而对噪声较大的视角赋予较低的权重。<br />
-</li>
-<li>这些权重满足约束 ( _{v=1}^{p} _v = 1 )，保证所有视角的贡献总和为
-1。<br />
-</li>
-<li>**优化 ( _v )
-的目的是找到最优的视角组合，使得最终的聚类/分类性能最佳**。</li>
-</ul></li>
 </ol>
 <ul>
 <li>整个优化过程就是不断调整这三个参数，使数据补全、视角权重分配和数据关系优化达到最优，从而提升最终的任务效果（如聚类或分类）。</li>
-</ul></li>
-<li><p><strong>整体算法</strong> <strong>Algorithm 1 SFPMEC
-algorithm</strong></p>
+</ul>
+</li>
+<li><p><strong>整体算法</strong><br>  <strong>Algorithm 1 SFPMEC algorithm</strong>  </p>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 66%" />
-</colgroup>
 <thead>
 <tr>
 <th>Step</th>
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>Input:</strong></td>
-<td>Partial data matrices ({X_1, X_2, , X_p}), () and ()</td>
+<td>Partial data matrices ({X_1, X_2, \dots, X_p}), (\rho) and (\eta)</td>
 </tr>
 <tr>
 <td><strong>Output:</strong></td>
-<td>Credal partition (^{})</td>
+<td>Credal partition (\mathcal{M}^{\Theta})</td>
 </tr>
 <tr>
 <td>1</td>
-<td>Initialize ( A ), ( _v ), and ( X_v^{(m)} )</td>
+<td>Initialize ( A ), ( \alpha_v ), and ( X_v^{(m)} )</td>
 </tr>
 <tr>
 <td>2</td>
@@ -331,7 +314,7 @@ algorithm</strong></p>
 </tr>
 <tr>
 <td>4</td>
-<td>Update the ( _v ) by solving the problem (23);</td>
+<td>Update the ( \alpha_v ) by solving the problem (23);</td>
 </tr>
 <tr>
 <td>5</td>
@@ -343,18 +326,15 @@ algorithm</strong></p>
 </tr>
 <tr>
 <td>7</td>
-<td>Calculate ( Pos ) and ( Sep ) for each object according to Eq. (10)
-and Eq. (11), respectively;</td>
+<td>Calculate ( Pos ) and ( Sep ) for each object according to Eq. (10) and Eq. (11), respectively;</td>
 </tr>
 <tr>
 <td>8</td>
-<td>Map the multi-view objects to the ( Sep - Pos ) chart and detect ( c
-) cluster centers;</td>
+<td>Map the multi-view objects to the ( Sep - Pos ) chart and detect ( c ) cluster centers;</td>
 </tr>
 <tr>
 <td>9</td>
-<td>Initialize mass functions for ( c ) cluster centers (based on Eq.
-(30)) and other objects;</td>
+<td>Initialize mass functions for ( c ) cluster centers (based on Eq. (30)) and other objects;</td>
 </tr>
 <tr>
 <td>10</td>
@@ -362,7 +342,7 @@ and Eq. (11), respectively;</td>
 </tr>
 <tr>
 <td>11</td>
-<td>Update the step size ( _e ) according to Eq. (32) or Eq. (34);</td>
+<td>Update the step size ( \chi_e ) according to Eq. (32) or Eq. (34);</td>
 </tr>
 <tr>
 <td>12</td>
@@ -372,8 +352,8 @@ and Eq. (11), respectively;</td>
 <td>13</td>
 <td><strong>until Convergence</strong></td>
 </tr>
-</tbody>
-</table></li>
+</tbody></table>
+</li>
 </ul>
 
     </div>
@@ -396,6 +376,9 @@ and Eq. (11), respectively;</td>
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2025/03/22/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%8F%AF%E4%BF%A1%E8%81%9A%E7%B1%BB/" rel="next" title="多模态可信聚类">
+                  多模态可信聚类 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>

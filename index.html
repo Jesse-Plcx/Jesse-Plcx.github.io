@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -227,116 +227,6 @@
     
     <div class="post-body" itemprop="articleBody">
           
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/22/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%8F%AF%E4%BF%A1%E8%81%9A%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jesse Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jesse's Blog">
-      <meta itemprop="description" content="Record, Study, Share!">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Jesse's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/22/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%8F%AF%E4%BF%A1%E8%81%9A%E7%B1%BB/" class="post-title-link" itemprop="url">多模态可信聚类</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-03-22 17:55:52" itemprop="dateCreated datePublished" datetime="2025-03-22T17:55:52+08:00">2025-03-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-30 13:08:29" itemprop="dateModified" datetime="2025-03-30T13:08:29+08:00">2025-03-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="多模态可信聚类"><a href="#多模态可信聚类" class="headerlink" title="多模态可信聚类"></a>多模态可信聚类</h1><h3 id="1-可信的相关理论支撑"><a href="#1-可信的相关理论支撑" class="headerlink" title="1.可信的相关理论支撑"></a>1.可信的相关理论支撑</h3><h4 id="1-1-DST理论（可信的理论支撑）"><a href="#1-1-DST理论（可信的理论支撑）" class="headerlink" title="1.1 DST理论（可信的理论支撑）"></a>1.1 DST理论（可信的理论支撑）</h4><ul>
-<li>定义：DST证据理论（Dempster-Shafer Theory），是一种不精确推理理论，主要用于处理不确定信息。它允许人们在证据不完全、不精确或相互矛盾的情况下进行推理和决策。</li>
-</ul>
-<ol>
-<li>框架（Θ）：定义问题的全集，包含所有可能的互斥命题。</li>
-<li>基本信任分配（BBA, m(A)）：为不同子集分配置信度，满足归一化条件。  </li>
-<li>信任度（Bel(A)）：A 发生的最低可信度，即所有完全包含在 A 内的子集的概率总和。</li>
-<li>似然度（Pl(A)）：A 可能发生的最大可能性，即所有与 A 有交集的子集的概率总和。</li>
-<li>Dempster 组合规则：用于融合多个独立证据，计算新的置信分配。</li>
-<li>冲突处理：当证据矛盾时，调整或归一化置信分配以降低冲突影响。</li>
-</ol>
-<h4 id="1-2-狄利克雷分布"><a href="#1-2-狄利克雷分布" class="headerlink" title="1.2 狄利克雷分布"></a>1.2 狄利克雷分布</h4><ul>
-<li>狄利克雷分布可以用于表示多个类别之间的模糊性或不确定性，不确定性量化</li>
-<li>通俗来说是概率的概率。</li>
-<li>$$<br>p(\theta_1, \theta_2, \dots, \theta_k) &#x3D; \frac{1}{B(\alpha)} \prod_{i&#x3D;1}^{k} \theta_i^{\alpha_i - 1}<br>$$<ul>
-<li>其中，( \theta_i ) 代表类别的概率，( \alpha_i ) 是超参数，表示每个类别的先验信息。</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/03/22/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%8F%AF%E4%BF%A1%E8%81%9A%E7%B1%BB/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

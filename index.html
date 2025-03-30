@@ -288,7 +288,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-30 11:48:24" itemprop="dateModified" datetime="2025-03-30T11:48:24+08:00">2025-03-30</time>
+      <time title="Modified: 2025-03-30 13:08:29" itemprop="dateModified" datetime="2025-03-30T13:08:29+08:00">2025-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -329,44 +329,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="2-哪里用到可信，如何体现可信"><a href="#2-哪里用到可信，如何体现可信" class="headerlink" title="2.哪里用到可信，如何体现可信"></a>2.哪里用到可信，如何体现可信</h3><ul>
-<li>对于<strong>单个样本</strong>，通过网络的特征向量，进一步得到样本属于不同簇的分类度，然后对样本进行归类</li>
-<li>对于<strong>边缘样本</strong>采取信任划分（credal partition），来描述聚类成员的模糊性和不确定性，以提高聚类性能</li>
-<li>通过可信对<strong>不确定度高的数据</strong>进行提出和筛选，防止影响整个聚类任务的准确度</li>
-<li>另一部分就是<strong>任务整体的可信</strong>，我认为整体的可信,即任务本身的可信，可以是不同样本融合得到，同时结合评估指标，来衡量我们的任务是否是可信的，可信度是多少</li>
-</ul>
-<h3 id="3-聚类的簇数处理"><a href="#3-聚类的簇数处理" class="headerlink" title="3.聚类的簇数处理"></a>3.聚类的簇数处理</h3><ul>
-<li>已知聚类簇数的任务，则直接用已知的簇数进行度量的聚类</li>
-<li>未知聚类的簇数，<ul>
-<li>通过不同簇数的尝试，或者设计指标来度量不同簇数的合理性，来选择合适的簇数完成聚类任务</li>
-<li>通过亲和矩阵，量化不同的指标，得到相似度和分离度，从而进一步<strong>人工</strong>筛选<strong>聚类中心</strong>，得到聚类簇数，但感觉这样有根据答案做题之嫌（参考Self-filling evidential clustering for partial multi-view data）</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-聚类的损失如何计量"><a href="#4-聚类的损失如何计量" class="headerlink" title="4.聚类的损失如何计量"></a>4.聚类的损失如何计量</h3><ul>
-<li>有关多视角融合的损失函数设计，给每个视角赋予不同的融合权重，更好的融合证据</li>
-<li>设计有关证据生成的损失函数<ul>
-<li>对于STCMC-UR这篇，作者采用了三各部分来构成证据生成的损失函数<ol>
-<li>基于Cauchy-Schwartz散度的损失，通过比较特征的相似度来让同类的特征更聚集，使得特征表示更加紧凑。</li>
-<li>基于几何结构的损失，保证聚类结果具有清晰的几何结构，避免无效的聚类。</li>
-<li>正交约束损失，确保每个输出结果都能独立表达不同的信息，避免它们之间的干扰。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="5-聚类指标，如何评判"><a href="#5-聚类指标，如何评判" class="headerlink" title="5.聚类指标，如何评判"></a>5.聚类指标，如何评判</h3><ul>
-<li>可信聚类基本上都是利用分类的数据集，但是和可信分类不同的是，可信聚类的工作一般是已知聚类的簇数</li>
-<li>acc，用来衡量聚类结果与真实标签的匹配程度</li>
-<li>nmi，衡量聚类结果与真实标签的信息相关性，结果与真实标签之间的信息共享程度</li>
-</ul>
-<h3 id="6-目前可信聚类的相关领域的研究方向"><a href="#6-目前可信聚类的相关领域的研究方向" class="headerlink" title="6.目前可信聚类的相关领域的研究方向"></a>6.目前可信聚类的相关领域的研究方向</h3><ol>
-<li>时间序列数据的处理(Trusted and Interactive Clustering for Time-Series Data)</li>
-<li>增量学习方面的应用(Incremental Belief-Peaks Evidential Clustering)</li>
-<li>自填充过程，处理内容不全的数据(Self-filling evidential clustering for partial multi-view data)</li>
-<li>解决簇数未知的问题，提高聚类的可解释性;利用新方法（稀疏重构）来解决数据重叠的情况(Sparse Reconstructive Evidential Clustering for Multi-View Data)</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/03/22/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%8F%AF%E4%BF%A1%E8%81%9A%E7%B1%BB/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

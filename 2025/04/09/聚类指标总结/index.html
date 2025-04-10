@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="外部指标1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）1.1 RI定义： RI，基于样本对的组合来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）  核心思想：在所有可能的样本对中：  a：同属一个类，聚类结果也分在同一个簇 b：不同类，聚类也分在不同簇 c：同属一个类，但聚类分到不同簇 d：不同类，但聚类分到同一个簇  那么，RI 定义为：$">
+    <meta name="description" content="优化指标是“模型训练时要最小化&#x2F;最大化的函数”； 评估指标是“训练完后用来衡量模型好坏的标准”。  一句话总结： 优化指标是“模型训练时要最小化&#x2F;最大化的函数”；   评估指标是“训练完后用来衡量模型好坏的标准”。  二者的详细对比   维度 优化指标（Objective&#x2F;Loss Function） 评估指标（Evaluation Metric）    作用 指导">
 <meta property="og:type" content="article">
 <meta property="og:title" content="聚类指标总结">
 <meta property="og:url" content="http://example.com/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="外部指标1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）1.1 RI定义： RI，基于样本对的组合来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）  核心思想：在所有可能的样本对中：  a：同属一个类，聚类结果也分在同一个簇 b：不同类，聚类也分在不同簇 c：同属一个类，但聚类分到不同簇 d：不同类，但聚类分到同一个簇  那么，RI 定义为：$">
+<meta property="og:description" content="优化指标是“模型训练时要最小化&#x2F;最大化的函数”； 评估指标是“训练完后用来衡量模型好坏的标准”。  一句话总结： 优化指标是“模型训练时要最小化&#x2F;最大化的函数”；   评估指标是“训练完后用来衡量模型好坏的标准”。  二者的详细对比   维度 优化指标（Objective&#x2F;Loss Function） 评估指标（Evaluation Metric）    作用 指导">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-09T08:19:36.000Z">
-<meta property="article:modified_time" content="2025-04-09T09:39:45.024Z">
+<meta property="article:modified_time" content="2025-04-10T10:10:42.360Z">
 <meta property="article:author" content="Jesse Chen">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary">
@@ -112,7 +112,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E6%8C%87%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">外部指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Rand-Index%EF%BC%88RI%EF%BC%89-Adjusted-Rand-Index%EF%BC%88ARI%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-RI"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 RI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%EF%BC%9A"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">核心思想：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%EF%BC%9A"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">范围：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ARI"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 ARI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">特点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">举个简单例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mutual-Information%EF%BC%88MI%EF%BC%89-Normalized-Mutual-Information%EF%BC%88NMI%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-MI"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 MI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">直觉理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">数学定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%86-MI-%E6%9C%89%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">但 MI 有个问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NMI"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 NMI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%EF%BC%9A-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">直觉理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AE%9A%E4%B9%89%E5%85%AC%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">常见的定义公式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NMI-%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">NMI 的特点：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%8D-%E5%B0%8F%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.3.</span> <span class="nav-text">🔍 小结对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%8C%87%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">内部指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A4%96%E9%83%A8%E6%8C%87%E6%A0%87%EF%BC%88External-Evaluation%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">一、外部指标（External Evaluation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Fowlkes%E2%80%93Mallows-Index%EF%BC%88FMI%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">3. Fowlkes–Mallows Index（FMI）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%86%85%E9%83%A8%E6%8C%87%E6%A0%87%EF%BC%88Internal-Evaluation%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">二、内部指标（Internal Evaluation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BD%AE%E5%BB%93%E7%B3%BB%E6%95%B0%EF%BC%88Silhouette-Coefficient%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 轮廓系数（Silhouette Coefficient）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Davies-Bouldin-Index%EF%BC%88DBI%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Davies-Bouldin Index（DBI）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Calinski-Harabasz-Index%EF%BC%88CH%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. Calinski-Harabasz Index（CH）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8C%87%E6%A0%87%EF%BC%88Stability-Metrics%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">三、稳定性指标（Stability Metrics）</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">一句话总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%80%85%E7%9A%84%E8%AF%A6%E7%BB%86%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">二者的详细对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="nav-number"></span> <span class="nav-text">外部评估指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Rand-Index%EF%BC%88RI%EF%BC%89-Adjusted-Rand-Index%EF%BC%88ARI%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-RI"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 RI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">核心思想：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">范围：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ARI"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 ARI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.2.2.</span> <span class="nav-text">特点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90"><span class="nav-number">1.3.</span> <span class="nav-text">举个简单例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mutual-Information%EF%BC%88MI%EF%BC%89-Normalized-Mutual-Information%EF%BC%88NMI%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-MI"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 MI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">2.1.1.</span> <span class="nav-text">直觉理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">2.1.2.</span> <span class="nav-text">数学定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%86-MI-%E6%9C%89%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">2.1.3.</span> <span class="nav-text">但 MI 有个问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NMI"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NMI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%EF%BC%9A-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">直觉理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AE%9A%E4%B9%89%E5%85%AC%E5%BC%8F%EF%BC%9A"><span class="nav-number">2.2.2.</span> <span class="nav-text">常见的定义公式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NMI-%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">2.2.3.</span> <span class="nav-text">NMI 的特点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%8D-%E5%B0%8F%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">2.3.</span> <span class="nav-text">🔍 小结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Fowlkes%E2%80%93Mallows-Index%EF%BC%88FMI%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. Fowlkes–Mallows Index（FMI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-FMI-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 FMI 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-FMI-%E7%9A%84%E5%85%AC%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 FMI 的公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%84%E9%83%A8%E5%88%86%E8%A7%A3%E9%87%8A%EF%BC%9A"><span class="nav-number">3.2.1.</span> <span class="nav-text">各部分解释：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FMI-%E7%9A%84%E5%8F%96%E5%80%BC%E8%8C%83%E5%9B%B4%EF%BC%9A"><span class="nav-number">3.2.2.</span> <span class="nav-text">FMI 的取值范围：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-FMI-%E7%9A%84%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 FMI 的直观理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E4%B8%8E%E5%85%B6%E4%BB%96%E6%8C%87%E6%A0%87%E6%AF%94%E8%BE%83"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 与其他指标比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.4.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="nav-number"></span> <span class="nav-text">内部评估指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%BD%AE%E5%BB%93%E7%B3%BB%E6%95%B0%EF%BC%88Silhouette-Coefficient%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1. 轮廓系数（Silhouette Coefficient）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Davies-Bouldin-Index%EF%BC%88DBI%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. Davies-Bouldin Index（DBI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Calinski-Harabasz-Index%EF%BC%88CH%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. Calinski-Harabasz Index（CH）</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -207,9 +207,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2025-04-09 16:19:36 / Modified: 17:39:45" itemprop="dateCreated datePublished" datetime="2025-04-09T16:19:36+08:00">2025-04-09</time>
+      <time title="Created: 2025-04-09 16:19:36" itemprop="dateCreated datePublished" datetime="2025-04-09T16:19:36+08:00">2025-04-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-10 18:10:42" itemprop="dateModified" datetime="2025-04-10T18:10:42+08:00">2025-04-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -230,7 +236,54 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h1><h2 id="1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）"><a href="#1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）" class="headerlink" title="1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）"></a>1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</h2><h3 id="1-1-RI"><a href="#1-1-RI" class="headerlink" title="1.1 RI"></a>1.1 RI</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
+    <div class="post-body" itemprop="articleBody"><ul>
+<li><strong>优化指标</strong>是“模型训练时要最小化&#x2F;最大化的函数”；</li>
+<li><strong>评估指标</strong>是“训练完后用来衡量模型好坏的标准”。</li>
+</ul>
+<h2 id="一句话总结："><a href="#一句话总结：" class="headerlink" title="一句话总结："></a>一句话总结：</h2><ul>
+<li><strong>优化指标</strong>是“模型训练时要最小化&#x2F;最大化的函数”；  </li>
+<li><strong>评估指标</strong>是“训练完后用来衡量模型好坏的标准”。</li>
+</ul>
+<h2 id="二者的详细对比"><a href="#二者的详细对比" class="headerlink" title="二者的详细对比"></a>二者的详细对比</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>优化指标（Objective&#x2F;Loss Function）</th>
+<th>评估指标（Evaluation Metric）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>作用</td>
+<td>指导模型训练，决定梯度更新方向</td>
+<td>衡量训练&#x2F;测试后模型的好坏</td>
+</tr>
+<tr>
+<td>使用阶段</td>
+<td>模型训练阶段</td>
+<td>模型评估阶段</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>最小化（或最大化）它，让模型拟合数据</td>
+<td>越高（或越低）代表模型性能越好</td>
+</tr>
+<tr>
+<td>常见形式</td>
+<td>损失函数，如 MSE、交叉熵、对比损失</td>
+<td>准确率、F1、ARI、NMI、FMI 等</td>
+</tr>
+<tr>
+<td>是否可微分</td>
+<td>必须可导（用于反向传播）</td>
+<td>不一定可导（只用于观察效果）</td>
+</tr>
+<tr>
+<td>参与训练吗？</td>
+<td>✅ 是训练核心</td>
+<td>❌ 不参与训练，仅用于评估</td>
+</tr>
+</tbody></table>
+<h1 id="外部评估指标"><a href="#外部评估指标" class="headerlink" title="外部评估指标"></a>外部评估指标</h1><h2 id="1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）"><a href="#1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）" class="headerlink" title="1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）"></a>1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</h2><h3 id="1-1-RI"><a href="#1-1-RI" class="headerlink" title="1.1 RI"></a>1.1 RI</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
 <li>RI，基于<strong>样本对的组合</strong>来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）</li>
 </ul>
 <h4 id="核心思想："><a href="#核心思想：" class="headerlink" title="核心思想："></a>核心思想：</h4><p>在所有可能的样本对中：</p>
@@ -332,7 +385,7 @@
 <li><strong>0 表示完全无关</strong>，即聚类结果与标签完全不相关。</li>
 </ul>
 <hr>
-<h2 id="🔍-小结对比"><a href="#🔍-小结对比" class="headerlink" title="🔍 小结对比"></a>🔍 小结对比</h2><table>
+<h3 id="🔍-小结对比"><a href="#🔍-小结对比" class="headerlink" title="🔍 小结对比"></a>🔍 小结对比</h3><table>
 <thead>
 <tr>
 <th>指标</th>
@@ -358,38 +411,89 @@
 </tr>
 </tbody></table>
 <hr>
-<h1 id="内部指标"><a href="#内部指标" class="headerlink" title="内部指标"></a>内部指标</h1><p>&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;</p>
+<h2 id="3-Fowlkes–Mallows-Index（FMI）"><a href="#3-Fowlkes–Mallows-Index（FMI）" class="headerlink" title="3. Fowlkes–Mallows Index（FMI）"></a>3. Fowlkes–Mallows Index（FMI）</h2><h3 id="3-1-FMI-是什么？"><a href="#3-1-FMI-是什么？" class="headerlink" title="3.1 FMI 是什么？"></a>3.1 FMI 是什么？</h3><p>Fowlkes–Mallows Index（FMI）是一种基于**两两样本对（pairwise comparison）**的评估指标，它考虑了以下三类样本对的关系：</p>
+<ul>
+<li><strong>True Positive (TP)</strong>：在聚类结果中被分到同一簇，并且在真实标签中也属于同一类。</li>
+<li><strong>False Positive (FP)</strong>：在聚类中是同一簇，但真实标签不一样。</li>
+<li><strong>False Negative (FN)</strong>：真实标签相同，但在聚类中被分到不同簇。</li>
+</ul>
+<p>FMI 就是根据这些来评估聚类的好坏。</p>
 <hr>
-<h2 id="一、外部指标（External-Evaluation）"><a href="#一、外部指标（External-Evaluation）" class="headerlink" title="一、外部指标（External Evaluation）"></a>一、<strong>外部指标（External Evaluation）</strong></h2><h3 id="3-Fowlkes–Mallows-Index（FMI）"><a href="#3-Fowlkes–Mallows-Index（FMI）" class="headerlink" title="3. Fowlkes–Mallows Index（FMI）"></a>3. <strong>Fowlkes–Mallows Index（FMI）</strong></h3><ul>
-<li>根据聚类结果中的True Positive、False Positive等计算相似度。</li>
-<li>范围 [0, 1]，越高表示聚类越准确。</li>
+<h3 id="3-2-FMI-的公式"><a href="#3-2-FMI-的公式" class="headerlink" title="3.2 FMI 的公式"></a>3.2 FMI 的公式</h3><p>$$<br>\text{FMI} &#x3D; \frac{\text{TP}}{\sqrt{(\text{TP} + \text{FP}) \cdot (\text{TP} + \text{FN})}}<br>$$</p>
+<h4 id="各部分解释："><a href="#各部分解释：" class="headerlink" title="各部分解释："></a>各部分解释：</h4><ul>
+<li>分子是 TP：聚类正确地把同类放在了一起</li>
+<li>分母是 TP+FP 和 TP+FN 的几何平均，避免偏向于只考虑正例或负例</li>
+</ul>
+<h4 id="FMI-的取值范围："><a href="#FMI-的取值范围：" class="headerlink" title="FMI 的取值范围："></a>FMI 的取值范围：</h4><ul>
+<li>取值范围为 [0, 1]</li>
+<li><strong>越接近 1</strong> 表示聚类结果越接近真实标签</li>
+<li><strong>0 表示完全不匹配</strong>，<strong>1 表示完全匹配</strong></li>
 </ul>
 <hr>
-<h2 id="二、内部指标（Internal-Evaluation）"><a href="#二、内部指标（Internal-Evaluation）" class="headerlink" title="二、内部指标（Internal Evaluation）"></a>二、<strong>内部指标（Internal Evaluation）</strong></h2><p>内部指标不依赖真实标签，仅依赖数据本身和聚类结果，常用于实际无标签任务。常见的有：</p>
-<h3 id="1-轮廓系数（Silhouette-Coefficient）"><a href="#1-轮廓系数（Silhouette-Coefficient）" class="headerlink" title="1. 轮廓系数（Silhouette Coefficient）"></a>1. <strong>轮廓系数（Silhouette Coefficient）</strong></h3><ul>
+<h3 id="3-3-FMI-的直观理解"><a href="#3-3-FMI-的直观理解" class="headerlink" title="3.3 FMI 的直观理解"></a>3.3 FMI 的直观理解</h3><p>设想我们要将学生分组，而我们事先知道他们的真实专业（真实标签），我们的聚类算法给出了分组结果。FMI 就是在问：</p>
+<blockquote>
+<p>“你分在一起的学生，真的都属于同一个专业吗？”<br>“那些应该属于一个专业的学生，你有没有漏掉没分在一起？”</p>
+</blockquote>
+<hr>
+<h3 id="3-4-与其他指标比较"><a href="#3-4-与其他指标比较" class="headerlink" title="3.4 与其他指标比较"></a>3.4 与其他指标比较</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FMI</td>
+<td>简洁明了，基于 pairwise 评估，直观易解释</td>
+</tr>
+<tr>
+<td>ARI（调整兰德指数）</td>
+<td>对随机分组结果进行惩罚，适合聚类数不同的情况</td>
+</tr>
+<tr>
+<td>NMI（归一化互信息）</td>
+<td>信息论角度衡量聚类与标签的相关性</td>
+</tr>
+<tr>
+<td>Purity</td>
+<td>更偏向分类准确率，但忽略了聚类结构整体性</td>
+</tr>
+</tbody></table>
+<p> <strong>FMI 特别适用于聚类类别数已知、数据量中等的情况。</strong></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>简单易计算，解释直观，0-1之间好比较</td>
+<td>不适用于无标签评估；聚类数差距大时不稳定</td>
+</tr>
+</tbody></table>
+<hr>
+<p>如果你正在写论文或做项目，可以考虑将 FMI 与 ARI、NMI 一起使用，更全面地评估聚类效果。如果你有具体的聚类任务（比如文本、图像、图结构等），我也可以帮你分析适合用 FMI 吗～要试试？</p>
+<h1 id="内部评估指标"><a href="#内部评估指标" class="headerlink" title="内部评估指标"></a>内部评估指标</h1><p>内部指标不依赖真实标签，仅依赖数据本身和聚类结果，常用于实际无标签任务。常见的有：</p>
+<h2 id="1-轮廓系数（Silhouette-Coefficient）"><a href="#1-轮廓系数（Silhouette-Coefficient）" class="headerlink" title="1. 轮廓系数（Silhouette Coefficient）"></a>1. 轮廓系数（Silhouette Coefficient）</h2><ul>
 <li>结合了簇内相似度和簇间差异性。</li>
 <li>取值范围 [-1, 1]，越接近1表示聚类效果越好。</li>
 </ul>
-<p>公式：<br>$$<br>s(i) &#x3D; \frac{b(i) - a(i)}{\max(a(i), b(i))}<br>$$<br>其中：</p>
+<p>公式：<br>$$<br>s(i) &#x3D; \frac{b(i) - a(i)}{\max(a(i), b(i))}<br>$$</p>
+<p>其中：</p>
 <ul>
 <li>$a(i)$：样本与本簇内其他样本的平均距离</li>
 <li>$b(i)$：样本与最近邻簇的平均距离</li>
 </ul>
-<h3 id="2-Davies-Bouldin-Index（DBI）"><a href="#2-Davies-Bouldin-Index（DBI）" class="headerlink" title="2. Davies-Bouldin Index（DBI）"></a>2. <strong>Davies-Bouldin Index（DBI）</strong></h3><ul>
+<h2 id="2-Davies-Bouldin-Index（DBI）"><a href="#2-Davies-Bouldin-Index（DBI）" class="headerlink" title="2. Davies-Bouldin Index（DBI）"></a>2. Davies-Bouldin Index（DBI）</h2><ul>
 <li>衡量各簇之间的相对距离和散度。</li>
 <li>数值越小表示簇分得越清晰。</li>
 </ul>
-<h3 id="3-Calinski-Harabasz-Index（CH）"><a href="#3-Calinski-Harabasz-Index（CH）" class="headerlink" title="3. Calinski-Harabasz Index（CH）"></a>3. <strong>Calinski-Harabasz Index（CH）</strong></h3><ul>
+<h2 id="3-Calinski-Harabasz-Index（CH）"><a href="#3-Calinski-Harabasz-Index（CH）" class="headerlink" title="3. Calinski-Harabasz Index（CH）"></a>3. Calinski-Harabasz Index（CH）</h2><ul>
 <li>也叫方差比准则（Variance Ratio Criterion），衡量簇间方差与簇内方差之比。</li>
 <li>值越大表示聚类越好。</li>
 </ul>
 <hr>
-<h2 id="三、稳定性指标（Stability-Metrics）"><a href="#三、稳定性指标（Stability-Metrics）" class="headerlink" title="三、稳定性指标（Stability Metrics）"></a>三、<strong>稳定性指标（Stability Metrics）</strong></h2><ul>
-<li>比如用不同子集或不同初始化多次聚类，看结果是否一致，常用于评估模型鲁棒性。</li>
-<li>如：重抽样一致性（Resampling Consistency）、Bootstrap方法等。</li>
-</ul>
-<hr>
-<p>需要用哪类指标，取决于是否有标签可用，或者是否只关心簇本身结构。你现在是在做有监督还是无监督的聚类任务呢？可以说说具体应用场景，我可以帮你推荐合适的指标。</p>
 
     </div>
 

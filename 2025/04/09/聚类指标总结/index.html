@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/web-app-manifest-512x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/web-app-manifest-192x192.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="外部指标1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）1.1 RI定义： RI，基于样本对的组合来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）  核心思想：在所有可能的样本对中：  a：同属一个类，聚类结果也分在同一个簇 b：不同类，聚类也分在不同簇 c：同属一个类，但聚类分到不同簇 d：不同类，但聚类分到同一个簇  那么，RI 定义为：$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聚类指标总结">
+<meta property="og:url" content="http://example.com/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Jesse&#39;s Blog">
+<meta property="og:description" content="外部指标1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）1.1 RI定义： RI，基于样本对的组合来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）  核心思想：在所有可能的样本对中：  a：同属一个类，聚类结果也分在同一个簇 b：不同类，聚类也分在不同簇 c：同属一个类，但聚类分到不同簇 d：不同类，但聚类分到同一个簇  那么，RI 定义为：$">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-09T08:19:36.000Z">
+<meta property="article:modified_time" content="2025-04-09T09:39:45.024Z">
+<meta property="article:author" content="Jesse Chen">
+<meta property="article:tag" content="study">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/","path":"2025/04/09/聚类指标总结/","title":"聚类指标总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>聚类指标总结 | Jesse's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Jesse's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">:)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E6%8C%87%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">外部指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Rand-Index%EF%BC%88RI%EF%BC%89-Adjusted-Rand-Index%EF%BC%88ARI%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-RI"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 RI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%EF%BC%9A"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">核心思想：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%EF%BC%9A"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">范围：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ARI"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 ARI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">特点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">举个简单例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mutual-Information%EF%BC%88MI%EF%BC%89-Normalized-Mutual-Information%EF%BC%88NMI%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-MI"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 MI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">直觉理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">数学定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%86-MI-%E6%9C%89%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">但 MI 有个问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NMI"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 NMI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%EF%BC%9A-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">直觉理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AE%9A%E4%B9%89%E5%85%AC%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">常见的定义公式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NMI-%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">NMI 的特点：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%8D-%E5%B0%8F%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.3.</span> <span class="nav-text">🔍 小结对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%8C%87%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">内部指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A4%96%E9%83%A8%E6%8C%87%E6%A0%87%EF%BC%88External-Evaluation%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">一、外部指标（External Evaluation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Fowlkes%E2%80%93Mallows-Index%EF%BC%88FMI%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">3. Fowlkes–Mallows Index（FMI）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%86%85%E9%83%A8%E6%8C%87%E6%A0%87%EF%BC%88Internal-Evaluation%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">二、内部指标（Internal Evaluation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BD%AE%E5%BB%93%E7%B3%BB%E6%95%B0%EF%BC%88Silhouette-Coefficient%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 轮廓系数（Silhouette Coefficient）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Davies-Bouldin-Index%EF%BC%88DBI%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Davies-Bouldin Index（DBI）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Calinski-Harabasz-Index%EF%BC%88CH%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. Calinski-Harabasz Index（CH）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8C%87%E6%A0%87%EF%BC%88Stability-Metrics%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">三、稳定性指标（Stability Metrics）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jesse Chen"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jesse Chen</p>
+  <div class="site-description" itemprop="description">Record, Study, Share!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jesse-Plcx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jesse-Plcx" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:plcx666666@gmail.com" title="E-Mail → mailto:plcx666666@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.reddit.com/user/pl-cx/" title="Reddit → https:&#x2F;&#x2F;www.reddit.com&#x2F;user&#x2F;pl-cx&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-reddit fa-fw"></i>Reddit</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://x.com/pl_cx6" title="X → https:&#x2F;&#x2F;x.com&#x2F;pl_cx6" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>X</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jesse Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+      <meta itemprop="description" content="Record, Study, Share!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="聚类指标总结 | Jesse's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          聚类指标总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-04-09 16:19:36 / Modified: 17:39:45" itemprop="dateCreated datePublished" datetime="2025-04-09T16:19:36+08:00">2025-04-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h1><h2 id="1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）"><a href="#1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）" class="headerlink" title="1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）"></a>1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</h2><h3 id="1-1-RI"><a href="#1-1-RI" class="headerlink" title="1.1 RI"></a>1.1 RI</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
+<li>RI，基于<strong>样本对的组合</strong>来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）</li>
+</ul>
+<h4 id="核心思想："><a href="#核心思想：" class="headerlink" title="核心思想："></a>核心思想：</h4><p>在所有可能的样本对中：</p>
+<ul>
+<li><strong>a</strong>：同属一个类，聚类结果也分在同一个簇</li>
+<li><strong>b</strong>：不同类，聚类也分在不同簇</li>
+<li><strong>c</strong>：同属一个类，但聚类分到不同簇</li>
+<li><strong>d</strong>：不同类，但聚类分到同一个簇</li>
+</ul>
+<p>那么，RI 定义为：<br>$$<br>\text{RI} &#x3D; \frac{a + b}{a + b + c + d}<br>$$<br>也就是所有一致判断的对数（a+b）占总对数的比例。</p>
+<h4 id="范围："><a href="#范围：" class="headerlink" title="范围："></a>范围：</h4><ul>
+<li>RI ∈ [0, 1]，越接近1表示聚类越好。</li>
+<li>缺点：对<strong>随机聚类</strong>也可能得到较高值，不稳健。<blockquote>
+<p><strong>随机聚类</strong>指的是不基于任何数据结构或特征，而是随机地把数据样本划分到若干个簇中，就像“掷骰子决定每个样本属于哪个类”一样。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="1-2-ARI"><a href="#1-2-ARI" class="headerlink" title="1.2 ARI"></a>1.2 ARI</h3><h4 id="定义：-1"><a href="#定义：-1" class="headerlink" title="定义："></a>定义：</h4><p>ARI 是对 RI 进行修正，<strong>排除了随机结果带来的影响</strong>，使得在随机聚类时 ARI 的期望值为 0。</p>
+<p>公式（略复杂）为：<br>$$<br>\text{ARI} &#x3D; \frac{\text{RI} - \mathbb{E}[\text{RI}]}{\max(\text{RI}) - \mathbb{E}[\text{RI}]}<br>$$<br>实际计算会用<strong>组合数</strong>来表达，具体计算公式是基于混淆矩阵的（即聚类 vs. 真实标签的交叉表）。</p>
+<h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul>
+<li>ARI ∈ [-1, 1]：<ul>
+<li>0 表示结果与随机分类一致</li>
+<li>1 表示完全一致</li>
+<li>小于 0 表示比随机还差</li>
+</ul>
+</li>
+<li>更稳健，广泛用于对聚类结果进行客观评价</li>
+</ul>
+<hr>
+<h3 id="举个简单例子"><a href="#举个简单例子" class="headerlink" title="举个简单例子"></a>举个简单例子</h3><p>假设我们有 4 个样本，真实标签是 <code>[A, A, B, B]</code>，两个聚类结果：</p>
+<ul>
+<li><p><strong>聚类1</strong>：<code>[1, 1, 2, 2]</code> （正确分类）</p>
+</li>
+<li><p><strong>聚类2</strong>：<code>[1, 2, 1, 2]</code> （错误分类）</p>
+</li>
+<li><p>聚类1的 ARI ≈ 1.0（完美匹配）</p>
+</li>
+<li><p>聚类2的 ARI ≈ -0.5（比随机还差）</p>
+</li>
+</ul>
+<hr>
+<h3 id="总结对比"><a href="#总结对比" class="headerlink" title="总结对比"></a>总结对比</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>是否修正随机性</th>
+<th>值域范围</th>
+<th>推荐程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RI</td>
+<td>否</td>
+<td>[0, 1]</td>
+<td>中</td>
+</tr>
+<tr>
+<td>ARI</td>
+<td>是</td>
+<td>[-1, 1]</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-Mutual-Information（MI）-Normalized-Mutual-Information（NMI）"><a href="#2-Mutual-Information（MI）-Normalized-Mutual-Information（NMI）" class="headerlink" title="2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）"></a>2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）</h2><h3 id="2-1-MI"><a href="#2-1-MI" class="headerlink" title="2.1 MI"></a>2.1 MI</h3><h4 id="直觉理解："><a href="#直觉理解：" class="headerlink" title="直觉理解："></a>直觉理解：</h4><p>Mutual Information（互信息）来自信息论，用来衡量<strong>两个变量共享了多少信息</strong>。在聚类中，它衡量<strong>聚类结果 $C$</strong> 和 <strong>真实标签 $L$</strong> 之间的关联性。</p>
+<blockquote>
+<p>如果知道聚类标签，可以推断出真实标签，那么说明互信息高，聚类结果好。</p>
+</blockquote>
+<hr>
+<h4 id="数学定义："><a href="#数学定义：" class="headerlink" title="数学定义："></a>数学定义：</h4><p>设真实标签集合为 $L &#x3D; {l_1, l_2, …, l_K}$，聚类结果为 $C &#x3D; {c_1, c_2, …, c_J}$，那么互信息定义为：</p>
+<p>$$<br>MI(C, L) &#x3D; \sum_{i&#x3D;1}^{J} \sum_{j&#x3D;1}^{K} P(c_i \cap l_j) \cdot \log \left( \frac{P(c_i \cap l_j)}{P(c_i) \cdot P(l_j)} \right)<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$ P(c_i) $：样本属于第 $i$ 个聚类的概率</li>
+<li>$ P(l_j) $：样本属于第 $j$ 个真实类别的概率</li>
+<li>$ P(c_i \cap l_j) $：样本同时属于聚类 $c_i$ 和标签 $l_j$ 的概率</li>
+</ul>
+<hr>
+<h4 id="但-MI-有个问题："><a href="#但-MI-有个问题：" class="headerlink" title="但 MI 有个问题："></a>但 MI 有个问题：</h4><ul>
+<li>它不是归一化的，取值范围依赖于聚类的复杂度。</li>
+<li>不能直接比较不同聚类数时的聚类质量。</li>
+</ul>
+<p>所以我们引入了NMI</p>
+<hr>
+<h3 id="2-2-NMI"><a href="#2-2-NMI" class="headerlink" title="2.2 NMI"></a>2.2 NMI</h3><h4 id="直觉理解：-1"><a href="#直觉理解：-1" class="headerlink" title="直觉理解："></a>直觉理解：</h4><p>NMI 是对 MI 的归一化版本，使其取值总在 [0, 1] 之间，更易比较。</p>
+<h4 id="常见的定义公式："><a href="#常见的定义公式：" class="headerlink" title="常见的定义公式："></a>常见的定义公式：</h4><p>$$<br>\text{NMI}(C, L) &#x3D; \frac{MI(C, L)}{ \sqrt{H(C) \cdot H(L)} }<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$ H(C) $：聚类结果的熵</li>
+<li>$ H(L) $：真实标签的熵</li>
+<li>熵的计算公式是：<br>$$<br>H(X) &#x3D; -\sum_{x} P(x) \log P(x)<br>$$</li>
+</ul>
+<p>也可以使用其他归一化形式，比如平均法：<br>$$<br>\text{NMI}(C, L) &#x3D; \frac{2 \cdot MI(C, L)}{ H(C) + H(L) }<br>$$<br>这两种在 sklearn 中都支持。</p>
+<hr>
+<h4 id="NMI-的特点："><a href="#NMI-的特点：" class="headerlink" title="NMI 的特点："></a>NMI 的特点：</h4><ul>
+<li>范围：$$ \text{NMI} \in [0, 1] $$</li>
+<li><strong>1 表示完全一致</strong>，即聚类完美还原真实标签；</li>
+<li><strong>0 表示完全无关</strong>，即聚类结果与标签完全不相关。</li>
+</ul>
+<hr>
+<h2 id="🔍-小结对比"><a href="#🔍-小结对比" class="headerlink" title="🔍 小结对比"></a>🔍 小结对比</h2><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>概念</th>
+<th>值域</th>
+<th>是否归一化</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MI</td>
+<td>聚类和标签共享的信息量</td>
+<td>≥0</td>
+<td>否</td>
+<td>越大表示越相关，但无法比较不同任务</td>
+</tr>
+<tr>
+<td>NMI</td>
+<td>归一化的 MI</td>
+<td>[0,1]</td>
+<td>✅</td>
+<td>越接近 1 越好，常用于聚类评价</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="内部指标"><a href="#内部指标" class="headerlink" title="内部指标"></a>内部指标</h1><p>&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;</p>
+<hr>
+<h2 id="一、外部指标（External-Evaluation）"><a href="#一、外部指标（External-Evaluation）" class="headerlink" title="一、外部指标（External Evaluation）"></a>一、<strong>外部指标（External Evaluation）</strong></h2><h3 id="3-Fowlkes–Mallows-Index（FMI）"><a href="#3-Fowlkes–Mallows-Index（FMI）" class="headerlink" title="3. Fowlkes–Mallows Index（FMI）"></a>3. <strong>Fowlkes–Mallows Index（FMI）</strong></h3><ul>
+<li>根据聚类结果中的True Positive、False Positive等计算相似度。</li>
+<li>范围 [0, 1]，越高表示聚类越准确。</li>
+</ul>
+<hr>
+<h2 id="二、内部指标（Internal-Evaluation）"><a href="#二、内部指标（Internal-Evaluation）" class="headerlink" title="二、内部指标（Internal Evaluation）"></a>二、<strong>内部指标（Internal Evaluation）</strong></h2><p>内部指标不依赖真实标签，仅依赖数据本身和聚类结果，常用于实际无标签任务。常见的有：</p>
+<h3 id="1-轮廓系数（Silhouette-Coefficient）"><a href="#1-轮廓系数（Silhouette-Coefficient）" class="headerlink" title="1. 轮廓系数（Silhouette Coefficient）"></a>1. <strong>轮廓系数（Silhouette Coefficient）</strong></h3><ul>
+<li>结合了簇内相似度和簇间差异性。</li>
+<li>取值范围 [-1, 1]，越接近1表示聚类效果越好。</li>
+</ul>
+<p>公式：<br>$$<br>s(i) &#x3D; \frac{b(i) - a(i)}{\max(a(i), b(i))}<br>$$<br>其中：</p>
+<ul>
+<li>$a(i)$：样本与本簇内其他样本的平均距离</li>
+<li>$b(i)$：样本与最近邻簇的平均距离</li>
+</ul>
+<h3 id="2-Davies-Bouldin-Index（DBI）"><a href="#2-Davies-Bouldin-Index（DBI）" class="headerlink" title="2. Davies-Bouldin Index（DBI）"></a>2. <strong>Davies-Bouldin Index（DBI）</strong></h3><ul>
+<li>衡量各簇之间的相对距离和散度。</li>
+<li>数值越小表示簇分得越清晰。</li>
+</ul>
+<h3 id="3-Calinski-Harabasz-Index（CH）"><a href="#3-Calinski-Harabasz-Index（CH）" class="headerlink" title="3. Calinski-Harabasz Index（CH）"></a>3. <strong>Calinski-Harabasz Index（CH）</strong></h3><ul>
+<li>也叫方差比准则（Variance Ratio Criterion），衡量簇间方差与簇内方差之比。</li>
+<li>值越大表示聚类越好。</li>
+</ul>
+<hr>
+<h2 id="三、稳定性指标（Stability-Metrics）"><a href="#三、稳定性指标（Stability-Metrics）" class="headerlink" title="三、稳定性指标（Stability Metrics）"></a>三、<strong>稳定性指标（Stability Metrics）</strong></h2><ul>
+<li>比如用不同子集或不同初始化多次聚类，看结果是否一致，常用于评估模型鲁棒性。</li>
+<li>如：重抽样一致性（Resampling Consistency）、Bootstrap方法等。</li>
+</ul>
+<hr>
+<p>需要用哪类指标，取决于是否有标签可用，或者是否只关心簇本身结构。你现在是在做有监督还是无监督的聚类任务呢？可以说说具体应用场景，我可以帮你推荐合适的指标。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/study/" rel="tag"># study</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/12/SFPMVC/" rel="prev" title="SFPMVC">
+                  <i class="fa fa-angle-left"></i> SFPMVC
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jesse Chen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

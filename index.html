@@ -174,7 +174,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/30/%E7%9C%8B5%E5%B9%B4%EF%BC%8C%E6%83%B33%E5%B9%B4%EF%BC%8C%E8%B8%8F%E8%B8%8F%E5%AE%9E%E5%AE%9E%E5%B9%B2%E5%A5%BD1%EF%BC%8C2%E5%B9%B4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -192,7 +192,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/30/%E7%9C%8B5%E5%B9%B4%EF%BC%8C%E6%83%B33%E5%B9%B4%EF%BC%8C%E8%B8%8F%E8%B8%8F%E5%AE%9E%E5%AE%9E%E5%B9%B2%E5%A5%BD1%EF%BC%8C2%E5%B9%B4/" class="post-title-link" itemprop="url">看5年，想3年，踏踏实实干好1，2年</a>
+          <a href="/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">聚类指标总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -204,7 +204,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2025-03-30 11:19:47 / Modified: 11:20:38" itemprop="dateCreated datePublished" datetime="2025-03-30T11:19:47+08:00">2025-03-30</time>
+      <time title="Created: 2025-04-09 16:19:36 / Modified: 17:39:45" itemprop="dateCreated datePublished" datetime="2025-04-09T16:19:36+08:00">2025-04-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -212,7 +212,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
         </span>
     </span>
 
@@ -226,7 +226,167 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          
+          <h1 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h1><h2 id="1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）"><a href="#1-Rand-Index（RI）-Adjusted-Rand-Index（ARI）" class="headerlink" title="1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）"></a>1. Rand Index（RI）&#x2F;Adjusted Rand Index（ARI）</h2><h3 id="1-1-RI"><a href="#1-1-RI" class="headerlink" title="1.1 RI"></a>1.1 RI</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
+<li>RI，基于<strong>样本对的组合</strong>来统计有多少对被正确分类（即一致地分在同一簇或不同簇中）</li>
+</ul>
+<h4 id="核心思想："><a href="#核心思想：" class="headerlink" title="核心思想："></a>核心思想：</h4><p>在所有可能的样本对中：</p>
+<ul>
+<li><strong>a</strong>：同属一个类，聚类结果也分在同一个簇</li>
+<li><strong>b</strong>：不同类，聚类也分在不同簇</li>
+<li><strong>c</strong>：同属一个类，但聚类分到不同簇</li>
+<li><strong>d</strong>：不同类，但聚类分到同一个簇</li>
+</ul>
+<p>那么，RI 定义为：<br>$$<br>\text{RI} &#x3D; \frac{a + b}{a + b + c + d}<br>$$<br>也就是所有一致判断的对数（a+b）占总对数的比例。</p>
+<h4 id="范围："><a href="#范围：" class="headerlink" title="范围："></a>范围：</h4><ul>
+<li>RI ∈ [0, 1]，越接近1表示聚类越好。</li>
+<li>缺点：对<strong>随机聚类</strong>也可能得到较高值，不稳健。<blockquote>
+<p><strong>随机聚类</strong>指的是不基于任何数据结构或特征，而是随机地把数据样本划分到若干个簇中，就像“掷骰子决定每个样本属于哪个类”一样。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="1-2-ARI"><a href="#1-2-ARI" class="headerlink" title="1.2 ARI"></a>1.2 ARI</h3><h4 id="定义：-1"><a href="#定义：-1" class="headerlink" title="定义："></a>定义：</h4><p>ARI 是对 RI 进行修正，<strong>排除了随机结果带来的影响</strong>，使得在随机聚类时 ARI 的期望值为 0。</p>
+<p>公式（略复杂）为：<br>$$<br>\text{ARI} &#x3D; \frac{\text{RI} - \mathbb{E}[\text{RI}]}{\max(\text{RI}) - \mathbb{E}[\text{RI}]}<br>$$<br>实际计算会用<strong>组合数</strong>来表达，具体计算公式是基于混淆矩阵的（即聚类 vs. 真实标签的交叉表）。</p>
+<h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul>
+<li>ARI ∈ [-1, 1]：<ul>
+<li>0 表示结果与随机分类一致</li>
+<li>1 表示完全一致</li>
+<li>小于 0 表示比随机还差</li>
+</ul>
+</li>
+<li>更稳健，广泛用于对聚类结果进行客观评价</li>
+</ul>
+<hr>
+<h3 id="举个简单例子"><a href="#举个简单例子" class="headerlink" title="举个简单例子"></a>举个简单例子</h3><p>假设我们有 4 个样本，真实标签是 <code>[A, A, B, B]</code>，两个聚类结果：</p>
+<ul>
+<li><p><strong>聚类1</strong>：<code>[1, 1, 2, 2]</code> （正确分类）</p>
+</li>
+<li><p><strong>聚类2</strong>：<code>[1, 2, 1, 2]</code> （错误分类）</p>
+</li>
+<li><p>聚类1的 ARI ≈ 1.0（完美匹配）</p>
+</li>
+<li><p>聚类2的 ARI ≈ -0.5（比随机还差）</p>
+</li>
+</ul>
+<hr>
+<h3 id="总结对比"><a href="#总结对比" class="headerlink" title="总结对比"></a>总结对比</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>是否修正随机性</th>
+<th>值域范围</th>
+<th>推荐程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RI</td>
+<td>否</td>
+<td>[0, 1]</td>
+<td>中</td>
+</tr>
+<tr>
+<td>ARI</td>
+<td>是</td>
+<td>[-1, 1]</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-Mutual-Information（MI）-Normalized-Mutual-Information（NMI）"><a href="#2-Mutual-Information（MI）-Normalized-Mutual-Information（NMI）" class="headerlink" title="2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）"></a>2. Mutual Information（MI）&#x2F;Normalized Mutual Information（NMI）</h2><h3 id="2-1-MI"><a href="#2-1-MI" class="headerlink" title="2.1 MI"></a>2.1 MI</h3><h4 id="直觉理解："><a href="#直觉理解：" class="headerlink" title="直觉理解："></a>直觉理解：</h4><p>Mutual Information（互信息）来自信息论，用来衡量<strong>两个变量共享了多少信息</strong>。在聚类中，它衡量<strong>聚类结果 $C$</strong> 和 <strong>真实标签 $L$</strong> 之间的关联性。</p>
+<blockquote>
+<p>如果知道聚类标签，可以推断出真实标签，那么说明互信息高，聚类结果好。</p>
+</blockquote>
+<hr>
+<h4 id="数学定义："><a href="#数学定义：" class="headerlink" title="数学定义："></a>数学定义：</h4><p>设真实标签集合为 $L &#x3D; {l_1, l_2, …, l_K}$，聚类结果为 $C &#x3D; {c_1, c_2, …, c_J}$，那么互信息定义为：</p>
+<p>$$<br>MI(C, L) &#x3D; \sum_{i&#x3D;1}^{J} \sum_{j&#x3D;1}^{K} P(c_i \cap l_j) \cdot \log \left( \frac{P(c_i \cap l_j)}{P(c_i) \cdot P(l_j)} \right)<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$ P(c_i) $：样本属于第 $i$ 个聚类的概率</li>
+<li>$ P(l_j) $：样本属于第 $j$ 个真实类别的概率</li>
+<li>$ P(c_i \cap l_j) $：样本同时属于聚类 $c_i$ 和标签 $l_j$ 的概率</li>
+</ul>
+<hr>
+<h4 id="但-MI-有个问题："><a href="#但-MI-有个问题：" class="headerlink" title="但 MI 有个问题："></a>但 MI 有个问题：</h4><ul>
+<li>它不是归一化的，取值范围依赖于聚类的复杂度。</li>
+<li>不能直接比较不同聚类数时的聚类质量。</li>
+</ul>
+<p>所以我们引入了NMI</p>
+<hr>
+<h3 id="2-2-NMI"><a href="#2-2-NMI" class="headerlink" title="2.2 NMI"></a>2.2 NMI</h3><h4 id="直觉理解：-1"><a href="#直觉理解：-1" class="headerlink" title="直觉理解："></a>直觉理解：</h4><p>NMI 是对 MI 的归一化版本，使其取值总在 [0, 1] 之间，更易比较。</p>
+<h4 id="常见的定义公式："><a href="#常见的定义公式：" class="headerlink" title="常见的定义公式："></a>常见的定义公式：</h4><p>$$<br>\text{NMI}(C, L) &#x3D; \frac{MI(C, L)}{ \sqrt{H(C) \cdot H(L)} }<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$ H(C) $：聚类结果的熵</li>
+<li>$ H(L) $：真实标签的熵</li>
+<li>熵的计算公式是：<br>$$<br>H(X) &#x3D; -\sum_{x} P(x) \log P(x)<br>$$</li>
+</ul>
+<p>也可以使用其他归一化形式，比如平均法：<br>$$<br>\text{NMI}(C, L) &#x3D; \frac{2 \cdot MI(C, L)}{ H(C) + H(L) }<br>$$<br>这两种在 sklearn 中都支持。</p>
+<hr>
+<h4 id="NMI-的特点："><a href="#NMI-的特点：" class="headerlink" title="NMI 的特点："></a>NMI 的特点：</h4><ul>
+<li>范围：$$ \text{NMI} \in [0, 1] $$</li>
+<li><strong>1 表示完全一致</strong>，即聚类完美还原真实标签；</li>
+<li><strong>0 表示完全无关</strong>，即聚类结果与标签完全不相关。</li>
+</ul>
+<hr>
+<h2 id="🔍-小结对比"><a href="#🔍-小结对比" class="headerlink" title="🔍 小结对比"></a>🔍 小结对比</h2><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>概念</th>
+<th>值域</th>
+<th>是否归一化</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MI</td>
+<td>聚类和标签共享的信息量</td>
+<td>≥0</td>
+<td>否</td>
+<td>越大表示越相关，但无法比较不同任务</td>
+</tr>
+<tr>
+<td>NMI</td>
+<td>归一化的 MI</td>
+<td>[0,1]</td>
+<td>✅</td>
+<td>越接近 1 越好，常用于聚类评价</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="内部指标"><a href="#内部指标" class="headerlink" title="内部指标"></a>内部指标</h1><p>&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;</p>
+<hr>
+<h2 id="一、外部指标（External-Evaluation）"><a href="#一、外部指标（External-Evaluation）" class="headerlink" title="一、外部指标（External Evaluation）"></a>一、<strong>外部指标（External Evaluation）</strong></h2><h3 id="3-Fowlkes–Mallows-Index（FMI）"><a href="#3-Fowlkes–Mallows-Index（FMI）" class="headerlink" title="3. Fowlkes–Mallows Index（FMI）"></a>3. <strong>Fowlkes–Mallows Index（FMI）</strong></h3><ul>
+<li>根据聚类结果中的True Positive、False Positive等计算相似度。</li>
+<li>范围 [0, 1]，越高表示聚类越准确。</li>
+</ul>
+<hr>
+<h2 id="二、内部指标（Internal-Evaluation）"><a href="#二、内部指标（Internal-Evaluation）" class="headerlink" title="二、内部指标（Internal Evaluation）"></a>二、<strong>内部指标（Internal Evaluation）</strong></h2><p>内部指标不依赖真实标签，仅依赖数据本身和聚类结果，常用于实际无标签任务。常见的有：</p>
+<h3 id="1-轮廓系数（Silhouette-Coefficient）"><a href="#1-轮廓系数（Silhouette-Coefficient）" class="headerlink" title="1. 轮廓系数（Silhouette Coefficient）"></a>1. <strong>轮廓系数（Silhouette Coefficient）</strong></h3><ul>
+<li>结合了簇内相似度和簇间差异性。</li>
+<li>取值范围 [-1, 1]，越接近1表示聚类效果越好。</li>
+</ul>
+<p>公式：<br>$$<br>s(i) &#x3D; \frac{b(i) - a(i)}{\max(a(i), b(i))}<br>$$<br>其中：</p>
+<ul>
+<li>$a(i)$：样本与本簇内其他样本的平均距离</li>
+<li>$b(i)$：样本与最近邻簇的平均距离</li>
+</ul>
+<h3 id="2-Davies-Bouldin-Index（DBI）"><a href="#2-Davies-Bouldin-Index（DBI）" class="headerlink" title="2. Davies-Bouldin Index（DBI）"></a>2. <strong>Davies-Bouldin Index（DBI）</strong></h3><ul>
+<li>衡量各簇之间的相对距离和散度。</li>
+<li>数值越小表示簇分得越清晰。</li>
+</ul>
+<h3 id="3-Calinski-Harabasz-Index（CH）"><a href="#3-Calinski-Harabasz-Index（CH）" class="headerlink" title="3. Calinski-Harabasz Index（CH）"></a>3. <strong>Calinski-Harabasz Index（CH）</strong></h3><ul>
+<li>也叫方差比准则（Variance Ratio Criterion），衡量簇间方差与簇内方差之比。</li>
+<li>值越大表示聚类越好。</li>
+</ul>
+<hr>
+<h2 id="三、稳定性指标（Stability-Metrics）"><a href="#三、稳定性指标（Stability-Metrics）" class="headerlink" title="三、稳定性指标（Stability Metrics）"></a>三、<strong>稳定性指标（Stability Metrics）</strong></h2><ul>
+<li>比如用不同子集或不同初始化多次聚类，看结果是否一致，常用于评估模型鲁棒性。</li>
+<li>如：重抽样一致性（Resampling Consistency）、Bootstrap方法等。</li>
+</ul>
+<hr>
+<p>需要用哪类指标，取决于是否有标签可用，或者是否只关心簇本身结构。你现在是在做有监督还是无监督的聚类任务呢？可以说说具体应用场景，我可以帮你推荐合适的指标。</p>
+
       
     </div>
 

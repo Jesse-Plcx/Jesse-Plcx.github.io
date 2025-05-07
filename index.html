@@ -202,9 +202,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2025-04-20 16:12:14 / Modified: 17:28:46" itemprop="dateCreated datePublished" datetime="2025-04-20T16:12:14+08:00">2025-04-20</time>
+      <time title="Created: 2025-04-20 16:12:14" itemprop="dateCreated datePublished" datetime="2025-04-20T16:12:14+08:00">2025-04-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-05-07 20:52:25" itemprop="dateModified" datetime="2025-05-07T20:52:25+08:00">2025-05-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -238,6 +244,62 @@
 <li>将数据加载，预处理和模型训练逻辑分离出来</li>
 <li>确保数据流程的一致性</li>
 <li>数据预处理，标签处理，维度处理</li>
+</ul>
+<h3 id="数据处理常用函数"><a href="#数据处理常用函数" class="headerlink" title="数据处理常用函数"></a>数据处理常用函数</h3><h4 id="1-linspace"><a href="#1-linspace" class="headerlink" title="1. linspace"></a>1. linspace</h4><ul>
+<li>全称是 “linear space”（线性间隔）</li>
+<li>作用：在一个指定的范围内，生成指定数量的等间隔数值。</li>
+<li>标准格式：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">np.linspace(</span><br><span class="line">start,      # 起始值</span><br><span class="line">stop,       # 结束值</span><br><span class="line">num=50,     # 生成的等间隔样本数量</span><br><span class="line">endpoint=True,  # 是否包含结束值</span><br><span class="line">retstep=False,  # 是否返回样本间距</span><br><span class="line">dtype=None      # 输出数组的数据类型</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>例子：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = np.linspace(0, 4, 5, dtype=int)</span><br><span class="line"># 结果是 [0 1 2 3 4]  </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-ones"><a href="#2-ones" class="headerlink" title="2. ones"></a>2. ones</h4><ul>
+<li>语法：<code>np.ones(shape, dtype=float, order=&#39;C&#39;)</code></li>
+<li>作用：创建一个所有元素都为 1 的数组。</li>
+<li>示例:<br>  <code>np.ones(5)</code><br>  <code>array([1., 1., 1., 1., 1.])</code></li>
+</ul>
+<h4 id="3-unique"><a href="#3-unique" class="headerlink" title="3. unique"></a>3. unique</h4><ul>
+<li><p>语法： <code>np.unique(ar, return_index=False, return_inverse=False, return_counts=False)</code></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ar</code></td>
+<td>输入数组（可以是一维或多维，会被展平成一维处理）</td>
+</tr>
+<tr>
+<td><code>return_index</code></td>
+<td>如果为 <code>True</code>，返回原数组中唯一值的首次出现索引</td>
+</tr>
+<tr>
+<td><code>return_inverse</code></td>
+<td>如果为 <code>True</code>，返回可用于重构原数组的索引数组</td>
+</tr>
+<tr>
+<td><code>return_counts</code></td>
+<td>如果为 <code>True</code>，返回每个唯一元素出现的次数</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>作用：</p>
+</li>
+<li><p>示例：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([3, 1, 2, 3, 2, 1, 4])</span><br><span class="line">np.unique(a)</span><br></pre></td></tr></table></figure>
+<p>  结果：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([1, 2, 3, 4])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-enumerate"><a href="#4-enumerate" class="headerlink" title="4. enumerate"></a>4. enumerate</h4><ul>
+<li>循环的传统方式  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in range(len(X)):</span><br><span class="line">    x = X[i]</span><br><span class="line">    print(f&quot;View &#123;i+1&#125; shape: &#123;X[i].shape&#125;&quot;)</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>enumerate</code>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i, x in enumerate(X):</span><br><span class="line">    print(f&quot;View &#123;i+1&#125; shape: &#123;x.shape&#125;&quot;)</span><br></pre></td></tr></table></figure></li>
+<li><ul>
+<li>X是一个包含多个视图数据的列表</li>
+<li>i索引值，整数类型，自动获取当前迭代的索引值(从0开始)  </li>
+<li>x元素值，任何数据类型，获取列表中对应位置的元素(视图数据)，<code>x</code> 本质上等同于 <code>X[i]</code></li>
+</ul>
+</li>
+<li>使用<code>enumerate</code>时，可以只有索引，也可以只有值，缺失的用<code>_</code>来代替，两个不一定要用得到，但两个要素再<code>enumerate</code>方法中都要有</li>
 </ul>
 
       

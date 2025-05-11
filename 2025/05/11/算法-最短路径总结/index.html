@@ -19,28 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. 创建博客的初衷 我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。  2. 博客的内容 博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。">
+    <meta name="description" content="0. 图的分类 有权图|无权图 边权|点权   有向图|无向图 有环图|无环图 有负权图|无负权图   1. Dijkstra 迪杰斯特拉算法 单源最短路径的 贪心算法 每次选择当前未处理节点中距离源点最近的节点进行扩展 不能处理负边  1.1 算法步骤 初始化源点到所有节点的距离为无穷大，源点到自身的距离为 0。 使用优先队列（最小堆）维护未处理节点的距离。 每次从队列中取出距离最小的节点，更新">
 <meta property="og:type" content="article">
-<meta property="og:title" content="谈谈博客的创建">
-<meta property="og:url" content="http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/index.html">
+<meta property="og:title" content="算法-最短路径总结">
+<meta property="og:url" content="http://example.com/2025/05/11/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="1. 创建博客的初衷 我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。  2. 博客的内容 博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。">
+<meta property="og:description" content="0. 图的分类 有权图|无权图 边权|点权   有向图|无向图 有环图|无环图 有负权图|无负权图   1. Dijkstra 迪杰斯特拉算法 单源最短路径的 贪心算法 每次选择当前未处理节点中距离源点最近的节点进行扩展 不能处理负边  1.1 算法步骤 初始化源点到所有节点的距离为无穷大，源点到自身的距离为 0。 使用优先队列（最小堆）维护未处理节点的距离。 每次从队列中取出距离最小的节点，更新">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-02-21T14:57:26.000Z">
-<meta property="article:modified_time" content="2025-02-22T02:33:33.324Z">
+<meta property="article:published_time" content="2025-05-11T07:57:37.000Z">
+<meta property="article:modified_time" content="2025-05-11T08:19:59.401Z">
 <meta property="article:author" content="Jesse Chen">
 <meta property="article:tag" content="study">
-<meta property="article:tag" content="life">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/">
+<link rel="canonical" href="http://example.com/2025/05/11/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%80%BB%E7%BB%93/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/","path":"2025/02/21/谈谈博客的创建/","title":"谈谈博客的创建"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/05/11/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%80%BB%E7%BB%93/","path":"2025/05/11/算法-最短路径总结/","title":"算法-最短路径总结"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>谈谈博客的创建 | Jesse's Blog</title>
+<title>算法-最短路径总结 | Jesse's Blog</title>
   
 
 
@@ -113,7 +112,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9D%E8%A1%B7"><span class="nav-number">1.</span> <span class="nav-text">1. 创建博客的初衷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">2.</span> <span class="nav-text">2. 博客的内容</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%9B%BE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">0. 图的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Dijkstra-%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">1. Dijkstra 迪杰斯特拉算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-DAG-Shortest-Path-Algorithm-%E6%8B%93%E8%A1%A5%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">2. DAG Shortest Path Algorithm 拓补最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Bellman-Ford-%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">3. Bellman-Ford 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Floyd-Warshall-%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">4. Floyd-Warshall 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 时间复杂度</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -180,7 +179,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/11/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -193,12 +192,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="谈谈博客的创建 | Jesse's Blog">
+      <meta itemprop="name" content="算法-最短路径总结 | Jesse's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          谈谈博客的创建
+          算法-最短路径总结
         </h1>
 
         <div class="post-meta-container">
@@ -208,15 +207,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2025-02-21 22:57:26" itemprop="dateCreated datePublished" datetime="2025-02-21T22:57:26+08:00">2025-02-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-22 10:33:33" itemprop="dateModified" datetime="2025-02-22T10:33:33+08:00">2025-02-22</time>
+      <time title="Created: 2025-05-11 15:57:37 / Modified: 16:19:59" itemprop="dateCreated datePublished" datetime="2025-05-11T15:57:37+08:00">2025-05-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -224,7 +217,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
         </span>
     </span>
 
@@ -237,11 +230,73 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="1-创建博客的初衷"><a href="#1-创建博客的初衷" class="headerlink" title="1. 创建博客的初衷"></a>1. 创建博客的初衷</h3><ul>
-<li>我为什么要创建博客？其实很早就有创建博客的想法了，但碍于其他的琐事和自身的拖延，总没有将想法落实下来，最近大三下学期刚刚开始，我想是时候开始这项工作了。</li>
+    <div class="post-body" itemprop="articleBody"><h2 id="0-图的分类"><a href="#0-图的分类" class="headerlink" title="0. 图的分类"></a>0. 图的分类</h2><ul>
+<li>有权图|无权图<ul>
+<li>边权|点权</li>
 </ul>
-<h3 id="2-博客的内容"><a href="#2-博客的内容" class="headerlink" title="2. 博客的内容"></a>2. 博客的内容</h3><ul>
-<li>博客的内容多半以学习，生活，和个人兴趣为主，当然后续可能有其他的分支，但总体还是用来记录和分享。</li>
+</li>
+<li>有向图|无向图</li>
+<li>有环图|无环图</li>
+<li>有负权图|无负权图</li>
+</ul>
+<hr>
+<h2 id="1-Dijkstra-迪杰斯特拉算法"><a href="#1-Dijkstra-迪杰斯特拉算法" class="headerlink" title="1. Dijkstra 迪杰斯特拉算法"></a>1. Dijkstra 迪杰斯特拉算法</h2><ul>
+<li><strong>单源</strong>最短路径的</li>
+<li><strong>贪心</strong>算法</li>
+<li>每次选择当前未处理节点中距离源点最近的节点进行扩展</li>
+<li>不能处理<strong>负边</strong></li>
+</ul>
+<h3 id="1-1-算法步骤"><a href="#1-1-算法步骤" class="headerlink" title="1.1 算法步骤"></a>1.1 算法步骤</h3><ol>
+<li>初始化源点到所有节点的距离为无穷大，源点到自身的距离为 0。</li>
+<li><strong>使用优先队列（最小堆）维护未处理节点的距离。</strong></li>
+<li>每次从队列中取出距离最小的节点，更新其邻接节点的距离。</li>
+<li>重复上述步骤直到所有节点都被处理。</li>
+</ol>
+<h3 id="1-2-时间复杂度"><a href="#1-2-时间复杂度" class="headerlink" title="1.2 时间复杂度"></a>1.2 时间复杂度</h3><ul>
+<li>使用普通数组实现优先队列：$O(V^2)$</li>
+<li>使用二叉堆实现优先队列：$O((V + E) log V)$</li>
+</ul>
+<hr>
+<h2 id="2-DAG-Shortest-Path-Algorithm-拓补最短路径"><a href="#2-DAG-Shortest-Path-Algorithm-拓补最短路径" class="headerlink" title="2. DAG Shortest Path Algorithm 拓补最短路径"></a>2. DAG Shortest Path Algorithm 拓补最短路径</h2><ul>
+<li><strong>单源</strong>最短路径的</li>
+<li><strong>DAG</strong>（有向无环图）的最短路径算法</li>
+<li>关键是利用<strong>拓补排序</strong>，前驱一定在后继之前被处理</li>
+<li>因此也能处理<strong>负权边</strong>，但是不能处理负环边</li>
+</ul>
+<h3 id="2-1-算法步骤"><a href="#2-1-算法步骤" class="headerlink" title="2.1 算法步骤"></a>2.1 算法步骤</h3><ol>
+<li>对图进行拓扑排序。</li>
+<li>按照拓扑排序的顺序依次松弛每个节点的邻接边。</li>
+</ol>
+<h3 id="2-2-时间复杂度"><a href="#2-2-时间复杂度" class="headerlink" title="2.2 时间复杂度"></a>2.2 时间复杂度</h3><ul>
+<li>$O(V + E)$</li>
+</ul>
+<hr>
+<h2 id="3-Bellman-Ford-算法"><a href="#3-Bellman-Ford-算法" class="headerlink" title="3. Bellman-Ford 算法"></a>3. Bellman-Ford 算法</h2><ul>
+<li><strong>单源</strong>最短路径的</li>
+<li>处理带<strong>负权边</strong>的图，并且能够检测负权环</li>
+<li>最原始的方法，尝试所有情况</li>
+</ul>
+<h3 id="3-1-算法步骤"><a href="#3-1-算法步骤" class="headerlink" title="3.1 算法步骤"></a>3.1 算法步骤</h3><ol>
+<li>初始化源点到所有节点的距离为无穷大，源点到自身的距离为 0。</li>
+<li>对所有边进行 <code>V-1</code> 次松弛操作。</li>
+<li>检查是否存在负权环：如果在第 <code>V</code> 次松弛操作中仍然可以更新距离，则存在负权环。</li>
+</ol>
+<h3 id="3-2-时间复杂度"><a href="#3-2-时间复杂度" class="headerlink" title="3.2 时间复杂度"></a>3.2 时间复杂度</h3><ul>
+<li>$O(V * E)$</li>
+</ul>
+<hr>
+<h2 id="4-Floyd-Warshall-算法"><a href="#4-Floyd-Warshall-算法" class="headerlink" title="4. Floyd-Warshall 算法"></a>4. Floyd-Warshall 算法</h2><ul>
+<li><strong>多源</strong>最短路径的</li>
+<li>动态规划算法</li>
+<li>三个循环，技巧性较差，比较原始</li>
+</ul>
+<h3 id="4-1-算法步骤"><a href="#4-1-算法步骤" class="headerlink" title="4.1 算法步骤"></a>4.1 算法步骤</h3><ol>
+<li>初始化距离矩阵，直接使用图的邻接矩阵表示。</li>
+<li>对每个节点 <code>k</code>，更新所有节点对 <code>(i, j)</code> 的最短路径：<code>dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])</code>。</li>
+<li>重复上述步骤直到所有节点都被处理。</li>
+</ol>
+<h3 id="4-2-时间复杂度"><a href="#4-2-时间复杂度" class="headerlink" title="4.2 时间复杂度"></a>4.2 时间复杂度</h3><ul>
+<li>$O(V^3)$</li>
 </ul>
 
     </div>
@@ -253,21 +308,17 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/study/" rel="tag"># study</a>
-              <a href="/tags/life/" rel="tag"># life</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/07/28/vi%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="prev" title="vi使用教程">
-                  <i class="fa fa-angle-left"></i> vi使用教程
+                <a href="/2025/04/20/%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" rel="prev" title="基础项目架构的知识点整理">
+                  <i class="fa fa-angle-left"></i> 基础项目架构的知识点整理
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/02/24/%E8%B0%88%E8%B0%88%E5%88%B0%E7%8E%B0%E5%9C%A8%E7%9A%84rog%20ally%E6%8E%8C%E6%9C%BA%E7%9A%84%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/" rel="next" title="谈谈到现在的rog ally掌机的使用感受">
-                  谈谈到现在的rog ally掌机的使用感受 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

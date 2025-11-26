@@ -6,7 +6,7 @@ node_modules/
 public/
 .deploy*/
 backup_from_merge/
-source/_posts/
+source/_private_posts/
 source/p_imgs/
 _multiconfig.yml
 mykey.txt

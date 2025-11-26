@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/web-app-manifest-512x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/web-app-manifest-192x192.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="目录 目录 1. vi和vim词源 2. 打开或新建文件 3. 异常文件处理 4. vi三种工作模式 4.1 命令模式 4.2 末行模式 4.3 编辑模式   5. 常用命令 5.1 重复次数 5.2 移动和选择 5.2.1 移动 1. 上，下，左，右 2. 行内移动 3. 行外移动 4. 屏幕移动 5. 括号切换 6. 标记   5.2.2 选择   5.3 删除和剪贴 5.4 撤销 5.5 复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vi使用教程">
+<meta property="og:url" content="http://example.com/2024/07/28/vi%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Jesse&#39;s Blog">
+<meta property="og:description" content="目录 目录 1. vi和vim词源 2. 打开或新建文件 3. 异常文件处理 4. vi三种工作模式 4.1 命令模式 4.2 末行模式 4.3 编辑模式   5. 常用命令 5.1 重复次数 5.2 移动和选择 5.2.1 移动 1. 上，下，左，右 2. 行内移动 3. 行外移动 4. 屏幕移动 5. 括号切换 6. 标记   5.2.2 选择   5.3 删除和剪贴 5.4 撤销 5.5 复">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/p_imgs/error_message.png">
+<meta property="article:published_time" content="2024-07-28T02:24:43.000Z">
+<meta property="article:modified_time" content="2025-03-05T03:13:22.420Z">
+<meta property="article:author" content="Jesse Chen">
+<meta property="article:tag" content="study">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/p_imgs/error_message.png">
+
+
+<link rel="canonical" href="http://example.com/2024/07/28/vi%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/07/28/vi%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/","path":"2024/07/28/vi使用教程/","title":"vi使用教程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vi使用教程 | Jesse's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Jesse's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">:)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-vi%E5%92%8Cvim%E8%AF%8D%E6%BA%90"><span class="nav-number">2.</span> <span class="nav-text">1. vi和vim词源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%89%93%E5%BC%80%E6%88%96%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">2. 打开或新建文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BC%82%E5%B8%B8%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">3. 异常文件处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-vi%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">4. vi三种工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 末行模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 编辑模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">5. 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 重复次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E7%A7%BB%E5%8A%A8%E5%92%8C%E9%80%89%E6%8B%A9"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 移动和选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-%E7%A7%BB%E5%8A%A8"><span class="nav-number">6.2.1.</span> <span class="nav-text">5.2.1 移动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8A%EF%BC%8C%E4%B8%8B%EF%BC%8C%E5%B7%A6%EF%BC%8C%E5%8F%B3"><span class="nav-number">6.2.1.1.</span> <span class="nav-text">1. 上，下，左，右</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E8%A1%8C%E5%86%85%E7%A7%BB%E5%8A%A8"><span class="nav-number">6.2.1.2.</span> <span class="nav-text">2. 行内移动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E8%A1%8C%E5%A4%96%E7%A7%BB%E5%8A%A8"><span class="nav-number">6.2.1.3.</span> <span class="nav-text">3. 行外移动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%B1%8F%E5%B9%95%E7%A7%BB%E5%8A%A8"><span class="nav-number">6.2.1.4.</span> <span class="nav-text">4. 屏幕移动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E6%8B%AC%E5%8F%B7%E5%88%87%E6%8D%A2"><span class="nav-number">6.2.1.5.</span> <span class="nav-text">5. 括号切换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E6%A0%87%E8%AE%B0"><span class="nav-number">6.2.1.6.</span> <span class="nav-text">6. 标记</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-%E9%80%89%E6%8B%A9"><span class="nav-number">6.2.2.</span> <span class="nav-text">5.2.2 选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E5%88%A0%E9%99%A4%E5%92%8C%E5%89%AA%E8%B4%B4"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 删除和剪贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-%E6%92%A4%E9%94%80"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 撤销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-%E5%A4%8D%E5%88%B6%E5%92%8C%E7%B2%98%E8%B4%B4"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 复制和粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-%E6%9B%BF%E6%8D%A2%E5%92%8C%E6%9F%A5%E6%89%BE"><span class="nav-number">6.6.</span> <span class="nav-text">5.6 替换和查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-1-%E6%9B%BF%E6%8D%A2"><span class="nav-number">6.6.1.</span> <span class="nav-text">5.6.1 替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-2-%E5%B8%B8%E8%A7%84%E6%9F%A5%E6%89%BE"><span class="nav-number">6.6.2.</span> <span class="nav-text">5.6.2 常规查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-3-%E5%8D%95%E8%AF%8D%E5%BF%AB%E9%80%9F%E5%8C%B9%E9%85%8D"><span class="nav-number">6.6.3.</span> <span class="nav-text">5.6.3 单词快速匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-4-%E6%9F%A5%E6%89%BE%E5%B9%B6%E6%9B%BF%E6%8D%A2"><span class="nav-number">6.6.4.</span> <span class="nav-text">5.6.4 查找并替换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%85%A8%E5%B1%80%E6%9B%BF%E6%8D%A2"><span class="nav-number">6.6.4.1.</span> <span class="nav-text">1. 全局替换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%8F%AF%E8%A7%86%E5%8C%BA%E5%9F%9F%E6%9B%BF%E6%8D%A2"><span class="nav-number">6.6.4.2.</span> <span class="nav-text">2. 可视区域替换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E7%A1%AE%E8%AE%A4%E6%9B%BF%E6%8D%A2"><span class="nav-number">6.6.4.3.</span> <span class="nav-text">3. 确认替换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-%E7%BC%A9%E6%8E%92%E5%92%8C%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C"><span class="nav-number">6.7.</span> <span class="nav-text">5.7 缩排和重复执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-8-%E6%8F%92%E5%85%A5%E5%91%BD%E4%BB%A4"><span class="nav-number">6.8.</span> <span class="nav-text">5.8 插入命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-9-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%92%8C%E5%88%86%E5%B1%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">6.9.</span> <span class="nav-text">5.9 文件处理和分屏命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-9-1-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">6.9.1.</span> <span class="nav-text">5.9.1 文件处理命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-9-2-%E5%88%86%E5%B1%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">6.9.2.</span> <span class="nav-text">5.9.2 分屏命令</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jesse Chen"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jesse Chen</p>
+  <div class="site-description" itemprop="description">Record, Study, Share!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jesse-Plcx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jesse-Plcx" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:plcx666666@gmail.com" title="E-Mail → mailto:plcx666666@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.reddit.com/user/pl-cx/" title="Reddit → https:&#x2F;&#x2F;www.reddit.com&#x2F;user&#x2F;pl-cx&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-reddit fa-fw"></i>Reddit</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://x.com/pl_cx6" title="X → https:&#x2F;&#x2F;x.com&#x2F;pl_cx6" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>X</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/28/vi%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jesse Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+      <meta itemprop="description" content="Record, Study, Share!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vi使用教程 | Jesse's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vi使用教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-07-28 10:24:43" itemprop="dateCreated datePublished" datetime="2024-07-28T10:24:43+08:00">2024-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-05 11:13:22" itemprop="dateModified" datetime="2025-03-05T11:13:22+08:00">2025-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+<li><a href="#1-vi%E5%92%8Cvim%E8%AF%8D%E6%BA%90">1. vi和vim词源</a></li>
+<li><a href="#2-%E6%89%93%E5%BC%80%E6%88%96%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6">2. 打开或新建文件</a></li>
+<li><a href="#3-%E5%BC%82%E5%B8%B8%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86">3. 异常文件处理</a></li>
+<li><a href="#4-vi%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F">4. vi三种工作模式</a><ul>
+<li><a href="#41-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">4.1 命令模式</a></li>
+<li><a href="#42-%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F">4.2 末行模式</a></li>
+<li><a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">4.3 编辑模式</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">5. 常用命令</a><ul>
+<li><a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">5.1 重复次数</a></li>
+<li><a href="#52-%E7%A7%BB%E5%8A%A8%E5%92%8C%E9%80%89%E6%8B%A9">5.2 移动和选择</a><ul>
+<li><a href="#521-%E7%A7%BB%E5%8A%A8">5.2.1 移动</a><ul>
+<li><a href="#1-%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3">1. 上，下，左，右</a></li>
+<li><a href="#2-%E8%A1%8C%E5%86%85%E7%A7%BB%E5%8A%A8">2. 行内移动</a></li>
+<li><a href="#3-%E8%A1%8C%E5%A4%96%E7%A7%BB%E5%8A%A8">3. 行外移动</a></li>
+<li><a href="#4-%E5%B1%8F%E5%B9%95%E7%A7%BB%E5%8A%A8">4. 屏幕移动</a></li>
+<li><a href="#5-%E6%8B%AC%E5%8F%B7%E5%88%87%E6%8D%A2">5. 括号切换</a></li>
+<li><a href="#6-%E6%A0%87%E8%AE%B0">6. 标记</a></li>
+</ul>
+</li>
+<li><a href="#522-%E9%80%89%E6%8B%A9">5.2.2 选择</a></li>
+</ul>
+</li>
+<li><a href="#53-%E5%88%A0%E9%99%A4%E5%92%8C%E5%89%AA%E8%B4%B4">5.3 删除和剪贴</a></li>
+<li><a href="#54-%E6%92%A4%E9%94%80">5.4 撤销</a></li>
+<li><a href="#55-%E5%A4%8D%E5%88%B6%E5%92%8C%E7%B2%98%E8%B4%B4">5.5 复制和粘贴</a></li>
+<li><a href="#56-%E6%9B%BF%E6%8D%A2%E5%92%8C%E6%9F%A5%E6%89%BE">5.6 替换和查找</a><ul>
+<li><a href="#561-%E6%9B%BF%E6%8D%A2">5.6.1 替换</a></li>
+<li><a href="#562-%E5%B8%B8%E8%A7%84%E6%9F%A5%E6%89%BE">5.6.2 常规查找</a></li>
+<li><a href="#563-%E5%8D%95%E8%AF%8D%E5%BF%AB%E9%80%9F%E5%8C%B9%E9%85%8D">5.6.3 单词快速匹配</a></li>
+<li><a href="#564-%E6%9F%A5%E6%89%BE%E5%B9%B6%E6%9B%BF%E6%8D%A2">5.6.4 查找并替换</a><ul>
+<li><a href="#1-%E5%85%A8%E5%B1%80%E6%9B%BF%E6%8D%A2">1. 全局替换</a></li>
+<li><a href="#2-%E5%8F%AF%E8%A7%86%E5%8C%BA%E5%9F%9F%E6%9B%BF%E6%8D%A2">2. 可视区域替换</a></li>
+<li><a href="#3-%E7%A1%AE%E8%AE%A4%E6%9B%BF%E6%8D%A2">3. 确认替换</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#57-%E7%BC%A9%E6%8E%92%E5%92%8C%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C">5.7 缩排和重复执行</a></li>
+<li><a href="#58-%E6%8F%92%E5%85%A5%E5%91%BD%E4%BB%A4">5.8 插入命令</a></li>
+<li><a href="#59-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%92%8C%E5%88%86%E5%B1%8F%E5%91%BD%E4%BB%A4">5.9 文件处理和分屏命令</a><ul>
+<li><a href="#591-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4">5.9.1 文件处理命令</a></li>
+<li><a href="#592-%E5%88%86%E5%B1%8F%E5%91%BD%E4%BB%A4">5.9.2 分屏命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="1-vi和vim词源"><a href="#1-vi和vim词源" class="headerlink" title="1. vi和vim词源"></a>1. vi和vim词源</h2><ul>
+<li><code>vi</code> 取自 “visual” 的前两个字母</li>
+<li><code>vim</code>&#x3D; vi improved</li>
+<li>是从vi发展出来的文本编辑器</li>
+</ul>
+<h2 id="2-打开或新建文件"><a href="#2-打开或新建文件" class="headerlink" title="2. 打开或新建文件"></a>2. 打开或新建文件</h2><ul>
+<li><code>vim 文件名</code>存在就打开，不存在就新建</li>
+<li><code>vim 文件名 +行数</code>会打开文件并将光标定位到指定行数<ul>
+<li>注意光标要和加号紧贴，不能有空格，有空格是将光标定位到文件最后一行</li>
+<li>对不存在的文件（新建文件）无效</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-异常文件处理"><a href="#3-异常文件处理" class="headerlink" title="3. 异常文件处理"></a>3. 异常文件处理</h2><ul>
+<li><p>当对未保存的文件直接关闭，会产生<code>文件名.swp</code>的交换文件，下次再次打开文件，会产生以下提示：<br><img src="/p_imgs/error_message.png" alt="报错信息"></p>
+</li>
+<li><p>当 Vim 打开一个文件时，如果检测到一个交换文件（.swp 文件），它会提示用户以避免潜在的数据丢失或冲突。以下是每个选项的作用：</p>
+<ol>
+<li><p><strong>[O]pen Read-Only</strong>:</p>
+<ul>
+<li>以<strong>只读</strong>模式打开文件。你可以查看文件内容但无法进行编辑。这适用于你想要查看文件内容而不希望影响任何潜在的编辑冲突。</li>
+</ul>
+</li>
+<li><p><strong>[E]dit anyway</strong>:</p>
+<ul>
+<li>无视交换文件并继续编辑。这意味着你将忽略潜在的警告，直接对文件进行修改。适用于你确定没有其他程序正在编辑该文件，并且你不担心可能的数据丢失。</li>
+</ul>
+</li>
+<li><p><strong>[R]ecover</strong>:</p>
+<ul>
+<li>使用交换文件恢复上次未保存的编辑。这适用于上次编辑会话崩溃或异常关闭时，你希望恢复未保存的更改。</li>
+</ul>
+</li>
+<li><p><strong>[D]elete it</strong>:</p>
+<ul>
+<li>删除交换文件并继续编辑。这适用于你确定不需要恢复未保存的更改，并且确认没有其他实例正在编辑该文件。</li>
+</ul>
+</li>
+<li><p><strong>[Q]uit</strong>:</p>
+<ul>
+<li>退出 Vim，不进行任何操作。这适用于你不确定如何处理当前情况，并希望退出以进行进一步调查。</li>
+</ul>
+</li>
+<li><p><strong>[A]bort</strong>:</p>
+<ul>
+<li>取消当前操作，通常等同于退出 Vim。这也是一种退出方式，适用于你希望中止当前操作。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>选择合适的选项取决于你对文件状态的了解以及你希望如何处理可能存在的编辑冲突。一般情况下，如果不确定，选择 <code>[Q]uit</code> 或 <code>[A]bort</code> 可以让你有时间进一步检查情况再做决定。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-vi三种工作模式"><a href="#4-vi三种工作模式" class="headerlink" title="4. vi三种工作模式"></a>4. vi三种工作模式</h2><h3 id="4-1-命令模式"><a href="#4-1-命令模式" class="headerlink" title="4.1 命令模式"></a>4.1 命令模式</h3><ul>
+<li>打开文件的默认模式</li>
+<li>是使用vi的<strong>入口</strong></li>
+</ul>
+<h3 id="4-2-末行模式"><a href="#4-2-末行模式" class="headerlink" title="4.2 末行模式"></a>4.2 末行模式</h3><ul>
+<li>执行保存，退出等操作</li>
+<li>是使用vi的<strong>出口</strong></li>
+<li>输入英文字符<code>:</code>便可以进入末行模式</li>
+<li>按<code>ESC</code>便可以退出到命令模式</li>
+<li>末行模式命令：<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>:w</strong></td>
+<td align="center">write</td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:q</strong></td>
+<td align="center">quit</td>
+<td>退出 Vim</td>
+</tr>
+<tr>
+<td align="center"><strong>:q!</strong></td>
+<td align="center">quit</td>
+<td>强制退出，不保存退出</td>
+</tr>
+<tr>
+<td align="center"><strong>:wq</strong></td>
+<td align="center">write and quit</td>
+<td>保存并退出 Vim</td>
+</tr>
+<tr>
+<td align="center"><strong>:x</strong></td>
+<td align="center">save and exit</td>
+<td>保存并退出（等同于 <code>:wq</code>）</td>
+</tr>
+<tr>
+<td align="center"><strong>:e</strong></td>
+<td align="center">edit</td>
+<td>编辑文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:r</strong></td>
+<td align="center">recover</td>
+<td>恢复未保存的更改</td>
+</tr>
+<tr>
+<td align="center"><strong>:d</strong></td>
+<td align="center">delete</td>
+<td>删除文本</td>
+</tr>
+<tr>
+<td align="center"><strong>:i</strong></td>
+<td align="center">insert</td>
+<td>进入插入模式</td>
+</tr>
+<tr>
+<td align="center"><strong>:v</strong></td>
+<td align="center">visual</td>
+<td>进入可视模式</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="4-3-编辑模式"><a href="#4-3-编辑模式" class="headerlink" title="4.3 编辑模式"></a>4.3 编辑模式</h3><ul>
+<li>输入英文字符<code>i</code>(input)便可以进入编辑模式</li>
+<li>按<code>ESC</code>便可以退出到命令模式</li>
+</ul>
+<h2 id="5-常用命令"><a href="#5-常用命令" class="headerlink" title="5. 常用命令"></a>5. 常用命令</h2><h3 id="5-1-重复次数"><a href="#5-1-重复次数" class="headerlink" title="5.1 重复次数"></a>5.1 重复次数</h3><ul>
+<li>在命令模式下，先出入数字，在输入一个命令，可以让该命令重复执行指定次数</li>
+</ul>
+<h3 id="5-2-移动和选择"><a href="#5-2-移动和选择" class="headerlink" title="5.2 移动和选择"></a>5.2 移动和选择</h3><h4 id="5-2-1-移动"><a href="#5-2-1-移动" class="headerlink" title="5.2.1 移动"></a>5.2.1 移动</h4><h5 id="1-上，下，左，右"><a href="#1-上，下，左，右" class="headerlink" title="1. 上，下，左，右"></a>1. 上，下，左，右</h5><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>h</strong></td>
+<td>👈</td>
+</tr>
+<tr>
+<td align="center"><strong>j</strong></td>
+<td>👇</td>
+</tr>
+<tr>
+<td align="center"><strong>k</strong></td>
+<td>👆</td>
+</tr>
+<tr>
+<td align="center"><strong>l</strong></td>
+<td>👉</td>
+</tr>
+</tbody></table>
+<h5 id="2-行内移动"><a href="#2-行内移动" class="headerlink" title="2. 行内移动"></a>2. 行内移动</h5><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>w</strong></td>
+<td align="center">word</td>
+<td>向后移动一个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>b</strong></td>
+<td align="center">back</td>
+<td>向前移动一个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>0</strong></td>
+<td align="center"></td>
+<td>行首</td>
+</tr>
+<tr>
+<td align="center"><strong>^</strong></td>
+<td align="center"></td>
+<td>行首，第一个不是空白字符的位置</td>
+</tr>
+<tr>
+<td align="center"><strong>$</strong></td>
+<td align="center"></td>
+<td>行尾</td>
+</tr>
+</tbody></table>
+<h5 id="3-行外移动"><a href="#3-行外移动" class="headerlink" title="3. 行外移动"></a>3. 行外移动</h5><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>{</strong></td>
+<td align="center"></td>
+<td>移动到段首</td>
+</tr>
+<tr>
+<td align="center"><strong>}</strong></td>
+<td align="center"></td>
+<td>移动到段尾</td>
+</tr>
+<tr>
+<td align="center"><strong>gg</strong></td>
+<td align="center">go</td>
+<td>文件顶部</td>
+</tr>
+<tr>
+<td align="center"><strong>G</strong></td>
+<td align="center">go</td>
+<td>文件末尾</td>
+</tr>
+<tr>
+<td align="center"><strong>数字gg</strong></td>
+<td align="center">go</td>
+<td>移动到 数字 对应行数</td>
+</tr>
+<tr>
+<td align="center"><strong>数字G</strong></td>
+<td align="center">go</td>
+<td>移动到 数字 对应行数</td>
+</tr>
+<tr>
+<td align="center"><strong>:数字回车</strong></td>
+<td align="center">go</td>
+<td>移动到 数字 对应行数</td>
+</tr>
+</tbody></table>
+<p>最后三条指令效果相同。</p>
+<h5 id="4-屏幕移动"><a href="#4-屏幕移动" class="headerlink" title="4. 屏幕移动"></a>4. 屏幕移动</h5><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Ctrl + b</strong></td>
+<td align="center">back</td>
+<td>向上翻页</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl + f</strong></td>
+<td align="center">forward</td>
+<td>向下翻页</td>
+</tr>
+<tr>
+<td align="center"><strong>H</strong></td>
+<td align="center">Head</td>
+<td>屏幕顶部</td>
+</tr>
+<tr>
+<td align="center"><strong>M</strong></td>
+<td align="center">Middle</td>
+<td>屏幕中间</td>
+</tr>
+<tr>
+<td align="center"><strong>L</strong></td>
+<td align="center">Low</td>
+<td>屏幕底部</td>
+</tr>
+</tbody></table>
+<h5 id="5-括号切换"><a href="#5-括号切换" class="headerlink" title="5. 括号切换"></a>5. 括号切换</h5><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>%</strong></td>
+<td>括号匹配及切换</td>
+</tr>
+</tbody></table>
+<h5 id="6-标记"><a href="#6-标记" class="headerlink" title="6. 标记"></a>6. 标记</h5><ul>
+<li>在开发时，某一块代码可能需要稍后处理，此时使用<code>m</code>增加一个标记，这样可以在需要时快速跳转回来</li>
+<li>标记名称可以是<code>a~z</code>或者<code>A~Z</code>之间的任意一个字母</li>
+<li>添加标记的行被删除，那么标记同时被删除</li>
+<li>如果在其他行添加了和之前相同的标记，之前添加的标记也会被替换掉</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>mx</strong></td>
+<td align="center">mark</td>
+<td>添加标记x，x可为<code>a~z</code>或者<code>A~Z</code>之间的任意一个字母</td>
+</tr>
+<tr>
+<td align="center"><strong>&#96;x</strong></td>
+<td align="center"></td>
+<td>直接定位到标记x的所在位置</td>
+</tr>
+</tbody></table>
+<h4 id="5-2-2-选择"><a href="#5-2-2-选择" class="headerlink" title="5.2.2 选择"></a>5.2.2 选择</h4><ul>
+<li>vim中要选择文本，要先使用<code>visual</code>命令切换到<strong>可视模式</strong></li>
+<li>按<code>ESC</code>可以放弃选中，返回命令模式</li>
+<li>vim中提供了三种可视模式：<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">模式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>v</strong>+<a href="#521-%E7%A7%BB%E5%8A%A8">移动命令</a></td>
+<td align="center">可视模式</td>
+<td>从光标位置开始按照正常模式选择文本</td>
+</tr>
+<tr>
+<td align="center"><strong>V</strong>+<a href="#521-%E7%A7%BB%E5%8A%A8">移动命令</a></td>
+<td align="center">可视行模式</td>
+<td>选中光标经过的完整行</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl+q</strong></td>
+<td align="center">可视块模式</td>
+<td>垂直方向选中文本</td>
+</tr>
+</tbody></table>
+</li>
+<li>进入相应的可视模式后，之前的移动指令依然适用</li>
+<li><strong>可视块模式</strong>视为对多行同时进行操作，具体参见<a href="#58-%E6%8F%92%E5%85%A5%E5%91%BD%E4%BB%A4">添加多行注释案例</a></li>
+</ul>
+<h3 id="5-3-删除和剪贴"><a href="#5-3-删除和剪贴" class="headerlink" title="5.3 删除和剪贴"></a>5.3 删除和剪贴</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>x</strong></td>
+<td align="center">cut</td>
+<td>剪贴光标所在字符，可用<code>p</code>命令进行粘贴</td>
+</tr>
+<tr>
+<td align="center"><strong>nx</strong></td>
+<td align="center">cut</td>
+<td><a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">n</a>代表数字，nx表示剪贴光标后的n个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>d</strong>+<a href="#521-%E7%A7%BB%E5%8A%A8">移动命令</a></td>
+<td align="center">delete</td>
+<td>删除移动命令对应的内容</td>
+</tr>
+<tr>
+<td align="center"><strong>dd</strong></td>
+<td align="center">delete</td>
+<td>删除光标所在行</td>
+</tr>
+<tr>
+<td align="center"><strong>ndd</strong></td>
+<td align="center">delete</td>
+<td><a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">n</a>代表数字，ndd表示删除光标后的n行，包括光标所在行</td>
+</tr>
+<tr>
+<td align="center"><strong>D</strong></td>
+<td align="center">delete</td>
+<td>删除至行尾</td>
+</tr>
+</tbody></table>
+<ul>
+<li>e.g.<ul>
+<li>当前光标在10行，想删除10到12行内容，用<code>d12G</code>， <code>d12gg</code>， <code>3dd</code>这些指令可以实现，也可以通过<strong>可视模式</strong>选中后再按<code>d</code>实现</li>
+<li><code>d0</code>即删除光标到行首的字符，不包括光标选中的字符本身</li>
+<li><code>d`a</code>删除当前字符到<a href="#6-%E6%A0%87%E8%AE%B0">标记</a><code>`a</code>之间的字符</li>
+</ul>
+</li>
+<li>注意，vim中删除的内容也会放到缓冲区，也就是说可以通过<code>p</code>来粘贴刚刚删除的内容</li>
+<li><code>x</code>只是剪贴单个字符，<code>nx</code>剪贴多个字符，而<code>d</code>可以配合更加复杂的移动操作，<code>x</code>和<code>d</code>功能上略有不同，但本质上两者都为<strong>剪贴</strong>操作</li>
+</ul>
+<h3 id="5-4-撤销"><a href="#5-4-撤销" class="headerlink" title="5.4 撤销"></a>5.4 撤销</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>u</strong></td>
+<td align="center">undo</td>
+<td>撤销上次的命令操作</td>
+</tr>
+<tr>
+<td align="center"><strong>Crtl+r</strong></td>
+<td align="center">undo</td>
+<td>用来恢复撤销的命令</td>
+</tr>
+</tbody></table>
+<h3 id="5-5-复制和粘贴"><a href="#5-5-复制和粘贴" class="headerlink" title="5.5 复制和粘贴"></a>5.5 复制和粘贴</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>y</strong>+<a href="#521-%E7%A7%BB%E5%8A%A8">移动命令</a></td>
+<td align="center">copy</td>
+<td>复制</td>
+</tr>
+<tr>
+<td align="center"><strong>yy</strong></td>
+<td align="center">copy</td>
+<td>复制光标所在行</td>
+</tr>
+<tr>
+<td align="center"><strong>nyy</strong></td>
+<td align="center">copy</td>
+<td><a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">n</a>代表数字，nyy表示复制光标后的n行，包括光标所在行</td>
+</tr>
+<tr>
+<td align="center"><strong>p</strong></td>
+<td align="center">paste</td>
+<td>粘贴</td>
+</tr>
+</tbody></table>
+<h3 id="5-6-替换和查找"><a href="#5-6-替换和查找" class="headerlink" title="5.6 替换和查找"></a>5.6 替换和查找</h3><h4 id="5-6-1-替换"><a href="#5-6-1-替换" class="headerlink" title="5.6.1 替换"></a>5.6.1 替换</h4><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+<th align="center">工作模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">replace</td>
+<td>替换当前字符</td>
+<td align="center">命令模式</td>
+</tr>
+<tr>
+<td align="center"><strong>R</strong></td>
+<td align="center">replace</td>
+<td>替换当前光标后的字符</td>
+<td align="center">替换模式</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>R</code>命令可以进入<strong>替换模式</strong>， 替换完成后，按下<code>ESC</code>可以回到命令模式</li>
+<li><strong>替换命令</strong>的作用就是不用进入<strong>编辑模式</strong>就可以对文件进行轻量级的修改</li>
+</ul>
+<h4 id="5-6-2-常规查找"><a href="#5-6-2-常规查找" class="headerlink" title="5.6.2 常规查找"></a>5.6.2 常规查找</h4><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>&#x2F;str</strong></td>
+<td>查找str</td>
+</tr>
+</tbody></table>
+<ul>
+<li>当查找到指定内容后，使用Nest查找下一个匹配字符出现的位置：<ul>
+<li><code>n</code>：查找下一个匹配字符</li>
+<li><code>N</code>：查找上一个匹配字符</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-6-3-单词快速匹配"><a href="#5-6-3-单词快速匹配" class="headerlink" title="5.6.3 单词快速匹配"></a>5.6.3 单词快速匹配</h4><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>*</strong></td>
+<td>向后查找当前光标所在单词</td>
+</tr>
+<tr>
+<td align="center"><strong>#</strong></td>
+<td>向前查找当前光标所在单词</td>
+</tr>
+</tbody></table>
+<h4 id="5-6-4-查找并替换"><a href="#5-6-4-查找并替换" class="headerlink" title="5.6.4 查找并替换"></a>5.6.4 查找并替换</h4><ul>
+<li>在vim中查找和替换命令需要在<a href="#42-%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F">末行模式</a>下执行</li>
+<li>记忆固定的命令格式：<code>:%s///g</code></li>
+</ul>
+<h5 id="1-全局替换"><a href="#1-全局替换" class="headerlink" title="1. 全局替换"></a>1. 全局替换</h5><ul>
+<li>命令格式：<code>:%s/新文本/旧文本/g</code></li>
+<li>用来一次性替换所有的文本</li>
+</ul>
+<h5 id="2-可视区域替换"><a href="#2-可视区域替换" class="headerlink" title="2. 可视区域替换"></a>2. 可视区域替换</h5><ul>
+<li>命令格式：<code>:s/新文本/旧文本/g</code></li>
+<li>无百分号<code>%</code></li>
+<li>使用时先进入<strong>可视模式</strong>进行区域选择，选定要替换的区域后再使用上述替换命令</li>
+</ul>
+<h5 id="3-确认替换"><a href="#3-确认替换" class="headerlink" title="3. 确认替换"></a>3. 确认替换</h5><ul>
+<li>命令格式：<code>:%s/新文本/旧文本/gc</code></li>
+<li><code>g</code>后加了个字符<code>c</code></li>
+<li>可以在输入替换指令后给出更详细的提示指令，来提高替换操作的安全性</li>
+<li>替换提示词列表：<table>
+<thead>
+<tr>
+<th align="center">键</th>
+<th align="center">含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>y</strong></td>
+<td align="center">yes</td>
+<td>替换</td>
+</tr>
+<tr>
+<td align="center"><strong>n</strong></td>
+<td align="center">no</td>
+<td>不替换</td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">all</td>
+<td>替换所有</td>
+</tr>
+<tr>
+<td align="center"><strong>q</strong></td>
+<td align="center">quit</td>
+<td>退出替换</td>
+</tr>
+<tr>
+<td align="center"><strong>l</strong></td>
+<td align="center">last</td>
+<td>最后一个，并把光标移动到行首</td>
+</tr>
+<tr>
+<td align="center"><strong>^E</strong></td>
+<td align="center"></td>
+<td>向下滚屏</td>
+</tr>
+<tr>
+<td align="center"><strong>^Y</strong></td>
+<td align="center"></td>
+<td>向上滚屏</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="5-7-缩排和重复执行"><a href="#5-7-缩排和重复执行" class="headerlink" title="5.7 缩排和重复执行"></a>5.7 缩排和重复执行</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>&gt;(&lt;)</strong>+<a href="#521-%E7%A7%BB%E5%8A%A8">移动命令</a></td>
+<td>对范围内容进行缩排</td>
+</tr>
+<tr>
+<td align="center"><strong>&gt;&gt;</strong></td>
+<td>向右增加缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>&lt;&lt;</strong></td>
+<td>向左增加缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>n&gt;&gt;(n&lt;&lt;)</strong></td>
+<td><a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">n</a>代表数字，n&gt;&gt;( n&lt;&lt;)表示缩排n行，而不是一行缩排n次</td>
+</tr>
+<tr>
+<td align="center"><strong>.</strong></td>
+<td>重复上次命令</td>
+</tr>
+</tbody></table>
+<ul>
+<li>在<strong>可视模式</strong>下，缩排命令只需要一个<code>&lt;</code>或<code>&gt;</code>符号就可以</li>
+<li><code>.</code>命令可以重复上次的缩排操作，同样也可以重复之前的<a href="#53-%E5%88%A0%E9%99%A4%E5%92%8C%E5%89%AA%E8%B4%B4">删除</a>和<a href="#55-%E5%A4%8D%E5%88%B6%E5%92%8C%E7%B2%98%E8%B4%B4">粘贴</a>等操作</li>
+</ul>
+<h3 id="5-8-插入命令"><a href="#5-8-插入命令" class="headerlink" title="5.8 插入命令"></a>5.8 插入命令</h3><ul>
+<li>在vim中， 除了常用的<code>i</code>进入<a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">编辑模式</a>外，还提供了以下命令同样可以进入<a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">编辑模式</a>：<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+<th align="center">常用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>i</strong></td>
+<td align="center">insert</td>
+<td>在当<strong>字符前</strong>插入文本</td>
+<td align="center">常用</td>
+</tr>
+<tr>
+<td align="center"><strong>I</strong></td>
+<td align="center">insert</td>
+<td>在<strong>行首</strong>插入文本</td>
+<td align="center">较常用</td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">append</td>
+<td>在当前<strong>字符后</strong>添加文本</td>
+<td align="center">常用</td>
+</tr>
+<tr>
+<td align="center"><strong>A</strong></td>
+<td align="center">append</td>
+<td>在<strong>行末</strong>添加文本</td>
+<td align="center">较常用</td>
+</tr>
+<tr>
+<td align="center"><strong>o</strong></td>
+<td align="center"></td>
+<td>在当前行后面插入一空行</td>
+<td align="center">常用</td>
+</tr>
+<tr>
+<td align="center"><strong>O</strong></td>
+<td align="center"></td>
+<td>在当前行前面插入一空行</td>
+<td align="center">常用</td>
+</tr>
+</tbody></table>
+</li>
+<li>一旦使用上述指令，vim便会进入<a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">编辑模式</a>，再次使用指令只会输入相关字符，而不会再次产生<a href="#41-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a>的作用</li>
+<li>输入也可以应用<a href="#51-%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0">重复次数</a>的方式键入：<ul>
+<li>e.g.要在文件中连续输入10个<code>hello</code>：<ul>
+<li>先在<a href="#41-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a>输入<code>10</code></li>
+<li>输入<code>i</code>进入<a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">编辑模式</a></li>
+<li>在要输入的地方输入<code>hello</code></li>
+<li>按下<code>ESC</code>返回到<a href="#41-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a>，返回后vim将进入编辑模式到退出看作一个整体，并重复10次(但逻辑上应该不是进入退出10次)</li>
+</ul>
+</li>
+<li>此操作也可以用<code>.</code>命令进行<a href="#57-%E7%BC%A9%E6%8E%92%E5%92%8C%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C">重复执行</a></li>
+</ul>
+</li>
+<li>注意编写文件的时候进入<a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">编辑模式</a>前不要按任何数字</li>
+<li>可以通过插入命令给<strong>多行代码添加注释</strong><ul>
+<li>首先找到要添加注释的第一行代码，利用<code>^</code>命令来到行首</li>
+<li>利用<code>Ctrl+q</code>的命令进入<strong>可视块模式</strong>，把将要添加注释的几行代码选中</li>
+<li>再利用<code>I</code>命令进入<a href="#43-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F">编辑模式</a>，在行首键入<code># </code></li>
+<li>按下<code>ESC</code>退出，vim自动将所有选中的行首添加<code># </code>，进而实现添加多行注释操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-9-文件处理和分屏命令"><a href="#5-9-文件处理和分屏命令" class="headerlink" title="5.9 文件处理和分屏命令"></a>5.9 文件处理和分屏命令</h3><h4 id="5-9-1-文件处理命令"><a href="#5-9-1-文件处理命令" class="headerlink" title="5.9.1 文件处理命令"></a>5.9.1 文件处理命令</h4><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>:e .</strong></td>
+<td align="center">edit</td>
+<td>会打开内置的文件浏览器，<code>.</code>表示浏览要当前目录下的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:e [文件名]</strong></td>
+<td align="center">edit</td>
+<td>会打开相应的文件，但必须保存当前的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:n [文件名]</strong></td>
+<td align="center">new</td>
+<td>快速新建文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:w [文件名]</strong></td>
+<td align="center">write</td>
+<td>另存为，但是仍然编辑当前文件，并不会切换文件，用于阶段性备份</td>
+</tr>
+</tbody></table>
+<ul>
+<li>在切换文件之前，必须保证当前文件已经被保存</li>
+</ul>
+<h4 id="5-9-2-分屏命令"><a href="#5-9-2-分屏命令" class="headerlink" title="5.9.2 分屏命令"></a>5.9.2 分屏命令</h4><ul>
+<li><p>使用分屏命令，可以同时编辑和查看多个文件</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>:sp [文件名]</strong></td>
+<td align="center">split</td>
+<td>横向增加分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>:vsp [文件名]</strong></td>
+<td align="center">vertical split</td>
+<td>纵向增加分屏</td>
+</tr>
+</tbody></table>
+<ul>
+<li>也可以不添加文件名，而利用<code>.</code>替代，会打开内置的文件浏览器，来查看有哪些文件</li>
+</ul>
+</li>
+<li><p>切换分屏窗口有以下操作，注意都是基于<code>Ctrl+w</code>这个快捷键的，<code>w</code>对应<code>window</code>，即<code>Ctrl+w+命令字符</code>才是完整的功能命令</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">英文</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>w</strong></td>
+<td align="center">window</td>
+<td>切换到下一个窗口</td>
+</tr>
+<tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">reverse</td>
+<td>互换窗口</td>
+</tr>
+<tr>
+<td align="center"><strong>c</strong></td>
+<td align="center">close</td>
+<td>关闭当前窗口，但是不能关闭最后一个窗口</td>
+</tr>
+<tr>
+<td align="center"><strong>q</strong></td>
+<td align="center">quit</td>
+<td>退出当前窗口，如果是最后一个窗口，则关闭vim</td>
+</tr>
+<tr>
+<td align="center"><strong>o</strong></td>
+<td align="center">other</td>
+<td>关闭其他窗口</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/study/" rel="tag"># study</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/04/%E5%A4%87%E8%80%83csp%EF%BC%8Ccpp%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%95%B4%E7%90%86/" rel="prev" title="备考csp，cpp相关内容整理">
+                  <i class="fa fa-angle-left"></i> 备考csp，cpp相关内容整理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/02/21/%E8%B0%88%E8%B0%88%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/" rel="next" title="谈谈博客的创建">
+                  谈谈博客的创建 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jesse Chen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

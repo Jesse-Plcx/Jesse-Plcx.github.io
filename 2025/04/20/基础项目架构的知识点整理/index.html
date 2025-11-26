@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/web-app-manifest-512x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/web-app-manifest-192x192.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="0. 目录 0. 目录 1. 项目参数的处理 1.1 config文件 1.1.1 作用   1.2 argparse 模块 1.2.1 基本结构示例 1.2.2 基本流程 1.2.3 add_argument 常用参数详解     2. 数据集和调用 2.1 数据集 2.1.1 数据加载器作用   2.2 数据处理常用函数 2.2.1 linspace 2.2.2 ones 2.2.3 uniq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础项目架构的知识点整理">
+<meta property="og:url" content="http://example.com/2025/04/20/%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Jesse&#39;s Blog">
+<meta property="og:description" content="0. 目录 0. 目录 1. 项目参数的处理 1.1 config文件 1.1.1 作用   1.2 argparse 模块 1.2.1 基本结构示例 1.2.2 基本流程 1.2.3 add_argument 常用参数详解     2. 数据集和调用 2.1 数据集 2.1.1 数据加载器作用   2.2 数据处理常用函数 2.2.1 linspace 2.2.2 ones 2.2.3 uniq">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-20T08:12:14.000Z">
+<meta property="article:modified_time" content="2025-05-11T08:22:11.403Z">
+<meta property="article:author" content="Jesse Chen">
+<meta property="article:tag" content="study">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/04/20/%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/04/20/%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/","path":"2025/04/20/基础项目架构的知识点整理/","title":"基础项目架构的知识点整理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>基础项目架构的知识点整理 | Jesse's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Jesse's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">:)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">0. 目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A1%B9%E7%9B%AE%E5%8F%82%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">1. 项目参数的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-config%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 config文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-argparse-%E6%A8%A1%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 argparse 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 基本结构示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 基本流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-add-argument-%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3 add_argument 常用参数详解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E8%B0%83%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">2. 数据集和调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%BD%9C%E7%94%A8"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 数据加载器作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 数据处理常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-linspace"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 linspace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-ones"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 ones</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-unique"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 unique</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-4-enumerate"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 enumerate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-5-reshape"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.2.5 reshape</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-6-shape"><span class="nav-number">3.2.6.</span> <span class="nav-text">2.2.6 shape</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-7-append"><span class="nav-number">3.2.7.</span> <span class="nav-text">2.2.7 append</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-8-randint"><span class="nav-number">3.2.8.</span> <span class="nav-text">2.2.8 randint</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%95%B0%E6%8D%AE%E7%BB%B4%E5%BA%A6%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 数据维度的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-%E6%95%B0%E6%8D%AE%E7%BB%B4%E5%BA%A6%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">3.3.1.</span> <span class="nav-text">2.3.1 数据维度的表示</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jesse Chen"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jesse Chen</p>
+  <div class="site-description" itemprop="description">Record, Study, Share!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jesse-Plcx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jesse-Plcx" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:plcx666666@gmail.com" title="E-Mail → mailto:plcx666666@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.reddit.com/user/pl-cx/" title="Reddit → https:&#x2F;&#x2F;www.reddit.com&#x2F;user&#x2F;pl-cx&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-reddit fa-fw"></i>Reddit</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://x.com/pl_cx6" title="X → https:&#x2F;&#x2F;x.com&#x2F;pl_cx6" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>X</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/20/%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jesse Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+      <meta itemprop="description" content="Record, Study, Share!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="基础项目架构的知识点整理 | Jesse's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基础项目架构的知识点整理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-20 16:12:14" itemprop="dateCreated datePublished" datetime="2025-04-20T16:12:14+08:00">2025-04-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-05-11 16:22:11" itemprop="dateModified" datetime="2025-05-11T16:22:11+08:00">2025-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Study/" itemprop="url" rel="index"><span itemprop="name">Study</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="0-目录"><a href="#0-目录" class="headerlink" title="0. 目录"></a>0. 目录</h2><ul>
+<li><a href="#0-%E7%9B%AE%E5%BD%95">0. 目录</a></li>
+<li><a href="#1-%E9%A1%B9%E7%9B%AE%E5%8F%82%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86">1. 项目参数的处理</a><ul>
+<li><a href="#11-config%E6%96%87%E4%BB%B6">1.1 config文件</a><ul>
+<li><a href="#111-%E4%BD%9C%E7%94%A8">1.1.1 <strong>作用</strong></a></li>
+</ul>
+</li>
+<li><a href="#12-argparse-%E6%A8%A1%E5%9D%97">1.2 argparse 模块</a><ul>
+<li><a href="#121-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B">1.2.1 基本结构示例</a></li>
+<li><a href="#122-%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B">1.2.2 基本流程</a></li>
+<li><a href="#123-add_argument-%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3">1.2.3 <code>add_argument</code> 常用参数详解</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E8%B0%83%E7%94%A8">2. 数据集和调用</a><ul>
+<li><a href="#21-%E6%95%B0%E6%8D%AE%E9%9B%86">2.1 数据集</a><ul>
+<li><a href="#211-%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%BD%9C%E7%94%A8">2.1.1 数据加载器作用</a></li>
+</ul>
+</li>
+<li><a href="#22-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0">2.2 数据处理常用函数</a><ul>
+<li><a href="#221-linspace">2.2.1 linspace</a></li>
+<li><a href="#222-ones">2.2.2 ones</a></li>
+<li><a href="#223-unique">2.2.3 unique</a></li>
+<li><a href="#224-enumerate">2.2.4 enumerate</a></li>
+<li><a href="#225-reshape">2.2.5 reshape</a></li>
+<li><a href="#226-shape">2.2.6 shape</a></li>
+<li><a href="#227-append">2.2.7 append</a></li>
+<li><a href="#228-randint">2.2.8 randint</a></li>
+</ul>
+</li>
+<li><a href="#23-%E6%95%B0%E6%8D%AE%E7%BB%B4%E5%BA%A6%E7%9A%84%E5%A4%84%E7%90%86">2.3 数据维度的处理</a><ul>
+<li><a href="#231-%E6%95%B0%E6%8D%AE%E7%BB%B4%E5%BA%A6%E7%9A%84%E8%A1%A8%E7%A4%BA">2.3.1 数据维度的表示</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="1-项目参数的处理"><a href="#1-项目参数的处理" class="headerlink" title="1. 项目参数的处理"></a>1. 项目参数的处理</h2><ul>
+<li>一般程序会将项目运行的参数统一放到config文件中，但同样也可以利用argparse模块，设置参数在命令行运行程序时添加</li>
+</ul>
+<h3 id="1-1-config文件"><a href="#1-1-config文件" class="headerlink" title="1.1 config文件"></a>1.1 config文件</h3><h4 id="1-1-1-作用"><a href="#1-1-1-作用" class="headerlink" title="1.1.1 作用"></a>1.1.1 <strong>作用</strong></h4><ul>
+<li>将项目中的各种<strong>设置</strong>，<strong>参数</strong>和<strong>常量</strong>集中在一起配置</li>
+<li>便于不同环境间切换配置</li>
+<li>一般都是以字典的形式呈现</li>
+</ul>
+<h3 id="1-2-argparse-模块"><a href="#1-2-argparse-模块" class="headerlink" title="1.2 argparse 模块"></a>1.2 argparse 模块</h3><ul>
+<li>argument parser（参数解析器）</li>
+</ul>
+<h4 id="1-2-1-基本结构示例"><a href="#1-2-1-基本结构示例" class="headerlink" title="1.2.1 基本结构示例"></a>1.2.1 基本结构示例</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&quot;example&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--name&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, <span class="built_in">help</span>=<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;hello，<span class="subst">&#123;args.name&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-2-基本流程"><a href="#1-2-2-基本流程" class="headerlink" title="1.2.2 基本流程"></a>1.2.2 基本流程</h4><ol>
+<li>创建解析器对象：<code>ArgumentParser()</code></li>
+<li>添加参数：<code>add_argument(...)</code></li>
+<li>解析参数：<code>parse_args()</code></li>
+<li>使用参数：通过 <code>args.</code>参数名 获取</li>
+</ol>
+<h4 id="1-2-3-add-argument-常用参数详解"><a href="#1-2-3-add-argument-常用参数详解" class="headerlink" title="1.2.3 add_argument 常用参数详解"></a>1.2.3 <code>add_argument</code> 常用参数详解</h4><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>参数名称，如 –name</td>
+</tr>
+<tr>
+<td>type</td>
+<td>参数类型，如 int, str</td>
+</tr>
+<tr>
+<td>help</td>
+<td>参数说明文档</td>
+</tr>
+<tr>
+<td>required</td>
+<td>是否为必须参数（默认 False）</td>
+</tr>
+<tr>
+<td>default</td>
+<td>默认值</td>
+</tr>
+</tbody></table>
+<h2 id="2-数据集和调用"><a href="#2-数据集和调用" class="headerlink" title="2. 数据集和调用"></a>2. 数据集和调用</h2><h3 id="2-1-数据集"><a href="#2-1-数据集" class="headerlink" title="2.1 数据集"></a>2.1 数据集</h3><ul>
+<li>一般的数据集由<strong>数据加载器</strong>来调用</li>
+</ul>
+<h4 id="2-1-1-数据加载器作用"><a href="#2-1-1-数据加载器作用" class="headerlink" title="2.1.1 数据加载器作用"></a>2.1.1 数据加载器作用</h4><ul>
+<li>将数据加载，预处理和模型训练逻辑分离出来</li>
+<li>确保数据流程的一致性</li>
+<li>数据预处理，标签处理，维度处理</li>
+</ul>
+<h3 id="2-2-数据处理常用函数"><a href="#2-2-数据处理常用函数" class="headerlink" title="2.2 数据处理常用函数"></a>2.2 数据处理常用函数</h3><table>
+<thead>
+<tr>
+<th>函数&#x2F;方法</th>
+<th>所属库</th>
+<th>基本功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>linspace</code></td>
+<td>NumPy</td>
+<td>创建等间隔数值序列</td>
+</tr>
+<tr>
+<td><code>ones</code></td>
+<td>NumPy</td>
+<td>创建全1数组</td>
+</tr>
+<tr>
+<td><code>zeros</code></td>
+<td>NumPy</td>
+<td>创建全0数组</td>
+</tr>
+<tr>
+<td><code>unique</code></td>
+<td>NumPy</td>
+<td>提取数组中的唯一值</td>
+</tr>
+<tr>
+<td><code>enumerate</code></td>
+<td>Python内置</td>
+<td>在循环中同时获取索引和值</td>
+</tr>
+<tr>
+<td><code>reshape</code></td>
+<td>NumPy</td>
+<td>改变数组维度而保持元素不变</td>
+</tr>
+<tr>
+<td><code>shape</code></td>
+<td>NumPy</td>
+<td>获取数组的维度大小</td>
+</tr>
+<tr>
+<td><code>append</code></td>
+<td>NumPy</td>
+<td>在数组末尾添加元素</td>
+</tr>
+<tr>
+<td><code>randint</code></td>
+<td>NumPy</td>
+<td>生成随机整数或随机整数数组</td>
+</tr>
+</tbody></table>
+<h4 id="2-2-1-linspace"><a href="#2-2-1-linspace" class="headerlink" title="2.2.1 linspace"></a>2.2.1 linspace</h4><ul>
+<li><p>全称是 “linear space”（线性间隔）</p>
+</li>
+<li><p>作用：在一个指定的范围内，生成指定数量的等间隔数值。</p>
+</li>
+<li><p>标准格式：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">np.linspace(</span><br><span class="line">start,      <span class="comment"># 起始值</span></span><br><span class="line">stop,       <span class="comment"># 结束值</span></span><br><span class="line">num=<span class="number">50</span>,     <span class="comment"># 生成的等间隔样本数量</span></span><br><span class="line">endpoint=<span class="literal">True</span>,  <span class="comment"># 是否包含结束值</span></span><br><span class="line">retstep=<span class="literal">False</span>,  <span class="comment"># 是否返回样本间距</span></span><br><span class="line">dtype=<span class="literal">None</span>      <span class="comment"># 输出数组的数据类型</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = np.linspace(<span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>, dtype=<span class="built_in">int</span>)</span><br><span class="line"><span class="comment"># 结果是 [0 1 2 3 4]  </span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-2-ones"><a href="#2-2-2-ones" class="headerlink" title="2.2.2 ones"></a>2.2.2 ones</h4><ul>
+<li>语法：<code>np.ones(shape, dtype=float, order=&#39;C&#39;)</code></li>
+<li>作用：创建一个所有元素都为 1 的数组。</li>
+<li>示例:<br>  <code>np.ones(5)</code><br>  <code>array([1., 1., 1., 1., 1.])</code></li>
+<li><code>zeros</code>函数同理</li>
+</ul>
+<h4 id="2-2-3-unique"><a href="#2-2-3-unique" class="headerlink" title="2.2.3 unique"></a>2.2.3 unique</h4><ul>
+<li><p>语法： <code>np.unique(ar, return_index=False, return_inverse=False, return_counts=False)</code></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ar</code></td>
+<td>输入数组（可以是一维或多维，会被展平成一维处理）</td>
+</tr>
+<tr>
+<td><code>return_index</code></td>
+<td>如果为 <code>True</code>，返回原数组中唯一值的首次出现索引</td>
+</tr>
+<tr>
+<td><code>return_inverse</code></td>
+<td>如果为 <code>True</code>，返回可用于重构原数组的索引数组</td>
+</tr>
+<tr>
+<td><code>return_counts</code></td>
+<td>如果为 <code>True</code>，返回每个唯一元素出现的次数</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>作用：</p>
+</li>
+<li><p>示例：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">4</span>])</span><br><span class="line">np.unique(a)</span><br></pre></td></tr></table></figure>
+
+<p>  结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-4-enumerate"><a href="#2-2-4-enumerate" class="headerlink" title="2.2.4 enumerate"></a>2.2.4 enumerate</h4><ul>
+<li><p>循环的传统方式</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in range(len(X)):</span><br><span class="line">    x = X[i]</span><br><span class="line">    print(f&quot;View &#123;i+1&#125; shape: &#123;X[i].shape&#125;&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>enumerate</code></p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(X):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;View <span class="subst">&#123;i+<span class="number">1</span>&#125;</span> shape: <span class="subst">&#123;x.shape&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li>X是一个包含多个视图数据的列表</li>
+<li>i索引值，整数类型，自动获取当前迭代的索引值(从0开始)  </li>
+<li>x元素值，任何数据类型，获取列表中对应位置的元素(视图数据)，<code>x</code> 本质上等同于 <code>X[i]</code></li>
+</ul>
+</li>
+<li><p>使用<code>enumerate</code>时，可以只有索引，也可以只有值，缺失的用<code>_</code>来代替，两个不一定要用得到，但两个要素再<code>enumerate</code>方法中都要有</p>
+</li>
+</ul>
+<h4 id="2-2-5-reshape"><a href="#2-2-5-reshape" class="headerlink" title="2.2.5 reshape"></a>2.2.5 reshape</h4><ul>
+<li><p>定义：<code>reshape</code>是<code>NumPy</code>数组的一个方法，用于改变数组的维度形状而不改变其数据内容</p>
+</li>
+<li><p>作用：用来重塑数据的维度</p>
+</li>
+<li><p>示例：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一维转二维</span></span><br><span class="line">x = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line">x_2d = x.reshape(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment"># 结果: array([[1, 2, 3], [4, 5, 6]])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用-1自动计算维度</span></span><br><span class="line">y = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line">y_flat = y.reshape(-<span class="number">1</span>)  <span class="comment"># 展平为一维</span></span><br><span class="line"><span class="comment"># 结果: array([1, 2, 3, 4, 5, 6])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加维度</span></span><br><span class="line">z = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">z_new = z.reshape(<span class="number">3</span>, <span class="number">1</span>)  <span class="comment"># 变为列向量</span></span><br><span class="line"><span class="comment"># 结果: array([[1], [2], [3]])</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-6-shape"><a href="#2-2-6-shape" class="headerlink" title="2.2.6 shape"></a>2.2.6 shape</h4><ul>
+<li><p>定义：<code>shape</code> 是<code>NumPy</code>数组的一个属性，用于获取数组的维度信息</p>
+</li>
+<li><p>返回值：返回一个元组，表示数组在每个维度上的大小</p>
+</li>
+<li><p>基本用法：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 一维数组</span></span><br><span class="line">arr1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(arr1.shape)  <span class="comment"># 输出: (4,)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二维数组</span></span><br><span class="line">arr2 = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line"><span class="built_in">print</span>(arr2.shape)  <span class="comment"># 输出: (2, 3)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 三维数组</span></span><br><span class="line">arr3 = np.array([[[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], [[<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]]])</span><br><span class="line"><span class="built_in">print</span>(arr3.shape)  <span class="comment"># 输出: (2, 2, 2)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-7-append"><a href="#2-2-7-append" class="headerlink" title="2.2.7 append"></a>2.2.7 append</h4><ul>
+<li><p><strong>定义</strong>：<code>append</code> 是 NumPy 的一个函数，用于将值添加到数组的末尾</p>
+</li>
+<li><p><strong>语法</strong>：<code>np.append(arr, values, axis=None)</code></p>
+</li>
+<li><p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>arr</code></td>
+<td>要添加值的输入数组</td>
+</tr>
+<tr>
+<td><code>values</code></td>
+<td>要添加的值（可以是数组）</td>
+</tr>
+<tr>
+<td><code>axis</code></td>
+<td>沿着添加值的轴，默认为None（数组会先被展平）</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>返回值</strong>：返回添加了值的新数组副本，不会修改原数组</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一维数组添加值</span></span><br><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">b = np.append(a, <span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(b)  <span class="comment"># 输出: [1 2 3 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加多个值</span></span><br><span class="line">c = np.append(a, [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line"><span class="built_in">print</span>(c)  <span class="comment"># 输出: [1 2 3 4 5 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 沿特定轴添加（二维数组）</span></span><br><span class="line">arr = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 沿行添加(axis=0)</span></span><br><span class="line">row_append = np.append(arr, [[<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]], axis=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(row_append)</span><br><span class="line"><span class="comment"># 输出:</span></span><br><span class="line"><span class="comment"># [[1 2 3]</span></span><br><span class="line"><span class="comment">#  [4 5 6]</span></span><br><span class="line"><span class="comment">#  [7 8 9]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 沿列添加(axis=1)</span></span><br><span class="line">col_append = np.append(arr, [[<span class="number">10</span>], [<span class="number">11</span>]], axis=<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(col_append)</span><br><span class="line"><span class="comment"># 输出:</span></span><br><span class="line"><span class="comment"># [[ 1  2  3 10]</span></span><br><span class="line"><span class="comment">#  [ 4  5  6 11]]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，即使用<code>append</code>函数处理<code>list</code>数据结构，并不会将list转换为<code>array</code>数据类型，只有显式转换才会有效，如下:</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">my_array = np.array(my_list)  <span class="comment"># 列表→NumPy数组</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-8-randint"><a href="#2-2-8-randint" class="headerlink" title="2.2.8 randint"></a>2.2.8 randint</h4><ul>
+<li><p><strong>定义</strong>：<code>randint</code> 是 NumPy 的一个函数，用于生成随机整数。</p>
+</li>
+<li><p><strong>语法</strong>：<code>np.random.randint(low, high=None, size=None, dtype=int)</code></p>
+</li>
+<li><p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>low</code></td>
+<td>随机整数的下界（包含）。</td>
+</tr>
+<tr>
+<td><code>high</code></td>
+<td>随机整数的上界（不包含）。如果未指定，则生成范围为 <code>[0, low)</code>。</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>输出随机数的形状（可以是整数或元组）。</td>
+</tr>
+<tr>
+<td><code>dtype</code></td>
+<td>输出数组的数据类型，默认是 <code>int</code>。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>返回值</strong>：返回一个随机整数或随机整数数组。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成一个随机整数，范围是 [0, 10)</span></span><br><span class="line">random_int = np.random.randint(<span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(random_int)  <span class="comment"># 输出示例: 7</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成一个随机整数数组，范围是 [1, 5)，形状为 (3, 2)</span></span><br><span class="line">random_array = np.random.randint(<span class="number">1</span>, <span class="number">5</span>, size=(<span class="number">3</span>, <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(random_array)</span><br><span class="line"><span class="comment"># 输出示例:</span></span><br><span class="line"><span class="comment"># [[4 2]</span></span><br><span class="line"><span class="comment">#  [1 3]</span></span><br><span class="line"><span class="comment">#  [2 4]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成一个一维随机整数数组，范围是 [0, 100)，长度为 5</span></span><br><span class="line">random_1d_array = np.random.randint(<span class="number">0</span>, <span class="number">100</span>, size=<span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(random_1d_array)  <span class="comment"># 输出示例: [23 45 67 12 89]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意事项</strong>：</p>
+<ul>
+<li>如果只提供 <code>low</code> 参数，则生成的随机整数范围是 <code>[0, low)</code>。</li>
+<li>如果指定了 <code>high</code> 参数，则生成的随机整数范围是 <code>[low, high)</code>。</li>
+<li><code>size</code> 参数可以用来指定输出的形状，支持多维数组。</li>
+<li><strong>随机的数组会产生重复</strong>!!而不是所有的选出的数据是不重复的</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-数据维度的处理"><a href="#2-3-数据维度的处理" class="headerlink" title="2.3 数据维度的处理"></a>2.3 数据维度的处理</h3><h4 id="2-3-1-数据维度的表示"><a href="#2-3-1-数据维度的表示" class="headerlink" title="2.3.1 数据维度的表示"></a>2.3.1 数据维度的表示</h4><ul>
+<li><p>在python中，<strong>三维数组</strong>和<strong>一维数组但元素是二维数组</strong>是两种完全不一样的东西</p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th>特征</th>
+<th>三维数组 <code>a</code></th>
+<th>一维对象数组 <code>b</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类型</td>
+<td><code>np.ndarray</code></td>
+<td><code>np.ndarray</code>（元素是 <code>ndarray</code>）</td>
+</tr>
+<tr>
+<td>shape</td>
+<td><code>(2, 3, 4)</code></td>
+<td><code>(2,)</code></td>
+</tr>
+<tr>
+<td>是否结构化</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>内存连续性</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>支持的操作</td>
+<td>广播、切片等</td>
+<td>只能逐个处理元素</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/study/" rel="tag"># study</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/04/09/%E8%81%9A%E7%B1%BB%E6%8C%87%E6%A0%87%E6%80%BB%E7%BB%93/" rel="prev" title="聚类指标总结">
+                  <i class="fa fa-angle-left"></i> 聚类指标总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/05/11/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%80%BB%E7%BB%93/" rel="next" title="算法-最短路径总结">
+                  算法-最短路径总结 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jesse Chen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

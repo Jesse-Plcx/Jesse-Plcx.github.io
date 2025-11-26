@@ -5,7 +5,9 @@ db.json
 node_modules/
 public/
 .deploy*/
-source/
+backup_from_merge/
+source/_posts/
+source/p_imgs/
 _multiconfig.yml
 mykey.txt
 mykey.txt.pub

@@ -7,7 +7,6 @@ public/
 .deploy*/
 backup_from_merge/
 source/_private_posts/
-source/p_imgs/
 _multiconfig.yml
 mykey.txt
 mykey.txt.pub

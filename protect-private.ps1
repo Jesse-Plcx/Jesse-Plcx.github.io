@@ -17,6 +17,10 @@ try {
         Write-Host $blogPassphrase -ForegroundColor Yellow
         $blogSaved = Read-Host 'After saving it, type YES to encrypt your private documents'
         if ($blogSaved -ne 'YES') { Write-Host 'No documents were encrypted.'; return }
+        $blogSecureFirst = Read-Host 'Paste the saved passphrase to confirm it before encryption' -AsSecureString
+        $blogConfirmation = [System.Net.NetworkCredential]::new('', $blogSecureFirst).Password
+        if ($blogPassphrase -cne $blogConfirmation) { throw 'The saved passphrase does not match. No documents were encrypted.' }
+        $blogConfirmation = $null
     } else {
         $blogSecureFirst = Read-Host 'Enter a unique vault passphrase (at least 20 characters)' -AsSecureString
         $blogSecureSecond = Read-Host 'Confirm the passphrase' -AsSecureString
@@ -30,6 +34,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Vault encryption failed.' }
 } finally {
     $blogPassphrase = $null
+    $blogConfirmation = $null
     if ($blogSecureFirst) { $blogSecureFirst.Dispose() }
     if ($blogSecureSecond) { $blogSecureSecond.Dispose() }
     $OutputEncoding = $blogPreviousEncoding

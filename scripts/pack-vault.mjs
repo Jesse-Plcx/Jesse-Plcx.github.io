@@ -14,6 +14,12 @@ const types = new Map([
   ['.png', 'image/png'], ['.jpg', 'image/jpeg'], ['.jpeg', 'image/jpeg'], ['.webp', 'image/webp'],
 ]);
 
+export function decodePassphraseInput(input) {
+  // Windows PowerShell 5.1 can prepend a UTF-8 BOM to a native stdin pipe.
+  // TextDecoder removes that transport marker while preserving password spaces.
+  return new TextDecoder('utf-8', { fatal: true }).decode(input).replace(/\r?\n$/, '');
+}
+
 async function filesIn(directory) {
   let entries;
   try {
@@ -66,7 +72,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   } else {
     const input = readFileSync(0);
     try {
-      const passphrase = input.toString('utf8').replace(/\r?\n$/, '');
+      const passphrase = decodePassphraseInput(input);
       input.fill(0);
       const { envelope, count } = await packDocuments(projectRoot, passphrase);
       const folder = path.join(projectRoot, 'static/vault');

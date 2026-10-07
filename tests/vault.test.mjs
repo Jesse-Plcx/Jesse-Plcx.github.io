@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { encryptVault, decryptVault, validateEnvelope, validatePassphrase, fromBase64, toBase64 } from '../src/lib/vault-crypto.mjs';
-import { packDocuments } from '../scripts/pack-vault.mjs';
+import { packDocuments, decodePassphraseInput } from '../scripts/pack-vault.mjs';
 
 const password = 'Synthetic-Test-Key-Only-2026!DoNotUse';
 const payload = { version: 1, documents: [
@@ -12,6 +12,21 @@ const payload = { version: 1, documents: [
   { id: 'file-two', title: 'PRIVATE_ATTACHMENT_TITLE', filename: 'fixture.pdf', mime: 'application/pdf', kind: 'file', data: toBase64(new Uint8Array([0,1,2,254,255])) },
 ] };
 let envelope;
+
+test('password stdin removes the Windows PowerShell UTF-8 BOM without changing password characters', async () => {
+  const inputs = [
+    Buffer.from(password, 'utf8'),
+    Buffer.from(password + '\n', 'utf8'),
+    Buffer.from(password + '\r\n', 'utf8'),
+    Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(password + '\r\n', 'utf8')]),
+  ];
+  for (const input of inputs) assert.equal(decodePassphraseInput(input), password);
+  const unicode = ' 这是测试口令-安全-2026-Alpha! ';
+  assert.equal(decodePassphraseInput(Buffer.from('\uFEFF' + unicode + '\r\n')), unicode);
+  assert.throws(() => decodePassphraseInput(Buffer.from([0xff, 0xfe, 0x61])));
+  const encrypted = await encryptVault(payload, decodePassphraseInput(inputs[3]));
+  assert.deepEqual(await decryptVault(encrypted, password), payload);
+});
 test('encryption hides title, filename and body and round-trips all metadata and attachment bytes', async () => {
   envelope = await encryptVault(payload, password);
   assert.deepEqual(await decryptVault(envelope, password), payload);

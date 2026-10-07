@@ -7,7 +7,7 @@
 1. Markdown 私人笔记继续放在 source/_private_posts/。
 2. 其他文档可放在 source/_private_files/。支持 TXT、PDF、DOCX、PNG、JPEG、WebP。
 3. 在本机 PowerShell 中运行 `.\protect-private.ps1`。它生成一个随机的 256 位口令，仅在本机终端显示。
-4. 将口令保存在自己的密码管理器中，输入 YES 后加密。
+4. 将口令保存在自己的密码管理器中，输入 YES，再粘贴保存的口令确认后加密。
 5. 运行 npm run build 和 npm run verify；提交 static/vault/data.json 并推送，网站就能解锁这些文档。
 
 已有自己的强口令时，用 `.\protect-private.ps1 -Mode custom` 安全输入并确认。口令至少 20 个字符，推荐使用工具生成的随机口令。不要把口令写进源码、Git、聊天或命令行参数。

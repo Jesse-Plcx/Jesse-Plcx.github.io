@@ -1,0 +1,39 @@
+---
+import 'katex/dist/katex.min.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+const policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'";
+---
+<BaseLayout title="私密文档" description="使用你的口令，在当前页面解锁个人文档。" noindex>
+  <Fragment slot="head"><meta http-equiv="Content-Security-Policy" content={policy} /><meta name="referrer" content="no-referrer" /></Fragment>
+  <section class="vault-page" data-pagefind-ignore>
+    <PageHeader title="留给自己的记录。" eyebrow="PERSONAL SPACE / PRIVATE" description="输入你的解锁口令，查看自己的笔记和文档。" />
+    <div id="vault-locked" class="vault-lock-card">
+      <span class="vault-lock-symbol"><Icon name="lock" size={27} /></span>
+      <h2>私密文档</h2><p>文档只在当前页面解密。关闭或锁定后，需要重新输入口令。</p>
+      <form id="vault-form">
+        <label for="vault-passphrase">解锁口令</label>
+        <input id="vault-passphrase" name="passphrase" type="password" autocomplete="off" spellcheck="false" maxlength="1024" placeholder="输入你的解锁口令" required />
+        <button id="vault-unlock" class="button primary" type="submit" disabled>解锁文档 <Icon name="arrow" size={18} /></button>
+      </form>
+      <p id="vault-status" class="vault-status" role="status" aria-live="polite">正在准备私密文档…</p>
+    </div>
+    <div id="vault-workspace" class="vault-workspace" hidden>
+      <aside class="vault-library">
+        <div class="vault-library-header"><h2>我的文档</h2><button id="vault-lock" class="quiet-link" type="button">锁定 <Icon name="lock" size={14} /></button></div>
+        <p id="vault-count" class="vault-count"></p>
+        <div id="vault-list" class="vault-document-list" role="navigation" aria-label="私密文档列表"></div>
+        <p class="vault-idle-note">10 分钟无操作后自动锁定</p>
+      </aside>
+      <article class="vault-reader">
+        <header class="vault-reader-header"><h2 id="vault-title" tabindex="-1"></h2><a id="vault-download" class="quiet-link" hidden>下载文件 <Icon name="arrow" size={14} /></a></header>
+        <div id="vault-content" class="prose"></div>
+      </article>
+    </div>
+    <noscript><p class="empty-state">请启用 JavaScript 后使用私密文档解锁功能。</p></noscript>
+  </section>
+  <script>
+    import '../scripts/vault-client';
+  </script>
+</BaseLayout>

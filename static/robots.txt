@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /private/
+Disallow: /vault/
 Sitemap: https://jesse-plcx.github.io/sitemap-index.xml

@@ -10,6 +10,8 @@ public/
 db.json
 backup_from_merge/
 source/_private_posts/
+source/_private_files/
+static/vault/*.tmp
 .env
 .env.*
 !.env.example

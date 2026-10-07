@@ -14,7 +14,7 @@ export default defineConfig({
     '/page/2/': '/archives/', '/archives/page/2/': '/archives/',
     '/categories/-Study/': '/categories/Study/',
   },
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: page => !new URL(page).pathname.startsWith('/private/') })],
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath],

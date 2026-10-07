@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 24
           package-manager: npm
-          build-cmd: npm run check && npm run build && npm run verify
+          build-cmd: npm run check && npm run test:vault && npm run build && npm run verify
   deploy:
     needs: build
     runs-on: ubuntu-latest

@@ -14,12 +14,15 @@
     "preview": "astro preview",
     "new": "node scripts/new-post.mjs",
     "verify": "node scripts/verify-build.mjs",
-    "test:publication": "node scripts/test-publication.mjs"
+    "test:publication": "node scripts/test-publication.mjs",
+    "vault:pack": "node scripts/pack-vault.mjs --password-stdin",
+    "test:vault": "node --test tests/vault.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "7.3.2",
     "@astrojs/sitemap": "3.7.4",
     "astro": "7.3.6",
+    "dompurify": "3.4.16",
     "katex": "0.19.0",
     "rehype-katex": "7.0.1",
     "remark-math": "6.0.0"

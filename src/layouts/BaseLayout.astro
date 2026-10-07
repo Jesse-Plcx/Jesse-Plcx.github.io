@@ -7,13 +7,14 @@ const { title, description = site.description, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.title}` : site.title;
 const canonical = new URL(Astro.url.pathname, site.url);
 const pathname = Astro.url.pathname;
-const nav = [{ href: '/', title: '主页' }, { href: '/archives/', title: '文章' }, { href: '/tags/', title: '标签' }, { href: '/about/', title: '关于' }];
+const nav = [{ href: '/', title: '主页' }, { href: '/archives/', title: '文章' }, { href: '/tags/', title: '标签' }, { href: '/about/', title: '关于' }, { href: '/private/', title: '私密' }];
 ---
 <!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <slot name="head" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={site.author} />
@@ -29,13 +30,7 @@ const nav = [{ href: '/', title: '主页' }, { href: '/archives/', title: '文�
     <meta property="og:site_name" content={site.title} />
     <meta property="og:locale" content="zh_CN" />
     <meta name="twitter:card" content="summary" />
-    <script is:inline>
-      try {
-        const saved = localStorage.getItem('jesse-theme');
-        const theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.dataset.theme = theme;
-      } catch { document.documentElement.dataset.theme = 'light'; }
-    </script>
+    <script is:inline src="/theme-init.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>

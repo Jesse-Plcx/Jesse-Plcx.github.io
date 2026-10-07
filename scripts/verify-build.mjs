@@ -43,7 +43,7 @@ assert.equal(articleCount, index.length, 'Website and search disagree on publish
 assert(mathCount > 0, 'Expected rendered formulas from the migrated notes');
 assert(fs.existsSync(path.join(output, 'pagefind/pagefind.js')), 'Missing Pagefind index');
 assert(fs.existsSync(path.join(output, 'sitemap-index.xml')), 'Missing sitemap');
-for (const file of files) assert(!/(?:^|[/\\])(?:_private_posts|_private_files|mykey\.txt(?:\.pub)?|\.env|\.git)(?:$|[/\\])|\.pem$/i.test(path.relative(output,file)), 'Private file in publication output');
+for (const file of files) assert(!/(?:^|[/\\])(?:_private_posts|_private_files|mykey\.txt(?:\.pub)?|博客密钥\.txt|\.env|\.git)(?:$|[/\\])|\.pem$/i.test(path.relative(output,file)), 'Private file in publication output');
 for (const entry of index) assert(!entry.url.includes('_private_posts'), 'Private article in search');
 const privatePage = fs.readFileSync(path.join(output, 'private/index.html'), 'utf8');
 const { document: privateDocument } = parseHTML(privatePage);

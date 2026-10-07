@@ -17,5 +17,6 @@ static/vault/*.tmp
 !.env.example
 mykey.txt
 mykey.txt.pub
+/博客密钥.txt
 *.pem
 _multiconfig.yml

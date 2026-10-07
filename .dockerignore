@@ -11,6 +11,7 @@ source/_private_files
 static/vault/*.tmp
 mykey.txt
 mykey.txt.pub
+博客密钥.txt
 *.pem
 .env
 .env.*

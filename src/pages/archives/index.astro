@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ArchiveList from '../../components/ArchiveList.astro';
+import { getPosts } from '../../lib/posts';
+const posts = await getPosts();
+---
+<BaseLayout title="全部文章"><PageHeader title="所有写下的，都在这里。" eyebrow="THE NOTEBOOK / ARCHIVE" description={`目前有 ${posts.length} 篇记录，按时间慢慢往回翻。`} /><ArchiveList posts={posts} /></BaseLayout>

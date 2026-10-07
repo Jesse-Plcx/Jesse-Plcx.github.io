@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ArchiveList from '../../components/ArchiveList.astro';
+import { getPosts, dateKey } from '../../lib/posts';
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const periods = new Set(posts.flatMap(post => { const date = dateKey(post.data.date); return [date.slice(0,4), date.slice(0,7).replace('-', '/')]; }));
+  return [...periods].map(period => ({ params: { period }, props: { period, posts: posts.filter(post => dateKey(post.data.date).replaceAll('-', '/').startsWith(period + '/')) } }));
+}
+const { period, posts } = Astro.props;
+---
+<BaseLayout title={`${period} 的记录`}><PageHeader title={`${period.replace('/', ' 年 ')}${period.includes('/') ? ' 月' : ' 年'}的记录`} eyebrow="THE NOTEBOOK / ARCHIVE" description={`这个时间段留下了 ${posts.length} 篇记录。`} /><ArchiveList posts={posts} /></BaseLayout>

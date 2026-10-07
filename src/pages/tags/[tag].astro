@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, taxonomy } from '../../lib/posts';
+import { topicLabel } from '../../config';
+export async function getStaticPaths() { return taxonomy(await getPosts(), 'tags').map(([tag, posts]) => ({ params: { tag }, props: { tag, posts } })); }
+const { tag, posts } = Astro.props;
+---
+<BaseLayout title={`#${topicLabel(tag)}`}><div data-pagefind-ignore><PageHeader title={`#${topicLabel(tag)}`} eyebrow="EXPLORE / TAG" description={`这个关键词下有 ${posts.length} 篇记录。`} /><div class="page-content"><PostList posts={posts} /></div></div></BaseLayout>

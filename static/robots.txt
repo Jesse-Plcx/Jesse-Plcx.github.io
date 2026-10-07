@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jesse-plcx.github.io/sitemap-index.xml

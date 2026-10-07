@@ -1,0 +1,19 @@
+---
+import { postPath, summary, formatDate, readingMinutes, type Post } from '../lib/posts';
+import { topicLabel } from '../config';
+import Icon from './Icon.astro';
+interface Props { posts: Post[]; compact?: boolean; }
+const { posts, compact = false } = Astro.props;
+---
+<div class:list={['post-list', { compact }]}>
+  {posts.map((post, i) => <article class="post-row">
+    <span class="post-number mono">{String(i + 1).padStart(2, '0')}</span>
+    <div class="post-row-content">
+      <div class="post-meta"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time><span class="meta-divider">/</span>{post.data.categories.map(category => <a href={`/categories/${encodeURIComponent(category)}/`}>{topicLabel(category)}</a>)}<span class="reading-time">{readingMinutes(post)} 分钟阅读</span></div>
+      <h3><a href={postPath(post)}>{post.data.title}</a></h3>
+      {!compact && <p>{summary(post)}</p>}
+      <div class="post-tags">{post.data.tags.map(tag => <a href={`/tags/${encodeURIComponent(tag)}/`}>#{topicLabel(tag)}</a>)}</div>
+    </div>
+    <a class="post-arrow" href={postPath(post)} aria-label={`阅读：${post.data.title}`}><Icon name="diagonal" /></a>
+  </article>)}
+</div>

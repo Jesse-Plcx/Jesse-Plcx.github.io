@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import Icon from '../components/Icon.astro';
+import { getPosts, taxonomy, postPath, formatDate } from '../lib/posts';
+import { topicLabel } from '../config';
+const posts = await getPosts();
+const categories = taxonomy(posts, 'categories');
+const tags = taxonomy(posts, 'tags');
+const startYear = posts.at(-1)?.data.date.getUTCFullYear() ?? new Date().getFullYear();
+---
+<BaseLayout>
+  <div data-pagefind-ignore>
+    <section class="home-hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="tiny-cross">+</span> A PERSONAL SPACE ON THE WEB</p>
+        <h1>记录一点<span class="hero-highlight">技术</span>，<br />也留住一些日常<span class="hero-period">.</span></h1>
+        <p class="hero-description">你好，我是 Jesse。这里放着学习时的笔记、偶尔的折腾，<br class="desktop-break" />和一些想留下来的生活片段。随手写，慢慢积累。</p>
+        <div class="hero-actions"><a class="button primary" href="/archives/">翻翻我的记录 <Icon name="arrow" size={18} /></a><a class="quiet-link" href="/about/">关于这个小站 <Icon name="diagonal" size={15} /></a></div>
+        <div class="hero-footnote mono"><span class="status-dot"></span> TECH NOTES & EVERYDAY LIFE <span class="hero-footnote-line"></span> SINCE {startYear}</div>
+      </div>
+      <div class="index-panel">
+        <div class="panel-header mono"><span><span class="panel-dot"></span> NOTES / INDEX</span><span>{String(categories.length).padStart(2, '0')} TOPICS</span></div>
+        <div class="orbital-diagram" aria-hidden="true">
+          <svg viewBox="0 0 360 185" fill="none"><defs><pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="currentColor" opacity=".18"/></pattern></defs><rect width="360" height="185" fill="url(#dots)"/><g stroke="currentColor"><path d="m180 34 69 40v77l-69 40-69-40V74l69-40Z" transform="translate(0 -14)" opacity=".6"/><path d="m180 60 42 24v49l-42 24-42-24V84l42-24Z" transform="translate(0 -14)"/><path d="m111 60 69 40 69-40M180 100v77M54 96h56m140 0h56M180 1v19m0 157v8" stroke-dasharray="3 4" opacity=".4"/></g><circle cx="180" cy="86" r="8" fill="currentColor"/><circle cx="55" cy="96" r="4" fill="#a1ac96"/><circle cx="305" cy="96" r="4" fill="#a1ac96"/><text x="16" y="80" fill="#a1ac96" font-size="10" font-family="monospace">IDEAS</text><text x="288" y="80" fill="#a1ac96" font-size="10" font-family="monospace">LIFE</text></svg>
+          <span class="diagram-label mono">CONNECT THE LITTLE THINGS</span>
+        </div>
+        <div class="panel-entries">{posts.slice(0, 3).map((post, index) => <a href={postPath(post)}><span class="mono">{String(index + 1).padStart(2, '0')}</span><span>{post.data.title}</span><Icon name="diagonal" size={13} /></a>)}</div>
+        <div class="panel-footer mono"><span>{posts.length} ENTRIES</span><span>LAST NOTE / {posts[0] ? formatDate(posts[0].data.date) : '—'}</span></div>
+      </div>
+    </section>
+    <div class="section-divider mono"><span>01 / THE NOTEBOOK</span><span>THINK · WRITE · REPEAT</span></div>
+    <div class="home-content">
+      <section>
+        <div class="section-heading"><div><p class="eyebrow">LATEST ENTRIES</p><h2>最近写下的</h2></div><a class="quiet-link" href="/archives/">全部文章 <span class="count-badge">{posts.length}</span><Icon name="arrow" size={17} /></a></div>
+        <div class="topic-tabs"><a class="selected" href="/archives/">全部记录</a>{categories.map(([value]) => <a href={`/categories/${encodeURIComponent(value)}/`}>{topicLabel(value)}</a>)}</div>
+        <PostList posts={posts.slice(0, 6)} />
+        <a class="all-posts-link" href="/archives/">继续翻阅全部 {posts.length} 篇记录 <Icon name="arrow" size={18} /></a>
+      </section>
+      <aside class="home-sidebar">
+        <section class="about-card"><span class="eyebrow mono">BEHIND THE NOTES</span><div class="small-avatar">J.</div><h2>一个随手记录的地方</h2><p>技术、研究、游戏，或者生活里的小事。没有固定主题，也不赶更新进度。</p><a class="quiet-link" href="/about/">多了解一点 <Icon name="diagonal" size={15} /></a></section>
+        <section class="topics-card"><div class="sidebar-heading"><h2>话题索引</h2><span class="mono">/ {String(categories.length).padStart(2, '0')}</span></div>{categories.map(([value, entries]) => <a class="topic-line" href={`/categories/${encodeURIComponent(value)}/`}><span>{topicLabel(value)}</span><span class="topic-line-dots"></span><span class="mono">{String(entries.length).padStart(2, '0')}</span></a>)}</section>
+        <section class="tag-card"><div class="sidebar-heading"><h2>一些关键词</h2><Icon name="code" size={17} /></div><div class="tag-cloud">{tags.map(([value]) => <a href={`/tags/${encodeURIComponent(value)}/`}>#{topicLabel(value)}</a>)}</div></section>
+        <a class="rss-card" href="/rss.xml"><Icon name="rss" size={24} /><span><strong>不定期更新，随时订阅</strong><small>把新文章送到你的 RSS 阅读器</small></span><Icon name="diagonal" size={17} /></a>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

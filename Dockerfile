@@ -1,27 +1,13 @@
-# Stage 1: Build Hexo static site
-FROM node:20-alpine AS builder
-
+FROM node:24-alpine AS builder
 WORKDIR /app
-
-# Install dependencies first (use cache when possible)
-COPY package.json package-lock.json* ./
-RUN npm install --production
-
-# Copy the rest of the blog source
+ENV ASTRO_TELEMETRY_DISABLED=1
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
+RUN npm run check && npm run build
 
-# Generate static files into /app/public
-RUN npx hexo generate
-
-# Stage 2: Serve with nginx
 FROM nginx:alpine
-
-# Clean default nginx html directory
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy generated static files from builder stage
-COPY --from=builder /app/public /usr/share/nginx/html
-
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]

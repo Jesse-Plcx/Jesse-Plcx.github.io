@@ -1,0 +1,42 @@
+---
+import 'katex/dist/katex.min.css';
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { type Post, postPath, summary, formatDate, readingMinutes } from '../lib/posts';
+import { topicLabel } from '../config';
+interface Props { post: Post; headings: { depth: number; slug: string; text: string }[]; previous?: Post; next?: Post; }
+const { post, headings, previous, next } = Astro.props;
+const toc = headings.filter(h => h.depth === 2 || h.depth === 3);
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting',
+  headline: post.data.title, description: summary(post),
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.updated ? { dateModified: post.data.updated.toISOString() } : {}),
+  author: { '@type': 'Person', name: 'Jesse Chen', url: 'https://jesse-plcx.github.io/about/' },
+  mainEntityOfPage: new URL(postPath(post), 'https://jesse-plcx.github.io').href,
+};
+---
+<BaseLayout title={post.data.title} description={summary(post)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
+  <div class="article-top" data-pagefind-ignore><a class="quiet-link" href="/archives/"><span>←</span> 返回全部文章</a><span class="mono">THE NOTEBOOK / ENTRY</span></div>
+  <div class="article-grid">
+    <article class="article" data-pagefind-body>
+      <header class="article-header">
+        <div class="post-meta" data-pagefind-ignore>{post.data.categories.map(value => <a href={`/categories/${encodeURIComponent(value)}/`} data-pagefind-filter="分类">{topicLabel(value)}</a>)}<span class="meta-divider">/</span><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time><span>{readingMinutes(post)} 分钟阅读</span></div>
+        <h1 data-pagefind-meta="title">{post.data.title}</h1>
+        {post.data.description && <p class="article-description" data-pagefind-meta="description">{post.data.description}</p>}
+        <div class="post-tags" data-pagefind-ignore>{post.data.tags.map(value => <a href={`/tags/${encodeURIComponent(value)}/`}>#{topicLabel(value)}</a>)}{post.data.updated && <span class="updated-date">更新于 {formatDate(post.data.updated)}</span>}</div>
+      </header>
+      {toc.length > 0 && <details class="mobile-toc" data-pagefind-ignore><summary>文章目录</summary><nav aria-label="文章目录">{toc.map(h => <a class:list={{ nested: h.depth === 3 }} href={`#${h.slug}`}>{h.text}</a>)}</nav></details>}
+      <div class="prose"><slot /></div>
+      <div class="article-end" data-pagefind-ignore><span class="tiny-cross">+</span><p>感谢读到这里。</p><a href="/rss.xml">通过 RSS 订阅后续记录 <Icon name="rss" size={15} /></a></div>
+    </article>
+    <aside class="article-sidebar" data-pagefind-ignore>
+      <div class="toc-sticky"><p class="eyebrow mono">ON THIS PAGE</p><h2>文章目录</h2>{toc.length ? <nav aria-label="文章目录">{toc.map(h => <a class:list={{ nested: h.depth === 3 }} href={`#${h.slug}`}>{h.text}</a>)}</nav> : <p class="muted">这是一篇简短记录。</p>}<a class="back-top quiet-link" href="#main">回到顶部 ↑</a></div>
+    </aside>
+  </div>
+  <nav class="article-pagination" aria-label="相邻文章" data-pagefind-ignore>
+    {previous ? <a href={postPath(previous)}><span class="eyebrow">较早的记录</span><strong>← {previous.data.title}</strong></a> : <div />}
+    {next && <a href={postPath(next)}><span class="eyebrow">较新的记录</span><strong>{next.data.title} →</strong></a>}
+  </nav>
+</BaseLayout>

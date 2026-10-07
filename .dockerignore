@@ -1,0 +1,16 @@
+.git
+.github
+node_modules
+dist
+.astro
+public
+.deploy_git
+backup_from_merge
+source/_private_posts
+mykey.txt
+mykey.txt.pub
+*.pem
+.env
+.env.*
+db.json
+*.log

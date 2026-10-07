@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { site } from '../config';
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title, description = site.description, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} · ${site.title}` : site.title;
+const canonical = new URL(Astro.url.pathname, site.url);
+const pathname = Astro.url.pathname;
+const nav = [{ href: '/', title: '主页' }, { href: '/archives/', title: '文章' }, { href: '/tags/', title: '标签' }, { href: '/about/', title: '关于' }];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.author} />
+    <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#edf1e9" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('jesse-theme');
+        const theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      } catch { document.documentElement.dataset.theme = 'light'; }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header shell" data-pagefind-ignore>
+      <a class="brand" href="/" aria-label="Jesse 的博客主页"><span class="brand-symbol">J<span>.</span></span><span class="brand-name">JESSE<span class="brand-sub">PERSONAL LOG</span></span></a>
+      <nav aria-label="主导航">{nav.map(item => <a href={item.href} class:list={{ active: item.href === '/' ? pathname === '/' : pathname.startsWith(item.href) }} aria-current={(item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)) ? 'page' : undefined}>{item.title}</a>)}</nav>
+      <div class="header-tools">
+        <a class="icon-button" href="/search/" aria-label="搜索文章"><Icon name="search" /></a>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><Icon name="sun" /></button>
+        <a class="github-link" href={site.github} target="_blank" rel="noopener noreferrer">GitHub <Icon name="diagonal" size={14} /></a>
+      </div>
+    </header>
+    <main id="main" class="shell"><slot /></main>
+    <footer class="site-footer shell" data-pagefind-ignore>
+      <div><a class="footer-name" href="/">Jesse's Blog<span class="status-dot"></span></a><p>写下来，就是一点积累。</p></div>
+      <div class="footer-right"><a href="/rss.xml">RSS 订阅 <Icon name="rss" size={14} /></a><span>© {new Date().getFullYear()} Jesse Chen</span><span class="mono">BUILT WITH ASTRO · EST. 2024</span></div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      const updateThemeButton = () => {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        toggle?.setAttribute('aria-pressed', String(dark));
+        toggle?.setAttribute('aria-label', dark ? '切换浅色模式' : '切换深色模式');
+      };
+      updateThemeButton();
+      toggle?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('jesse-theme', next); } catch {}
+        updateThemeButton();
+      });
+      document.querySelectorAll<HTMLPreElement>('.prose pre').forEach(pre => {
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'copy-code'; button.textContent = '复制';
+        button.setAttribute('aria-label', '复制代码');
+        button.addEventListener('click', async () => {
+          try { await navigator.clipboard.writeText(pre.querySelector('code')?.textContent ?? ''); button.textContent = '已复制'; }
+          catch { button.textContent = '复制失败'; }
+          setTimeout(() => { button.textContent = '复制'; }, 2000);
+        });
+        pre.append(button);
+      });
+    </script>
+  </body>
+</html>

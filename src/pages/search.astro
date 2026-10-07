@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+---
+<BaseLayout title="搜索文章" noindex>
+  <section data-pagefind-ignore>
+    <PageHeader title="找一篇记录。" eyebrow="EXPLORE / SEARCH" description="试试「聚类」「Python」「Docker」，或者任何你感兴趣的词。" />
+    <form class="search-form" role="search"><label class="sr-only" for="search-input">搜索文章</label><input id="search-input" type="search" placeholder="输入关键词…" autocomplete="off" /><button class="button" type="submit" aria-label="搜索"><Icon name="search" size={19} /></button></form>
+    <p class="search-status" role="status" aria-live="polite">搜索标题和正文，找到一点相关的东西。</p>
+    <div class="search-results" aria-label="搜索结果"></div>
+    <noscript><p class="empty-state">请启用 JavaScript 使用搜索，或直接<a href="/archives/">浏览全部文章</a>。</p></noscript>
+  </section>
+  <script>
+    type SearchEntry = { title: string; url: string; excerpt: string; text?: string };
+    type Pagefind = { search: (query: string) => Promise<{ results: { data: () => Promise<{ url: string; meta: { title?: string }; excerpt: string }> }[] }> };
+    const form = document.querySelector<HTMLFormElement>('.search-form')!;
+    const input = document.querySelector<HTMLInputElement>('#search-input')!;
+    const status = document.querySelector<HTMLParagraphElement>('.search-status')!;
+    const container = document.querySelector<HTMLDivElement>('.search-results')!;
+    let pagefindPromise: Promise<Pagefind | null> | undefined;
+    let fallbackPromise: Promise<SearchEntry[]> | undefined;
+    let request = 0;
+    let debounce: ReturnType<typeof setTimeout>;
+    async function search(query: string): Promise<SearchEntry[]> {
+      const modulePath = '/pagefind/pagefind.js';
+      pagefindPromise ??= import.meta.env.DEV ? Promise.resolve(null) : import(/* @vite-ignore */ modulePath).catch(() => null);
+      const pagefind = await pagefindPromise;
+      if (pagefind) {
+        const result = await pagefind.search(query);
+        return Promise.all(result.results.slice(0, 20).map(async entry => {
+          const data = await entry.data();
+          return { title: data.meta.title ?? '未命名记录', url: data.url, excerpt: new DOMParser().parseFromString(data.excerpt, 'text/html').body.textContent ?? '' };
+        }));
+      }
+      fallbackPromise ??= fetch('/search-index.json').then(response => { if (!response.ok) throw new Error('Search unavailable'); return response.json(); });
+      const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+      return (await fallbackPromise).filter(entry => terms.every(term => `${entry.title} ${entry.text}`.toLowerCase().includes(term))).slice(0, 20);
+    }
+    async function runSearch() {
+      const query = input.value.trim();
+      const current = ++request;
+      container.replaceChildren();
+      const url = new URL(location.href);
+      if (query) url.searchParams.set('q', query); else url.searchParams.delete('q');
+      history.replaceState(null, '', url);
+      if (!query) { status.textContent = '搜索标题和正文，找到一点相关的东西。'; return; }
+      status.textContent = '正在查找…';
+      try {
+        const results = await search(query);
+        if (request !== current) return;
+        status.textContent = results.length ? `找到 ${results.length} 篇相关记录` : '暂时没找到，换个词试试。';
+        for (const result of results) {
+          const target = new URL(result.url, location.origin);
+          if (target.origin !== location.origin) continue;
+          const article = document.createElement('article'); article.className = 'search-result';
+          const title = document.createElement('h2'); const link = document.createElement('a');
+          link.href = target.href; link.textContent = result.title; title.append(link);
+          const excerpt = document.createElement('p'); excerpt.textContent = result.excerpt;
+          article.append(title, excerpt); container.append(article);
+        }
+      } catch { if (current === request) status.textContent = '暂时无法搜索，请稍后再试，或到文章页浏览。'; }
+    }
+    form.addEventListener('submit', event => { event.preventDefault(); clearTimeout(debounce); void runSearch(); });
+    input.addEventListener('input', () => { clearTimeout(debounce); debounce = setTimeout(() => void runSearch(), 200); });
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) { input.value = initial; void runSearch(); }
+  </script>
+</BaseLayout>

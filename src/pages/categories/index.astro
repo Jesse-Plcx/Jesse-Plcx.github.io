@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, taxonomy } from '../../lib/posts';
+import { topicLabel } from '../../config';
+const categories = taxonomy(await getPosts(), 'categories');
+const descriptions: Record<string, string> = { Study: '把学到的东西，整理成自己的理解。', Research: '读论文、理思路，记下还没想明白的问题。', Interest: '游戏、设备，和一些兴趣使然的折腾。', Life: '日常里的想法和片段。' };
+---
+<BaseLayout title="话题"><div data-pagefind-ignore><PageHeader title="不同话题，同一个我。" eyebrow="EXPLORE / TOPICS" description="按兴趣翻阅，不必从第一篇开始。" /><div class="taxonomy-grid">{categories.map(([value, posts], i) => <a class="taxonomy-card" href={`/categories/${encodeURIComponent(value)}/`}><span class="mono">TOPIC / {String(i + 1).padStart(2,'0')}</span><h2>{topicLabel(value)}</h2><p>{descriptions[value] ?? '关于这个话题的一些记录。'}</p><div class="taxonomy-card-footer"><span>{posts.length} 篇记录</span><Icon name="diagonal" size={18}/></div></a>)}</div></div></BaseLayout>

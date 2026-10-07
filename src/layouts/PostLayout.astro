@@ -29,7 +29,7 @@ const structuredData = {
       </header>
       {toc.length > 0 && <details class="mobile-toc" data-pagefind-ignore><summary>文章目录</summary><nav aria-label="文章目录">{toc.map(h => <a class:list={{ nested: h.depth === 3 }} href={`#${h.slug}`}>{h.text}</a>)}</nav></details>}
       <div class="prose"><slot /></div>
-      <div class="article-end" data-pagefind-ignore><span class="tiny-cross">+</span><p>感谢读到这里。</p><a href="/rss.xml">通过 RSS 订阅后续记录 <Icon name="rss" size={15} /></a></div>
+      <div class="article-end" data-pagefind-ignore><span class="tiny-cross">+</span><p>感谢读到这里。</p><a href="/archives/">继续看看其他记录 <Icon name="arrow" size={15} /></a></div>
     </article>
     <aside class="article-sidebar" data-pagefind-ignore>
       <div class="toc-sticky"><p class="eyebrow mono">ON THIS PAGE</p><h2>文章目录</h2>{toc.length ? <nav aria-label="文章目录">{toc.map(h => <a class:list={{ nested: h.depth === 3 }} href={`#${h.slug}`}>{h.text}</a>)}</nav> : <p class="muted">这是一篇简短记录。</p>}<a class="back-top quiet-link" href="#main">回到顶部 ↑</a></div>

@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostList from '../components/PostList.astro';
 import Icon from '../components/Icon.astro';
 import { getPosts, taxonomy, postPath, formatDate } from '../lib/posts';
-import { topicLabel } from '../config';
+import { site, topicLabel } from '../config';
 const posts = await getPosts();
 const categories = taxonomy(posts, 'categories');
 const tags = taxonomy(posts, 'tags');
@@ -15,7 +15,7 @@ const startYear = posts.at(-1)?.data.date.getUTCFullYear() ?? new Date().getFull
       <div class="hero-copy">
         <p class="eyebrow"><span class="tiny-cross">+</span> A PERSONAL SPACE ON THE WEB</p>
         <h1>记录一点<span class="hero-highlight">技术</span>，<br />也留住一些日常<span class="hero-period">.</span></h1>
-        <p class="hero-description">你好，我是 Jesse。这里放着学习时的笔记、偶尔的折腾，<br class="desktop-break" />和一些想留下来的生活片段。随手写，慢慢积累。</p>
+        <p class="hero-description"><strong class="hero-introduction">你好，我是 {site.author}。</strong>{site.profile.introduction}</p>
         <div class="hero-actions"><a class="button primary" href="/archives/">翻翻我的记录 <Icon name="arrow" size={18} /></a><a class="quiet-link" href="/about/">关于这个小站 <Icon name="diagonal" size={15} /></a></div>
         <div class="hero-footnote mono"><span class="status-dot"></span> TECH NOTES & EVERYDAY LIFE <span class="hero-footnote-line"></span> SINCE {startYear}</div>
       </div>
@@ -38,10 +38,9 @@ const startYear = posts.at(-1)?.data.date.getUTCFullYear() ?? new Date().getFull
         <a class="all-posts-link" href="/archives/">继续翻阅全部 {posts.length} 篇记录 <Icon name="arrow" size={18} /></a>
       </section>
       <aside class="home-sidebar">
-        <section class="about-card"><span class="eyebrow mono">BEHIND THE NOTES</span><div class="small-avatar">J.</div><h2>一个随手记录的地方</h2><p>技术、研究、游戏，或者生活里的小事。没有固定主题，也不赶更新进度。</p><a class="quiet-link" href="/about/">多了解一点 <Icon name="diagonal" size={15} /></a></section>
+        <section class="about-card"><span class="eyebrow mono">ABOUT ME</span><div class="small-avatar" aria-hidden="true">J.</div><h2>{site.author}</h2><p>{site.profile.description}</p><ul class="profile-interests" aria-label="我的兴趣">{site.profile.interests.map(interest => <li>{interest}</li>)}</ul><a class="quiet-link" href="/about/">更多关于我 <Icon name="diagonal" size={15} /></a></section>
         <section class="topics-card"><div class="sidebar-heading"><h2>话题索引</h2><span class="mono">/ {String(categories.length).padStart(2, '0')}</span></div>{categories.map(([value, entries]) => <a class="topic-line" href={`/categories/${encodeURIComponent(value)}/`}><span>{topicLabel(value)}</span><span class="topic-line-dots"></span><span class="mono">{String(entries.length).padStart(2, '0')}</span></a>)}</section>
         <section class="tag-card"><div class="sidebar-heading"><h2>一些关键词</h2><Icon name="code" size={17} /></div><div class="tag-cloud">{tags.map(([value]) => <a href={`/tags/${encodeURIComponent(value)}/`}>#{topicLabel(value)}</a>)}</div></section>
-        <a class="rss-card" href="/rss.xml"><Icon name="rss" size={24} /><span><strong>不定期更新，随时订阅</strong><small>把新文章送到你的 RSS 阅读器</small></span><Icon name="diagonal" size={17} /></a>
       </aside>
     </div>
   </div>

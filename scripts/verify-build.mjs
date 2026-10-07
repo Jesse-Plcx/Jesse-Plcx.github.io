@@ -42,8 +42,6 @@ assert.equal(articleCount, index.length, 'Website and search disagree on publish
 assert(mathCount > 0, 'Expected rendered formulas from the migrated notes');
 assert(fs.existsSync(path.join(output, 'pagefind/pagefind.js')), 'Missing Pagefind index');
 assert(fs.existsSync(path.join(output, 'sitemap-index.xml')), 'Missing sitemap');
-const rss = fs.readFileSync(path.join(output, 'rss.xml'), 'utf8');
-assert.equal((rss.match(/<item>/g) ?? []).length, index.length, 'RSS and website disagree');
 for (const file of files) assert(!/(?:^|[/\\])(?:_private_posts|mykey\.txt(?:\.pub)?|\.env|\.git)(?:$|[/\\])|\.pem$/i.test(path.relative(output,file)), 'Private file in publication output');
 for (const entry of index) assert(!entry.url.includes('_private_posts'), 'Private article in search');
-console.log(`Verified ${articleCount} articles, ${baseline.length} original URLs, ${referenceCount} internal references, ${mathCount} rendered formulas, RSS, sitemap and search.`);
+console.log(`Verified ${articleCount} articles, ${baseline.length} original URLs, ${referenceCount} internal references, ${mathCount} rendered formulas, sitemap and search.`);

@@ -20,11 +20,11 @@
 - Unified + remark-math + rehype-katex：兼容现有 Markdown 与数学公式。
 - Shiki：代码高亮；浅色和深色模式均支持。
 - Pagefind：构建后的中文全文搜索；默认扩展版本支持中文分词。
-- RSS 与 sitemap：订阅、正确站点地址与搜索引擎索引。
+- sitemap：正确站点地址与搜索引擎索引。
 - GitHub Actions + GitHub Pages：源码留在 main，生成页面通过发布产物上传，避免静态文件覆盖源码分支。
 - Node.js 24 LTS：本地、CI、Docker 使用同一个主版本。
 
-搜索页在开发环境可以退回公开文章 JSON 索引。发布环境优先使用 Pagefind。两种索引都由同一批公开文章生成，草稿和未来文章不会进入列表、路由、RSS 或搜索索引。
+搜索页在开发环境可以退回公开文章 JSON 索引。发布环境优先使用 Pagefind。两种索引都由同一批公开文章生成，草稿和未来文章不会进入列表、路由或搜索索引。
 
 ## 迁移行为
 
@@ -44,7 +44,7 @@
 
 npm run check 校验 Astro 与 TypeScript。
 npm run build 构建全部静态页面、公式和 Pagefind 索引。
-npm run verify 校验旧文章路径、内部链接、资源、canonical、RSS、数学渲染和搜索索引，检查发布目录没有私人路径或密钥文件。
+npm run verify 校验旧文章路径、内部链接、资源、canonical、数学渲染和搜索索引，检查发布目录没有私人路径或密钥文件。
 
 Docker 方案已更新，但需要本机运行 Docker 引擎才能验证镜像构建。
 

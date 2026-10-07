@@ -22,7 +22,6 @@ const nav = [{ href: '/', title: '主页' }, { href: '/archives/', title: '文�
     <meta name="theme-color" content="#edf1e9" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -52,7 +51,7 @@ const nav = [{ href: '/', title: '主页' }, { href: '/archives/', title: '文�
     <main id="main" class="shell"><slot /></main>
     <footer class="site-footer shell" data-pagefind-ignore>
       <div><a class="footer-name" href="/">Jesse's Blog<span class="status-dot"></span></a><p>写下来，就是一点积累。</p></div>
-      <div class="footer-right"><a href="/rss.xml">RSS 订阅 <Icon name="rss" size={14} /></a><span>© {new Date().getFullYear()} Jesse Chen</span><span class="mono">BUILT WITH ASTRO · EST. 2024</span></div>
+      <div class="footer-right"><span>© {new Date().getFullYear()} Jesse Chen</span><span class="mono">BUILT WITH ASTRO · EST. 2024</span></div>
     </footer>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');

@@ -90,7 +90,7 @@ source/_private_posts/   私人笔记，仅本地、不会构建
 static/                 图片、favicon、robots.txt
 src/content.config.ts   公开内容加载与校验
 src/config.ts           名称、简介、作者、话题显示名称
-src/pages/              首页、文章、归档、标签、搜索、RSS
+src/pages/              首页、文章、归档、标签、搜索
 src/components/         列表、导航图标等组件
 src/layouts/            公共布局与阅读布局
 src/styles/global.css   视觉与移动端排版
@@ -100,7 +100,7 @@ dist/                   构建结果，Git 忽略
 backup_from_merge/      本地历史备份，Git 忽略
 ```
 
-个人信息与文案主要改 `src/config.ts`、`src/pages/index.astro`、`src/pages/about.astro`。更换域名时同步更新 `astro.config.mjs`、`src/config.ts`、`static/robots.txt`；自定义域名还需配置 `static/CNAME`。
+主页个人介绍和兴趣标签统一在 `src/config.ts` 的 `profile` 中修改。其他个人信息与文案主要改 `src/config.ts`、`src/pages/index.astro`、`src/pages/about.astro`。更换域名时同步更新 `astro.config.mjs`、`src/config.ts`、`static/robots.txt`；自定义域名还需配置 `static/CNAME`。
 
 ## Docker（可选）
 

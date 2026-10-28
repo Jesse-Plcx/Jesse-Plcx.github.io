@@ -19,16 +19,16 @@
     "test:vault": "node --test tests/vault.test.mjs"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "7.3.2",
+    "@astrojs/markdown-remark": "7.3.4",
     "@astrojs/sitemap": "3.7.4",
-    "astro": "7.3.8",
+    "astro": "7.4.2",
     "dompurify": "3.4.16",
     "katex": "0.19.0",
     "rehype-katex": "7.0.1",
     "remark-math": "6.0.0"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.10",
+    "@astrojs/check": "0.9.12",
     "linkedom": "0.18.13",
     "pagefind": "1.5.2",
     "typescript": "6.0.3"

@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "linkedom": "0.18.13",
+    "linkedom": "0.18.14",
     "pagefind": "1.5.2",
     "typescript": "6.0.3"
   },
